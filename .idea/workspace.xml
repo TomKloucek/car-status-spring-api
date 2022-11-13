@@ -4,30 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d9b270f-0cdc-4c37-91eb-6d4e7bb0b2ba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+    <list default="true" id="8d9b270f-0cdc-4c37-91eb-6d4e7bb0b2ba" name="Changes" comment="simulation class with many other services">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Liquid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Liquid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/BaseDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/BaseDaoTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/AdminDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/AdminDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/DriverDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/DriverDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/LiquidDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/LiquidDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/MechanicDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/MechanicDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadPathDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadPathDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadTripDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadTripDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/SeatDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/SeatDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/TyreDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/TyreDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Roadtrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Roadtrip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/Simulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/SimulationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/SimulationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,37 +57,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="JUnit.All in carstatus">
+}</component>
+  <component name="RunManager" selected="JUnit.cz.cvut.fel.ear.carstatus.dao in carstatus">
     <configuration name="All in carstatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="carstatus" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BaseDaoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="carstatus" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cz.cvut.fel.ear.carstatus.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.dao" />
-      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.dao.BaseDaoTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -125,6 +92,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SimulationTest.basicSimulationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="carstatus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.cvut.fel.ear.carstatus.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.dao" />
+      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.dao.SimulationTest" />
+      <option name="METHOD_NAME" value="basicSimulationTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TyreTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="carstatus" />
       <extension name="coverage">
@@ -140,7 +123,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserDaoTest.findByUsernameReturnsPersonWithMatchingUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="cz.cvut.fel.ear.carstatus.dao in carstatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="carstatus" />
       <extension name="coverage">
         <pattern>
@@ -149,9 +132,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.dao" />
-      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.dao.UserDaoTest" />
-      <option name="METHOD_NAME" value="findByUsernameReturnsPersonWithMatchingUsername" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -164,20 +145,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.SimulationTest.basicSimulationTest" />
+      <item itemvalue="JUnit.cz.cvut.fel.ear.carstatus.dao in carstatus" />
       <item itemvalue="JUnit.All in carstatus" />
       <item itemvalue="JUnit.LiquidTest" />
       <item itemvalue="JUnit.TyreTest" />
-      <item itemvalue="JUnit.UserDaoTest.findByUsernameReturnsPersonWithMatchingUsername" />
-      <item itemvalue="JUnit.BaseDaoTest" />
       <item itemvalue="Spring Boot.CarstatusApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.cz.cvut.fel.ear.carstatus.dao in carstatus" />
+        <item itemvalue="JUnit.SimulationTest.basicSimulationTest" />
         <item itemvalue="JUnit.All in carstatus" />
         <item itemvalue="JUnit.LiquidTest" />
         <item itemvalue="JUnit.TyreTest" />
-        <item itemvalue="JUnit.UserDaoTest.findByUsernameReturnsPersonWithMatchingUsername" />
-        <item itemvalue="JUnit.BaseDaoTest" />
       </list>
     </recent_temporary>
   </component>

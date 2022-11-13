@@ -51,6 +51,7 @@ public class Simulation {
 
     public void generateOneRoadTrip() {
         List<Driver> drivers = driverService.findAll();
+        System.out.println(drivers);
         Driver driver = drivers.get(rnd.nextInt(drivers.size()));
         int tripLength = rnd.nextInt(5)+1;
         List<Road> roads = this.generateRoads(tripLength);

@@ -18,6 +18,17 @@ public class Roadtrip extends AbstractEntity{
     @JoinColumn(name = "road_trip_id")
     private List<Roadpath> roadpathList;
 
+    @ManyToOne
+    private Driver driver;
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
     public List<Roadpath> getRoadpathList() {
         return roadpathList;
     }
