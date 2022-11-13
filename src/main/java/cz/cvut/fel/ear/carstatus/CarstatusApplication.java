@@ -12,9 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * SpringApplication} then starts the Spring context and the whole application.
  */
 @SpringBootApplication
-public class EShopApplication {
+public class CarstatusApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EShopApplication.class, args);
+        SpringApplication.run(CarstatusApplication.class, args);
     }
 }
