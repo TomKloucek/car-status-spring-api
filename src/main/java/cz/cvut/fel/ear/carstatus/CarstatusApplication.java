@@ -11,14 +11,6 @@ public class CarstatusApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CarstatusApplication.class, args);
-		BatteryDao batteryDao = new BatteryDao();
-
-		BatteryService batteryService = new BatteryService(batteryDao);
-		Battery battery = new Battery();
-		battery.setCapacity(100);
-		battery.setCondition(100);
-		battery.setInUsage(true);
-		batteryService.persist(battery);
 	}
 
 }
