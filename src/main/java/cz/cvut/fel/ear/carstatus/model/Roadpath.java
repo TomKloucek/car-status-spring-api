@@ -9,6 +9,28 @@ public class Roadpath extends AbstractEntity{
     @Column(nullable = false)
     private int averageSpeed;
 
+    @OneToOne
+    private Roadtrip roadtrip;
+
+    @OneToOne
+    private Road road;
+
+    public Roadtrip getRoadtrip() {
+        return roadtrip;
+    }
+
+    public void setRoadtrip(Roadtrip roadtrip) {
+        this.roadtrip = roadtrip;
+    }
+
+    public Road getRoad() {
+        return road;
+    }
+
+    public void setRoad(Road road) {
+        this.road = road;
+    }
+
     public int getAverageSpeed() {
         return averageSpeed;
     }

@@ -47,4 +47,12 @@ public class Road extends AbstractEntity {
     public void setLength(int length) {
         this.length = length;
     }
+
+    public List<Roadpath> getRoadpathList() {
+        return roadpathList;
+    }
+
+    public void setRoadpathList(List<Roadpath> roadpathList) {
+        this.roadpathList = roadpathList;
+    }
 }
