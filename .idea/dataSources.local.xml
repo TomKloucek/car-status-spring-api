@@ -2,11 +2,11 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-222.4345.14">
     <data-source name="babycvla@slon.felk.cvut.cz" uuid="d92a3242-a16f-4b84-900b-6a82b6c727d9">
-      <database-info product="PostgreSQL" version="9.3.24" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.5.0" dbms="POSTGRES" exact-version="9.3.24" exact-driver-version="42.5">
+      <database-info product="PostgreSQL" version="9.3.24" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.3.3" dbms="POSTGRES" exact-version="9.3.24" exact-driver-version="42.3">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
+      <secret-storage>forget</secret-storage>
       <user-name>babycvla</user-name>
       <schema-mapping>
         <introspection-scope>
