@@ -4,17 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ee5c0b5-430d-4f14-a6bd-447ff6e0659a" name="Changes" comment="correct README.md">
+    <list default="true" id="9ee5c0b5-430d-4f14-a6bd-447ff6e0659a" name="Changes" comment="add columnt to roadpath">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/EShopApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/CarstatusApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/AdminDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/AdminDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/BatteryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/BatteryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/DriverDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/DriverDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/LiquidDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/LiquidDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/MechanicDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/MechanicDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/RoadDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/RoadDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/RoadPathDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/RoadPathDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/RoadTripDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/RoadTripDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/SeatDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/SeatDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/TyreDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/TyreDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/BaseDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/BaseDaoTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Admin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Driver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Mechanic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Mechanic.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/BatteryDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/BatteryDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +98,22 @@
       <recent name="cz.cvut.fel.ear.carstatus.exception" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.CarstatusApplication">
+    <configuration name="BaseDaoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="carstatus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.cvut.fel.ear.carstatus.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.dao" />
+      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.dao.BaseDaoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="carstatus" />
       <method v="2">
@@ -122,6 +143,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.CarstatusApplication" />
+        <item itemvalue="JUnit.BaseDaoTest" />
       </list>
     </recent_temporary>
   </component>
@@ -156,7 +178,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668369461043</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add dao tests">
+      <created>1668369932753</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668369932753</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add columnt to roadpath">
+      <created>1668370233207</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668370233207</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,6 +213,8 @@
     <MESSAGE value="add files which work with eclipselink" />
     <MESSAGE value="add correct pom" />
     <MESSAGE value="correct README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="correct README.md" />
+    <MESSAGE value="add dao tests" />
+    <MESSAGE value="add columnt to roadpath" />
+    <option name="LAST_COMMIT_MESSAGE" value="add columnt to roadpath" />
   </component>
 </project>

@@ -26,19 +26,20 @@ public class BaseDaoTest {
     @Autowired
     private TestEntityManager em;
 
-//    @Autowired
-//    private BatteryDao sut;
-//    @Test
-//    public void persistSavesSpecifiedInstance() {
-//        final Battery battery = generateBattery();
-//        sut.persist(cat);
-//        assertNotNull(cat.getId());
-//
-//        final Category result = em.find(Category.class, cat.getId());
-//        assertNotNull(result);
-//        assertEquals(cat.getId(), result.getId());
-//        assertEquals(cat.getName(), result.getName());
-//    }
+    @Autowired
+    private BatteryDao sut;
+    @Test
+    public void persistSavesSpecifiedInstance() {
+        final Battery battery = generateBattery();
+        sut.persist(battery);
+        assertNotNull(battery.getId());
+
+        final Battery result = em.find(Battery.class, battery.getId());
+        assertNotNull(result);
+        assertEquals(battery.getId(), result.getId());
+        assertEquals(battery.getCondition(), result.getCondition());
+        assertEquals(battery.getCapacity(), result.getCapacity());
+    }
 
     private static Battery generateBattery() {
         final Battery battery = new Battery();
