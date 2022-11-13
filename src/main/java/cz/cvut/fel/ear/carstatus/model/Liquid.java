@@ -40,4 +40,13 @@ public class Liquid extends AbstractEntity {
     public void setType(String type) {
         this.type = type;
     }
+
+    public boolean checkWhetherIsBelowOrAtMinLevel(){
+        if(minLevel >= level){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

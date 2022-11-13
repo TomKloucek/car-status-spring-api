@@ -4,10 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ee5c0b5-430d-4f14-a6bd-447ff6e0659a" name="Changes" comment="add columnt to roadpath">
-      <change afterPath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/SimulationTest.java" afterDir="false" />
+    <list default="true" id="8d9b270f-0cdc-4c37-91eb-6d4e7bb0b2ba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d92a3242-a16f-4b84-900b-6a82b6c727d9/storage_v2/_src_/database/babycvla._nKCfQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/BatteryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/dao/BatteryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Liquid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Liquid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/BaseDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/cz/cvut/fel/ear/carstatus/dao/BaseDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/AdminDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/AdminDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/DriverDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/DriverDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/LiquidDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/LiquidDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/MechanicDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/MechanicDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadPathDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadPathDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadTripDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/RoadTripDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/SeatDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/SeatDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/TyreDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/TyreDao.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +54,8 @@
     </option>
     <option name="myId2Visible">
       <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
         <entry key="com.haulmont.jpb.jpaStructure" value="true" />
       </map>
     </option>
@@ -46,46 +66,35 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2HVArwlUnQcphcKGHWGdVE6ETxU" />
+  <component name="ProjectId" id="2HVagxHT19mh0EbgeLE9R3rQtF3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/vladbabyc/Library/CloudStorage/OneDrive-ČeskévysokéučenítechnickévPraze/3. semestr/Enterprise architektury/Semestální práce/carstatus/src/test&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/test" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="cz.cvut.fel.ear.carstatus.dao" />
-      <recent name="cz.cvut.fel.ear.carstatus.exception" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.SimulationTest">
+}]]></component>
+  <component name="RunManager" selected="JUnit.All in carstatus">
+    <configuration name="All in carstatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="carstatus" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BaseDaoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="carstatus" />
       <extension name="coverage">
@@ -101,22 +110,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimulationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LiquidTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="carstatus" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cz.cvut.fel.ear.carstatus.dao.*" />
+          <option name="PATTERN" value="cz.cvut.fel.ear.carstatus.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.dao" />
-      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.dao.SimulationTest" />
+      <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.model" />
+      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.model.LiquidTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimulationTest.persistSavesSpecifiedInstance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TyreTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="carstatus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.cvut.fel.ear.carstatus.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.model" />
+      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.model.TyreTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserDaoTest.findByUsernameReturnsPersonWithMatchingUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="carstatus" />
       <extension name="coverage">
         <pattern>
@@ -125,31 +149,34 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="cz.cvut.fel.ear.carstatus.dao" />
-      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.dao.SimulationTest" />
-      <option name="METHOD_NAME" value="persistSavesSpecifiedInstance" />
+      <option name="MAIN_CLASS_NAME" value="cz.cvut.fel.ear.carstatus.dao.UserDaoTest" />
+      <option name="METHOD_NAME" value="findByUsernameReturnsPersonWithMatchingUsername" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CarstatusApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="CarstatusApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="carstatus" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cz.cvut.fel.ear.carstatus.CarstatusApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cz.cvut.fel.ear.carstatus.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.All in carstatus" />
+      <item itemvalue="JUnit.LiquidTest" />
+      <item itemvalue="JUnit.TyreTest" />
+      <item itemvalue="JUnit.UserDaoTest.findByUsernameReturnsPersonWithMatchingUsername" />
+      <item itemvalue="JUnit.BaseDaoTest" />
+      <item itemvalue="Spring Boot.CarstatusApplication" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SimulationTest" />
-        <item itemvalue="JUnit.SimulationTest.persistSavesSpecifiedInstance" />
-        <item itemvalue="Spring Boot.CarstatusApplication" />
+        <item itemvalue="JUnit.All in carstatus" />
+        <item itemvalue="JUnit.LiquidTest" />
+        <item itemvalue="JUnit.TyreTest" />
+        <item itemvalue="JUnit.UserDaoTest.findByUsernameReturnsPersonWithMatchingUsername" />
         <item itemvalue="JUnit.BaseDaoTest" />
       </list>
     </recent_temporary>
@@ -157,49 +184,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9ee5c0b5-430d-4f14-a6bd-447ff6e0659a" name="Changes" comment="" />
-      <created>1668360079421</created>
+      <changelist id="8d9b270f-0cdc-4c37-91eb-6d4e7bb0b2ba" name="Changes" comment="" />
+      <created>1668372819959</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1668360079421</updated>
-      <workItem from="1668360080757" duration="5154000" />
+      <updated>1668372819959</updated>
+      <workItem from="1668372821105" duration="3309000" />
     </task>
-    <task id="LOCAL-00001" summary="add files which work with eclipselink">
-      <created>1668360668400</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1668360668400</updated>
-    </task>
-    <task id="LOCAL-00002" summary="add correct pom">
-      <created>1668360734286</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1668360734286</updated>
-    </task>
-    <task id="LOCAL-00003" summary="correct README.md">
-      <created>1668369461043</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1668369461043</updated>
-    </task>
-    <task id="LOCAL-00004" summary="add dao tests">
-      <created>1668369932753</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1668369932753</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add columnt to roadpath">
-      <created>1668370233207</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1668370233207</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,13 +206,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="add files which work with eclipselink" />
-    <MESSAGE value="add correct pom" />
-    <MESSAGE value="correct README.md" />
-    <MESSAGE value="add dao tests" />
-    <MESSAGE value="add columnt to roadpath" />
-    <option name="LAST_COMMIT_MESSAGE" value="add columnt to roadpath" />
   </component>
 </project>
