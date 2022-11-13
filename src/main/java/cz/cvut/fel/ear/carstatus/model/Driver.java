@@ -2,81 +2,44 @@ package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class Driver {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
-    private int id;
-    @Basic
-    @Column(name = "user_id")
-    private Integer userId;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User userByUserId;
-    @OneToMany(mappedBy = "driverByDriverId")
-    private Collection<Roadtrip> roadtripsById;
-    @OneToMany(mappedBy = "driverByDriverId")
-    private Collection<Seat> seatsById;
+public class Driver extends AbstractEntity{
 
-    public int getId() {
-        return id;
+    @OneToMany
+    @JoinColumn(name = "seat_id")
+    private List<Seat> seatList;
+
+
+    @OneToMany
+    @JoinColumn(name = "roadtrip_id")
+    private List<Roadtrip> roadtripList;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private User user;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public List<Seat> getSeatList() {
+        return seatList;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setSeatList(List<Seat> seatList) {
+        this.seatList = seatList;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Driver driver = (Driver) o;
-
-        if (id != driver.id) return false;
-        if (userId != null ? !userId.equals(driver.userId) : driver.userId != null) return false;
-
-        return true;
+    public List<Roadtrip> getRoadtripList() {
+        return roadtripList;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        return result;
-    }
-
-    public User getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
-    }
-
-    public Collection<Roadtrip> getRoadtripsById() {
-        return roadtripsById;
-    }
-
-    public void setRoadtripsById(Collection<Roadtrip> roadtripsById) {
-        this.roadtripsById = roadtripsById;
-    }
-
-    public Collection<Seat> getSeatsById() {
-        return seatsById;
-    }
-
-    public void setSeatsById(Collection<Seat> seatsById) {
-        this.seatsById = seatsById;
+    public void setRoadtripList(List<Roadtrip> roadtripList) {
+        this.roadtripList = roadtripList;
     }
 }

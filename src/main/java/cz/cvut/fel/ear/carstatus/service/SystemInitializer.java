@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.model.Admin;
 import cz.cvut.fel.ear.carstatus.model.Role;
 import cz.cvut.fel.ear.carstatus.model.User;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 
 @Component
 public class SystemInitializer {
@@ -48,13 +50,19 @@ public class SystemInitializer {
         if (userService.exists(ADMIN_USERNAME)) {
             return;
         }
-        final User admin = new User();
-        admin.setUsername(ADMIN_USERNAME);
-        admin.setFirstName("System");
-        admin.setLastName("Administrator");
-        admin.setPassword("adm1n");
-        admin.setRole(Role.ADMIN);
-        LOG.info("Generated admin user with credentials " + admin.getUsername() + "/" + admin.getPassword());
-        userService.persist(admin);
+        final Admin admin = new Admin();
+
+
+
+        User user = new User();
+        user.setUsername(ADMIN_USERNAME);
+        user.setFirstName("System");
+        user.setBirthDate(new Date());
+        user.setLastName("Administrator");
+        user.setPassword("adm1n");
+        user.setRole(Role.ADMIN);
+        admin.setUser(user);
+        LOG.info("Generated admin user with credentials " + user.getUsername() + "/" + user.getPassword());
+        userService.persist(user);
     }
 }

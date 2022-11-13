@@ -2,32 +2,27 @@ package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class Road {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
-    private int id;
-    @Basic
-    @Column(name = "starting_point")
+public class Road extends AbstractEntity {
+
+    @Basic(optional = false)
+    @Column(nullable = false)
     private String startingPoint;
-    @Basic
-    @Column(name = "end_point")
+
+    @Basic(optional = false)
+    @Column(nullable = false)
     private String endPoint;
-    @Basic
-    @Column(name = "length")
-    private Integer length;
-    @OneToMany(mappedBy = "roadByRoadId")
-    private Collection<Roadpath> roadpathsById;
 
-    public int getId() {
-        return id;
-    }
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private int length;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "road_id")
+    private List<Roadpath> roadpathList;
+
 
     public String getStartingPoint() {
         return startingPoint;
@@ -45,44 +40,11 @@ public class Road {
         this.endPoint = endPoint;
     }
 
-    public Integer getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(int length) {
         this.length = length;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Road road = (Road) o;
-
-        if (id != road.id) return false;
-        if (startingPoint != null ? !startingPoint.equals(road.startingPoint) : road.startingPoint != null)
-            return false;
-        if (endPoint != null ? !endPoint.equals(road.endPoint) : road.endPoint != null) return false;
-        if (length != null ? !length.equals(road.length) : road.length != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (startingPoint != null ? startingPoint.hashCode() : 0);
-        result = 31 * result + (endPoint != null ? endPoint.hashCode() : 0);
-        result = 31 * result + (length != null ? length.hashCode() : 0);
-        return result;
-    }
-
-    public Collection<Roadpath> getRoadpathsById() {
-        return roadpathsById;
-    }
-
-    public void setRoadpathsById(Collection<Roadpath> roadpathsById) {
-        this.roadpathsById = roadpathsById;
     }
 }
