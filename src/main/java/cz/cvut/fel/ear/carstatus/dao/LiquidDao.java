@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class LiquidDao extends BaseDao<Liquid> {
-    protected LiquidDao(Class<Liquid> type) {
-        super(type);
+    protected LiquidDao() {
+        super(Liquid.class);
     }
 }

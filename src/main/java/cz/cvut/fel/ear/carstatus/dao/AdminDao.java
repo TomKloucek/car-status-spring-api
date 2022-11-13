@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 
 public class AdminDao extends BaseDao<Admin>{
-    protected AdminDao(Class<Admin> type) {
-        super(type);
+    protected AdminDao() {
+        super(Admin.class);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TyreDao extends BaseDao<Tyre> {
-    protected TyreDao(Class<Tyre> type) {
-        super(type);
+    protected TyreDao() {
+        super(Tyre.class);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DriverDao extends BaseDao<Driver>{
-    protected DriverDao(Class<Driver> type) {
-        super(type);
+    protected DriverDao() {
+        super(Driver.class);
     }
 }
