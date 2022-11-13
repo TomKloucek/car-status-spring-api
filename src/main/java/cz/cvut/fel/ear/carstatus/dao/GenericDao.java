@@ -1,6 +1,5 @@
 package cz.cvut.fel.ear.carstatus.dao;
 
-
 import java.util.Collection;
 import java.util.List;
 
@@ -63,4 +62,3 @@ public interface GenericDao<T> {
      */
     boolean exists(Integer id);
 }
-

@@ -1,6 +1,5 @@
 package cz.cvut.fel.ear.carstatus.config;
 
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -42,4 +41,3 @@ public class PersistenceConfig extends JpaBaseConfiguration {
         return props;
     }
 }
-

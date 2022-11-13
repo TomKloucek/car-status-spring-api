@@ -1,9 +1,9 @@
 package cz.cvut.fel.ear.carstatus.dao;
 
+import cz.cvut.fel.ear.carstatus.exception.PersistenceException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -85,4 +85,3 @@ public abstract class BaseDao<T> implements GenericDao<T> {
         return id != null && em.find(type, id) != null;
     }
 }
-
