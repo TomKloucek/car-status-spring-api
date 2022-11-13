@@ -3,10 +3,8 @@ package cz.cvut.fel.ear.carstatus.model;
 import javax.persistence.*;
 
 @Entity
-public class Battery {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Battery extends AbstractEntity {
+
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer capacity;
@@ -18,15 +16,6 @@ public class Battery {
     private Boolean inUsage;
 
     private boolean removed;
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
 
     public Integer getCapacity() {
