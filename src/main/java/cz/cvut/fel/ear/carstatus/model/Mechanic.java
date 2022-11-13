@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Mechanic extends AbstractEntity{
+public class Mechanic extends User {
     @Basic(optional = false)
     @Column(nullable = false)
     private Date operatingFrom;

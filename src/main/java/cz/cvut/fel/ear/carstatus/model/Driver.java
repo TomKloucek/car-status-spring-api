@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Driver extends AbstractEntity{
+public class Driver extends User{
 
     @OneToMany
     @JoinColumn(name = "seat_id")

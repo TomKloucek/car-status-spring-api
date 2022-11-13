@@ -14,7 +14,7 @@ public class UserService {
 
     private final UserDao dao;
 
-    final User currentUser = new User(); // singleton simulating logged-in user
+    final User currentUser = new User();
 
     @Autowired
     public UserService(UserDao dao) {

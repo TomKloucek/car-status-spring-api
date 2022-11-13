@@ -10,6 +10,7 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
 })
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User extends AbstractEntity {
 
     @Basic(optional = false)

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-public class Admin extends AbstractEntity{
+public class Admin extends User{
     @Basic(optional = false)
     @Column(nullable = true)
     private Date expires;

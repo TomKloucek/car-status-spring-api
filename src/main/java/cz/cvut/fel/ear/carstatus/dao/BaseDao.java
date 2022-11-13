@@ -8,6 +8,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+
 public abstract class BaseDao<T> implements GenericDao<T> {
 
     @PersistenceContext
