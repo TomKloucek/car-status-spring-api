@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Roadtrip extends AbstractEntity{
@@ -12,6 +13,18 @@ public class Roadtrip extends AbstractEntity{
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean withMalfunction;
+
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "road_trip_id")
+    private List<Roadpath> roadpathList;
+
+    public List<Roadpath> getRoadpathList() {
+        return roadpathList;
+    }
+
+    public void setRoadpathList(List<Roadpath> roadpathList) {
+        this.roadpathList = roadpathList;
+    }
 
     public int getMaxSpeed() {
         return maxSpeed;

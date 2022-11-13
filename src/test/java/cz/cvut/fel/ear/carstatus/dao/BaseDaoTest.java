@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.carstatus.dao;
 
 import cz.cvut.fel.ear.carstatus.CarstatusApplication;
 
+import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.service.SystemInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,25 @@ public class BaseDaoTest {
     @Autowired
     private TestEntityManager em;
 
+//    @Autowired
+//    private BatteryDao sut;
+//    @Test
+//    public void persistSavesSpecifiedInstance() {
+//        final Battery battery = generateBattery();
+//        sut.persist(cat);
+//        assertNotNull(cat.getId());
+//
+//        final Category result = em.find(Category.class, cat.getId());
+//        assertNotNull(result);
+//        assertEquals(cat.getId(), result.getId());
+//        assertEquals(cat.getName(), result.getName());
+//    }
+
+    private static Battery generateBattery() {
+        final Battery battery = new Battery();
+        battery.setCapacity(100);
+        battery.setCondition(97);
+        battery.setInUsage(true);
+        return battery;
+    }
 }
