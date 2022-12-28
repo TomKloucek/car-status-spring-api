@@ -2,8 +2,11 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.dao.BatteryDao;
 import cz.cvut.fel.ear.carstatus.model.Battery;
+import cz.cvut.fel.ear.carstatus.model.Driver;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class BatteryService {
@@ -26,5 +29,10 @@ public class BatteryService {
              }
          }
          return result;
+    }
+
+    @javax.transaction.Transactional
+    public List<Battery> findAll() {
+        return dao.findAll();
     }
 }

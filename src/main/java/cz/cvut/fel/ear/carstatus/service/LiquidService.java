@@ -41,6 +41,11 @@ public class LiquidService {
     }
 
     @Transactional
+    public Liquid find(String type) {
+        return dao.findByType(type);
+    }
+
+    @Transactional
     public void remove(Liquid liquid) {
         Objects.requireNonNull(liquid);
         dao.update(liquid);
