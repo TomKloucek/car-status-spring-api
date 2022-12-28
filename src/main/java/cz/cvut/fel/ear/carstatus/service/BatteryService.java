@@ -17,4 +17,14 @@ public class BatteryService {
     public Battery find(Integer id) {
         return dao.find(id);
     }
+
+    public Battery getCurrentBattery() {
+        Battery result = null;
+         for (Battery b : dao.findAll()) {
+             if (b.isInUsage()) {
+                 result = b;
+             }
+         }
+         return result;
+    }
 }

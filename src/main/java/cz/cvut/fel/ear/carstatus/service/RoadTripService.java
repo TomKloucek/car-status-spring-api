@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.dao.RoadTripDao;
+import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,5 +43,9 @@ public class RoadTripService {
     public void remove(Roadtrip roadtrip) {
         Objects.requireNonNull(roadtrip);
         dao.update(roadtrip);
+    }
+
+    public Driver lastDriver() {
+        return dao.findAll().get(dao.findAll().size()-1).getDriver();
     }
 }

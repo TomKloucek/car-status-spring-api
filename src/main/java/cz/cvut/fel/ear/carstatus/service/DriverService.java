@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.dao.DriverDao;
+import cz.cvut.fel.ear.carstatus.dao.RoadTripDao;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
