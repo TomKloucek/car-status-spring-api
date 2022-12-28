@@ -5,8 +5,7 @@ public class DriverabilityMalfunctionDecorator extends BaseDecorator {
         super(n);
     }
 
-    public void sendMessage(String message)
-    {
+    public void sendMessage(String message) {
         super.sendMessage(message + " driverability malfunction notifies");
     }
 }

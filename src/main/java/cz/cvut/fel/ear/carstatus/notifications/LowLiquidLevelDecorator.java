@@ -4,8 +4,8 @@ public class LowLiquidLevelDecorator extends BaseDecorator {
     public LowLiquidLevelDecorator(Notifier n) {
         super(n);
     }
-    public void sendMessage(String message)
-    {
+
+    public void sendMessage(String message) {
         super.sendMessage(message + " low liquid notifies");
     }
 }

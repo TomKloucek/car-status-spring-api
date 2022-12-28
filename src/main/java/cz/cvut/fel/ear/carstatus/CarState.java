@@ -42,8 +42,7 @@ public class CarState {
 
     }
 
-    public static CarState getInstance()
-    {
+    public static CarState getInstance() {
         if (_instance == null) {
             synchronized (CarState.class) {
                 if (_instance == null) {

@@ -1,4 +1,5 @@
 package cz.cvut.fel.ear.carstatus;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.io.File;
