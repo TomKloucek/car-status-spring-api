@@ -31,4 +31,12 @@ public class Carcheck extends AbstractEntity {
     public void setMechanic(Mechanic mechanic) {
         this.mechanic = mechanic;
     }
+
+    @Override
+    public String toString() {
+        return "Carcheck{" +
+                "checkDate=" + checkDate +
+                ", mechanic=" + mechanic +
+                '}';
+    }
 }

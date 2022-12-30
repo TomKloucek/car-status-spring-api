@@ -54,4 +54,14 @@ public class Tyre extends AbstractEntity{
     public void setInUsage(boolean inUsage) {
         this.inUsage = inUsage;
     }
+
+    @Override
+    public String toString() {
+        return "Tyre{" +
+                "position='" + position + '\'' +
+                ", pressure=" + pressure +
+                ", condition=" + condition +
+                ", inUsage=" + inUsage +
+                '}';
+    }
 }

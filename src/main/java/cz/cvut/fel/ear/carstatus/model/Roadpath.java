@@ -38,4 +38,13 @@ public class Roadpath extends AbstractEntity{
     public void setAverageSpeed(int averageSpeed) {
         this.averageSpeed = averageSpeed;
     }
+
+    @Override
+    public String toString() {
+        return "Roadpath{" +
+                "averageSpeed=" + averageSpeed +
+                ", roadtrip=" + roadtrip +
+                ", road=" + road +
+                '}';
+    }
 }

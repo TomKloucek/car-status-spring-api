@@ -42,4 +42,20 @@ public class CarcheckService {
     public List<Carcheck> findAll() {
         return dao.findAll();
     }
+
+
+    @Transactional
+    public void deleteCarcheck(Carcheck carcheck) {
+        dao.remove(carcheck);
+    }
+
+    @Transactional
+    public void updateCarcheck(Carcheck carcheck) {
+        dao.update(carcheck);
+    }
+
+    @Transactional
+    public void createNewCarcheck(Carcheck carcheck) {
+        dao.persist(carcheck);
+    }
 }

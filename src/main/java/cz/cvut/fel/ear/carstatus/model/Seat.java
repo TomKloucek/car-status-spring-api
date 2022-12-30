@@ -15,4 +15,13 @@ public class Seat extends AbstractEntity{
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean driverSeat;
+
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "verticalPosition=" + verticalPosition +
+                ", horizontalPosition=" + horizontalPosition +
+                ", driverSeat=" + driverSeat +
+                '}';
+    }
 }

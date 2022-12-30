@@ -1,10 +1,10 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
+import cz.cvut.fel.ear.carstatus.model.Carcheck;
+import cz.cvut.fel.ear.carstatus.model.Mechanic;
 import cz.cvut.fel.ear.carstatus.model.Road;
-import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.RoadService;
-import cz.cvut.fel.ear.carstatus.service.RoadTripService;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,46 +16,46 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/roadtrip")
-public class RoadtripController {
+@RequestMapping("/rest/road")
+public class RoadController {
 
-    private final RoadTripService roadtripService;
+    private final RoadService roadService;
 
     @Autowired
-    public RoadtripController(RoadTripService roadtripService) {
-        this.roadtripService = roadtripService;
+    public RoadController(RoadService roadService) {
+        this.roadService = roadService;
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Roadtrip getSpecificRoadtrip(@PathVariable Integer id) {
-        final Roadtrip roadtrip = roadtripService.find(id);
-        if (roadtrip == null) {
-            throw NotFoundException.create("Roadtrip", id);
+    public Road getSpecificRoad(@PathVariable Integer id) {
+        final Road road = roadService.find(id);
+        if (road == null) {
+            throw NotFoundException.create("Road", id);
         }
-        return roadtrip;
+        return road;
     }
 
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Roadtrip> getRoadtrips() {
-        return roadtripService.findAll();
+    public List<Road> getRoads() {
+        return roadService.findAll();
     }
 
     @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void removeRoadtrip(@RequestBody Roadtrip roadtrip) {
-        roadtripService.remove(roadtrip);
+    public void removeRoad(@RequestBody Road road) {
+        roadService.remove(road);
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateRoadtrip(@RequestBody Roadtrip roadtrip) {
-        roadtripService.update(roadtrip);
+    public void updateRoad(@RequestBody Road road) {
+        roadService.update(road);
     }
 
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addRoadtrip(@RequestBody(required = false) Roadtrip roadtrip) {
-        roadtripService.persist(roadtrip);
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", roadtrip.getId());
+    public ResponseEntity<Void> addRoad(@RequestBody(required = false) Road road) {
+        roadService.persist(road);
+        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", road.getId());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 }

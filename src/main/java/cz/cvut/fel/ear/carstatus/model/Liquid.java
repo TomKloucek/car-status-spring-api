@@ -51,4 +51,13 @@ public class Liquid extends AbstractEntity {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Liquid{" +
+                "level=" + level +
+                ", minLevel=" + minLevel +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

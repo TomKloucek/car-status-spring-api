@@ -3,6 +3,7 @@ package cz.cvut.fel.ear.carstatus.service;
 import cz.cvut.fel.ear.carstatus.dao.DriverDao;
 import cz.cvut.fel.ear.carstatus.dao.RoadTripDao;
 import cz.cvut.fel.ear.carstatus.model.Driver;
+import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,10 @@ public class DriverService {
     @Transactional
     public void update(Driver driver) {
         dao.update(driver);
+    }
+
+    public List<Roadtrip> getAllRoadtripsMadeByDriver(Integer id) {
+        return dao.find(id).getRoadtripList();
     }
 
     @Transactional

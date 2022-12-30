@@ -15,7 +15,7 @@ public class Roadtrip extends AbstractEntity{
     private boolean withMalfunction;
 
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JoinColumn(name = "road_trip_id")
+    @JoinColumn(name = "roadtrip_id")
     private List<Roadpath> roadpathList;
 
     @ManyToOne
@@ -51,5 +51,15 @@ public class Roadtrip extends AbstractEntity{
 
     public void setWithMalfunction(boolean withMalfunction) {
         this.withMalfunction = withMalfunction;
+    }
+
+    @Override
+    public String toString() {
+        return "Roadtrip{" +
+                "maxSpeed=" + maxSpeed +
+                ", withMalfunction=" + withMalfunction +
+                ", roadpathList=" + roadpathList +
+                ", driver=" + driver +
+                '}';
     }
 }

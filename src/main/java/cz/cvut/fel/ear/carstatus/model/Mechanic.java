@@ -65,4 +65,15 @@ public class Mechanic extends User {
     public void setCarcheckList(List<Carcheck> carcheckList) {
         this.carcheckList = carcheckList;
     }
+
+    @Override
+    public String toString() {
+        return "Mechanic{" +
+                "operatingFrom=" + operatingFrom +
+                ", operatingTo=" + operatingTo +
+                ", phoneNumber=" + phoneNumber +
+                ", carcheckList=" + carcheckList +
+                ", user=" + user +
+                '}';
+    }
 }

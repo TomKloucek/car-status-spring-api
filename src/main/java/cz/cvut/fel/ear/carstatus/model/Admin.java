@@ -27,4 +27,12 @@ public class Admin extends User{
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "expires=" + expires +
+                ", user=" + user +
+                '}';
+    }
 }

@@ -8,12 +8,12 @@ import java.util.List;
 public class Driver extends User{
 
     @OneToMany
-    @JoinColumn(name = "seat_id")
+    @JoinColumn(name = "driver_id")
     private List<Seat> seatList;
 
 
     @OneToMany
-    @JoinColumn(name = "roadtrip_id")
+    @JoinColumn(name = "driver_id")
     private List<Roadtrip> roadtripList;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -41,5 +41,14 @@ public class Driver extends User{
 
     public void setRoadtripList(List<Roadtrip> roadtripList) {
         this.roadtripList = roadtripList;
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "seatList=" + seatList +
+                ", roadtripList=" + roadtripList +
+                ", user=" + user +
+                '}';
     }
 }

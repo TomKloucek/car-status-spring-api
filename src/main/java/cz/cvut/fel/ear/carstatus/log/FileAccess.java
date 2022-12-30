@@ -1,4 +1,4 @@
-package cz.cvut.fel.ear.carstatus;
+package cz.cvut.fel.ear.carstatus.log;
 
 import java.io.File;
 

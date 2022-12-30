@@ -55,4 +55,14 @@ public class Road extends AbstractEntity {
     public void setRoadpathList(List<Roadpath> roadpathList) {
         this.roadpathList = roadpathList;
     }
+
+    @Override
+    public String toString() {
+        return "Road{" +
+                "startingPoint='" + startingPoint + '\'' +
+                ", endPoint='" + endPoint + '\'' +
+                ", length=" + length +
+                ", roadpathList=" + roadpathList +
+                '}';
+    }
 }

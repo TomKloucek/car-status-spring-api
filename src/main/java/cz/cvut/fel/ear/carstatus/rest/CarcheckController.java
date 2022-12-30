@@ -3,16 +3,15 @@ package cz.cvut.fel.ear.carstatus.rest;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
 import cz.cvut.fel.ear.carstatus.model.Carcheck;
 import cz.cvut.fel.ear.carstatus.model.Mechanic;
-import cz.cvut.fel.ear.carstatus.model.Tyre;
 import cz.cvut.fel.ear.carstatus.service.CarcheckService;
 import cz.cvut.fel.ear.carstatus.service.MechanicService;
-import cz.cvut.fel.ear.carstatus.service.TyreService;
+import cz.cvut.fel.ear.carstatus.util.RestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,18 +19,18 @@ import java.util.List;
 @RequestMapping("/rest/carcheck")
 public class CarcheckController {
 
-    private final CarcheckService charcheckService;
+    private final CarcheckService carcheckService;
     private final MechanicService mechanicService;
 
     @Autowired
     public CarcheckController(CarcheckService carcheckService, MechanicService mechanicService) {
-        this.charcheckService = carcheckService;
+        this.carcheckService = carcheckService;
         this.mechanicService = mechanicService;
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Carcheck getSpecificCarcheck(@PathVariable Integer id) {
-        final Carcheck carcheck = charcheckService.find(id);
+        final Carcheck carcheck = carcheckService.find(id);
         if (carcheck == null) {
             throw NotFoundException.create("Carcheck", id);
         }
@@ -41,18 +40,40 @@ public class CarcheckController {
     @GetMapping(value = "/mechanic/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Carcheck> getAllCarcheckMadeByMechanic(@PathVariable Integer id) {
         final Mechanic mechanic = mechanicService.find(id);
-        return charcheckService.getCarchecksMadeByMechanic(mechanic);
+        if (mechanic == null) {
+            throw NotFoundException.create("Mechanic", id);
+        }
+        return carcheckService.getCarchecksMadeByMechanic(mechanic);
 
     }
 
     @GetMapping(value = "/last",produces = MediaType.APPLICATION_JSON_VALUE)
     public Carcheck getLastCarcheck() {
-        return charcheckService.getLastCarcheck();
+        return carcheckService.getLastCarcheck();
     }
 
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Carcheck> getCarchecks() {
-        return charcheckService.findAll();
+        return carcheckService.findAll();
+    }
+
+    @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void removeCarcheck(@RequestBody Carcheck carcheck) {
+        carcheckService.deleteCarcheck(carcheck);
+    }
+
+    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateCarcheck(@RequestBody Carcheck carcheck) {
+        carcheckService.updateCarcheck(carcheck);
+    }
+
+
+    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> addCarcheck(@RequestBody(required = false) Carcheck carcheck) {
+        carcheckService.createNewCarcheck(carcheck);
+        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", carcheck.getId());
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
 }
