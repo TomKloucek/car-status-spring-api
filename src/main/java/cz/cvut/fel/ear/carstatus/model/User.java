@@ -3,6 +3,7 @@ package cz.cvut.fel.ear.carstatus.model;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 // We can't name the table User, as it is a reserved table name in some dbs, including Postgres
@@ -88,7 +89,12 @@ public class User extends AbstractEntity {
     @Override
     public String toString() {
         return "User{" +
-                firstName + " " + lastName +
-                "(" + username + ")}";
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.carstatus;
 
 import cz.cvut.fel.ear.carstatus.builders.RoadTripBuilder;
 import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
 import cz.cvut.fel.ear.carstatus.service.BatteryService;
 import cz.cvut.fel.ear.carstatus.service.LiquidService;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class CarState {
     private static CarState _instance;

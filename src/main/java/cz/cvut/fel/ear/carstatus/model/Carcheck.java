@@ -3,6 +3,7 @@ package cz.cvut.fel.ear.carstatus.model;
 import javax.persistence.*;
 import java.sql.Date;
 
+@NamedQuery(name = "find_last_carcheck", query = "SELECT c FROM Carcheck c ORDER BY c.checkDate desc")
 @Entity
 public class Carcheck extends AbstractEntity {
 
@@ -29,5 +30,13 @@ public class Carcheck extends AbstractEntity {
 
     public void setMechanic(Mechanic mechanic) {
         this.mechanic = mechanic;
+    }
+
+    @Override
+    public String toString() {
+        return "Carcheck{" +
+                "checkDate=" + checkDate +
+                ", mechanic=" + mechanic +
+                '}';
     }
 }

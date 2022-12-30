@@ -41,6 +41,18 @@ public class LiquidService {
     }
 
     @Transactional
+    public void refillLiquid(String type) {
+        final Liquid refill = dao.findByType(type);
+        refill.setLevel(100);
+        update(refill);
+    }
+
+    @Transactional
+    public Liquid find(String type) {
+        return dao.findByType(type);
+    }
+
+    @Transactional
     public void remove(Liquid liquid) {
         Objects.requireNonNull(liquid);
         dao.update(liquid);

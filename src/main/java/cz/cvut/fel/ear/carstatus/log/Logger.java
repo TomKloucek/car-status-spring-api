@@ -1,10 +1,12 @@
-package cz.cvut.fel.ear.carstatus;
+package cz.cvut.fel.ear.carstatus.log;
+
+import cz.cvut.fel.ear.carstatus.CarState;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.io.File;
 
 public class Logger {
+    private static Logger _instance;
     // The object pool of FileAccess objects
     private FileAccessPool fileAccessPool;
 
@@ -15,7 +17,7 @@ public class Logger {
     private Thread logWriterThread;
 
     // Constructor
-    public Logger(int maxFileAccessObjects) {
+    private Logger(int maxFileAccessObjects) {
         this.fileAccessPool = new FileAccessPool(maxFileAccessObjects);
         this.logQueue = new LinkedBlockingQueue<>();
         this.logWriterThread = new Thread(new LogWriter());
@@ -53,5 +55,16 @@ public class Logger {
                 }
             }
         }
+    }
+
+    public static Logger getInstance() {
+        if (_instance == null) {
+            synchronized (CarState.class) {
+                if (_instance == null) {
+                    _instance = new Logger(3);
+                }
+            }
+        }
+        return _instance;
     }
 }

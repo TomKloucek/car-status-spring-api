@@ -4,48 +4,60 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d9b270f-0cdc-4c37-91eb-6d4e7bb0b2ba" name="Changes" comment="starting implementation of carState">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/CarState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/DataClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/FileAccess.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/FileAccessPool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/Logger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/Simulation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/SimulationData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/builders/RoadTripBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/commands/GenerateDriverCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/commands/GenerateRoadTripCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/enums/EPermissionLevel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/enums/EStatisticsType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/filters/DestinationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/filters/DriverFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/filters/NoFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/interfaces/ICommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/interfaces/IFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/interfaces/ILoadSimulationFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/interfaces/IObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/interfaces/IStatistics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/liquids/BrakingLiquid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/liquids/CoolingLiquid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/liquids/Liquid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/load_files/LoadSimulationFromCSV.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/load_files/LoadSimulationFromJSON.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/notifications/BaseDecorator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/notifications/DriverabilityMalfunctionDecorator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/notifications/LowLiquidLevelDecorator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/notifications/LowTyrePressureDecorator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/notifications/Notifier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/observers/NotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/observers/RoadTripEndedService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/statistics/CompleteStatistics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/statistics/PeriodStatistics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/statistics/PreStatistics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/statistics/StatisticsFactory.java" afterDir="false" />
+    <list default="true" id="8d9b270f-0cdc-4c37-91eb-6d4e7bb0b2ba" name="Changes" comment="working on rest api GETs">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/exception/UnchangeableException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/exception/UndeletableException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/RoadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/SimulationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/security/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/util/Helpers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/util/Permissions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/util/RestUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Battery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Battery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Carcheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Carcheck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Liquid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Liquid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Mechanic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Mechanic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Road.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Road.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Roadpath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Roadpath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Roadtrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Roadtrip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Seat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Seat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Tyre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Tyre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/BatteryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/BatteryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/CarcheckController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/CarcheckController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/DriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/DriverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/ErrorsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/LiquidController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/LiquidController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/RoadtripController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/RoadtripController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/TyreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/TyreController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/BatteryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/BatteryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/CarcheckService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/CarcheckService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/DriverService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/DriverService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/RoadTripService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/RoadTripService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/LiquidService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/LiquidService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/TyreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/service/TyreService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/util/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/dao/CarCheckDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Admin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Battery.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Battery.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Carcheck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Carcheck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Driver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Liquid.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Liquid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Mechanic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Mechanic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Road.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Road.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadpath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadpath.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Seat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Seat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Tyre.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Tyre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/util/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/util/Constants.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +69,7 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -74,9 +87,9 @@
     </option>
     <option name="myId2Visible">
       <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
@@ -105,10 +118,16 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;dayNightConfigurable&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;70c347970830a15de2e23c051227f47d&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.cz.cvut.fel.ear.carstatus.dao in carstatus">
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="cz.cvut.fel.ear.carstatus.dto" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.CarstatusApplication">
     <configuration name="All in carstatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="carstatus" />
       <option name="PACKAGE_NAME" value="" />
@@ -195,10 +214,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.cz.cvut.fel.ear.carstatus.dao in carstatus" />
-        <item itemvalue="JUnit.SimulationTest.basicSimulationTest" />
-        <item itemvalue="JUnit.All in carstatus" />
-        <item itemvalue="JUnit.LiquidTest" />
         <item itemvalue="JUnit.TyreTest" />
+        <item itemvalue="JUnit.SimulationTest.basicSimulationTest" />
+        <item itemvalue="JUnit.LiquidTest" />
+        <item itemvalue="JUnit.All in carstatus" />
       </list>
     </recent_temporary>
   </component>
@@ -214,6 +233,8 @@
       <workItem from="1668532020546" duration="1941000" />
       <workItem from="1668548402351" duration="8000" />
       <workItem from="1672240848260" duration="6041000" />
+      <workItem from="1672317059652" duration="16358000" />
+      <workItem from="1672440179277" duration="1718000" />
     </task>
     <task id="LOCAL-00001" summary="repair of SimulationTest.java">
       <created>1668379536270</created>
@@ -222,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668379536270</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="working on rest api GETs">
+      <created>1672270938708</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672270938708</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +270,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="repair of SimulationTest.java" />
     <MESSAGE value="starting implementation of carState" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting implementation of carState" />
+    <MESSAGE value="working on rest api GETs" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on rest api GETs" />
   </component>
 </project>

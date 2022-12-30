@@ -38,4 +38,13 @@ public class Battery extends AbstractEntity{
     public void setInUsage(boolean inUsage) {
         this.inUsage = inUsage;
     }
+
+    @Override
+    public String toString() {
+        return "Battery{" +
+                "capacity=" + capacity +
+                ", condition=" + condition +
+                ", inUsage=" + inUsage +
+                '}';
+    }
 }

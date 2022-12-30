@@ -2,6 +2,8 @@ package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
 
+@NamedQuery(name = "find_cooling_liquid", query = "SELECT l FROM Liquid l WHERE l.type='cooling'")
+@NamedQuery(name = "find_braking_liquid", query = "SELECT l FROM Liquid l WHERE l.type='braking'")
 @Entity
 public class Liquid extends AbstractEntity {
 
@@ -48,5 +50,14 @@ public class Liquid extends AbstractEntity {
         else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Liquid{" +
+                "level=" + level +
+                ", minLevel=" + minLevel +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

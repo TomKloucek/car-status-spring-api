@@ -9,6 +9,10 @@ public final class Constants {
      */
     public static final Role DEFAULT_ROLE = Role.DRIVER;
 
+    public static final Integer MINIMAL_TYRE_PRESSURE = 25;
+    public static final Integer MINIMAL_BATTERY_CHARGE = 15;
+    public static final Integer MINIMAL_BATTERY_CONDITION = 50;
+
     private Constants() {
         throw new AssertionError();
     }
