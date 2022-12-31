@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.model.Admin;
+import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Role;
 import cz.cvut.fel.ear.carstatus.model.User;
 import org.slf4j.Logger;
@@ -48,21 +49,27 @@ public class SystemInitializer {
      */
     private void generateAdmin() {
         if (userService.exists(ADMIN_USERNAME)) {
+            final Driver driver = new Driver();
+            driver.setUsername("driver1@fel.ear.cvut.cz");
+            driver.setFirstName("Albert");
+            driver.setLastName("Fast");
+            driver.setBirthDate(new Date());
+            driver.setPassword("albert");
+            driver.setRole(Role.DRIVER);
+            userService.persist(driver);
             return;
         }
         final Admin admin = new Admin();
+        admin.setUsername(ADMIN_USERNAME);
+        admin.setFirstName("System");
+        admin.setLastName("Administrator");
+        admin.setBirthDate(new Date());
+        admin.setPassword("adm1n");
+        admin.setRole(Role.ADMIN);
+        admin.setExpires(new Date());
 
+        LOG.info("Generated admin user with credentials " + admin.getUsername() + "/" + admin.getPassword() + admin.getRole());
+        userService.persist(admin);
 
-
-        User user = new User();
-        user.setUsername(ADMIN_USERNAME);
-        user.setFirstName("System");
-        user.setBirthDate(new Date());
-        user.setLastName("Administrator");
-        user.setPassword("adm1n");
-        user.setRole(Role.ADMIN);
-        admin.setUser(user);
-        LOG.info("Generated admin user with credentials " + user.getUsername() + "/" + user.getPassword());
-        userService.persist(user);
     }
 }

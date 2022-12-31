@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("DRIVER")
 public class Driver extends User{
 
     @OneToMany
@@ -16,16 +17,16 @@ public class Driver extends User{
     @JoinColumn(name = "driver_id")
     private List<Roadtrip> roadtripList;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private User user;
+//    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public List<Seat> getSeatList() {
         return seatList;
@@ -48,7 +49,7 @@ public class Driver extends User{
         return "Driver{" +
                 "seatList=" + seatList +
                 ", roadtripList=" + roadtripList +
-                ", user=" + user +
+//                ", user=" + user +
                 '}';
     }
 }
