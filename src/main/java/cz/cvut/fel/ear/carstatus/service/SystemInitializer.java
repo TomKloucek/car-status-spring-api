@@ -7,6 +7,7 @@ import cz.cvut.fel.ear.carstatus.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -28,11 +29,14 @@ public class SystemInitializer {
 
     private final PlatformTransactionManager txManager;
 
+    private final PasswordEncoder encoder;
+
     @Autowired
     public SystemInitializer(UserService userService,
-                             PlatformTransactionManager txManager) {
+                             PlatformTransactionManager txManager, PasswordEncoder encoder) {
         this.userService = userService;
         this.txManager = txManager;
+        this.encoder = encoder;
     }
 
     @PostConstruct
@@ -49,14 +53,6 @@ public class SystemInitializer {
      */
     private void generateAdmin() {
         if (userService.exists(ADMIN_USERNAME)) {
-            final Driver driver = new Driver();
-            driver.setUsername("driver1@fel.ear.cvut.cz");
-            driver.setFirstName("Albert");
-            driver.setLastName("Fast");
-            driver.setBirthDate(new Date());
-            driver.setPassword("albert");
-            driver.setRole(Role.DRIVER);
-            userService.persist(driver);
             return;
         }
         final Admin admin = new Admin();

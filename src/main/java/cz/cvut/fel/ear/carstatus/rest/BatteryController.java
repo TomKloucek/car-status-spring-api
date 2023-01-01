@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class BatteryController {
         return batteryService.getCurrentBattery();
     }
 
+    @PreAuthorize("hasRole('DRIVER')")
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Battery> getAllBatteries() {
         return batteryService.findAll();
@@ -64,6 +66,7 @@ public class BatteryController {
     }
 
 
+    @PreAuthorize("hasRole('DRIVER')")
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> addBattery(@RequestBody(required = false) Battery battery) {
