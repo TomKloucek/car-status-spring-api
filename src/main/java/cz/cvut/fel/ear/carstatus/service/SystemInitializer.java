@@ -1,11 +1,13 @@
 package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.model.Admin;
+import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Role;
 import cz.cvut.fel.ear.carstatus.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -27,11 +29,14 @@ public class SystemInitializer {
 
     private final PlatformTransactionManager txManager;
 
+    private final PasswordEncoder encoder;
+
     @Autowired
     public SystemInitializer(UserService userService,
-                             PlatformTransactionManager txManager) {
+                             PlatformTransactionManager txManager, PasswordEncoder encoder) {
         this.userService = userService;
         this.txManager = txManager;
+        this.encoder = encoder;
     }
 
     @PostConstruct
@@ -51,18 +56,16 @@ public class SystemInitializer {
             return;
         }
         final Admin admin = new Admin();
+        admin.setUsername(ADMIN_USERNAME);
+        admin.setFirstName("System");
+        admin.setLastName("Administrator");
+        admin.setBirthDate(new Date());
+        admin.setPassword("adm1n");
+        admin.setRole(Role.ADMIN);
+        admin.setExpires(new Date());
 
+        LOG.info("Generated admin user with credentials " + admin.getUsername() + "/" + admin.getPassword() + admin.getRole());
+        userService.persist(admin);
 
-
-        User user = new User();
-        user.setUsername(ADMIN_USERNAME);
-        user.setFirstName("System");
-        user.setBirthDate(new Date());
-        user.setLastName("Administrator");
-        user.setPassword("adm1n");
-        user.setRole(Role.ADMIN);
-        admin.setUser(user);
-        LOG.info("Generated admin user with credentials " + user.getUsername() + "/" + user.getPassword());
-        userService.persist(user);
     }
 }

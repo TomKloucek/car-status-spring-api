@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
         @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
 })
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public class User extends AbstractEntity {
 
     @Basic(optional = false)

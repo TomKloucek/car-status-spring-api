@@ -1,11 +1,12 @@
 package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("MECHANIC")
 public class Mechanic extends User {
     @Basic(optional = false)
     @Column(nullable = false)
@@ -23,16 +24,16 @@ public class Mechanic extends User {
     @JoinColumn(name = "carcheck_id")
     private List<Carcheck> carcheckList;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private User user;
+//    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Date getOperatingFrom() {
         return operatingFrom;
@@ -73,7 +74,7 @@ public class Mechanic extends User {
                 ", operatingTo=" + operatingTo +
                 ", phoneNumber=" + phoneNumber +
                 ", carcheckList=" + carcheckList +
-                ", user=" + user +
+//                ", user=" + user +
                 '}';
     }
 }

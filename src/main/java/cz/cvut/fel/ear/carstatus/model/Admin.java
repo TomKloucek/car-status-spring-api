@@ -1,16 +1,17 @@
 package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
+@DiscriminatorValue("ADMIN")
 public class Admin extends User{
     @Basic(optional = false)
     @Column(nullable = true)
     private Date expires;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private User user;
+//    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    private User user;
 
     public Date getExpires() {
         return expires;
@@ -20,19 +21,19 @@ public class Admin extends User{
         this.expires = expires;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     @Override
     public String toString() {
         return "Admin{" +
                 "expires=" + expires +
-                ", user=" + user +
+//                ", user=" + user +
                 '}';
     }
 }
