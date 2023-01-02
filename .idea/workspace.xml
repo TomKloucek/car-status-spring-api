@@ -5,10 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d9b270f-0cdc-4c37-91eb-6d4e7bb0b2ba" name="Changes" comment="working on rest api GETs">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/webapp/WebApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/webapp/load_simulation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/interfaces/ILoadSimulationFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/interfaces/ILoadSimulationFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/load_files/LoadSimulationFromCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/load_files/LoadSimulationFromCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/load_files/LoadSimulationFromJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/load_files/LoadSimulationFromJSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/SimulationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/ear/carstatus/rest/SimulationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/AbstractEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/AbstractEntity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Admin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Roadtrip.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Driver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Mechanic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/Mechanic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/service/SystemInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/service/SystemInitializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/cvut/fel/ear/carstatus/service/UserService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,11 +39,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
@@ -169,11 +177,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.cz.cvut.fel.ear.carstatus.dao in carstatus" />
         <item itemvalue="JUnit.TyreTest" />
+        <item itemvalue="JUnit.SimulationTest.basicSimulationTest" />
         <item itemvalue="JUnit.LiquidTest" />
         <item itemvalue="JUnit.All in carstatus" />
-        <item itemvalue="JUnit.cz.cvut.fel.ear.carstatus.dao in carstatus" />
-        <item itemvalue="JUnit.SimulationTest.basicSimulationTest" />
       </list>
     </recent_temporary>
   </component>
@@ -206,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672270938708</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="repairing user class">
+      <created>1672699646407</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1672699646407</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,6 +242,7 @@
     <MESSAGE value="repair of SimulationTest.java" />
     <MESSAGE value="starting implementation of carState" />
     <MESSAGE value="working on rest api GETs" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on rest api GETs" />
+    <MESSAGE value="repairing user class" />
+    <option name="LAST_COMMIT_MESSAGE" value="repairing user class" />
   </component>
 </project>
