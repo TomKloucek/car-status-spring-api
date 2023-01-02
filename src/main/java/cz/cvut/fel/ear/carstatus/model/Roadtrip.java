@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,10 @@ public class Roadtrip extends AbstractEntity{
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean withMalfunction;
+
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Date finished;
 
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "roadtrip_id")
@@ -53,11 +58,20 @@ public class Roadtrip extends AbstractEntity{
         this.withMalfunction = withMalfunction;
     }
 
+    public Date getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Date finished) {
+        this.finished = finished;
+    }
+
     @Override
     public String toString() {
         return "Roadtrip{" +
                 "maxSpeed=" + maxSpeed +
                 ", withMalfunction=" + withMalfunction +
+                ", finished=" + finished +
                 ", roadpathList=" + roadpathList +
                 ", driver=" + driver +
                 '}';
