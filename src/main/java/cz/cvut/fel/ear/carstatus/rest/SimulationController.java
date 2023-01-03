@@ -4,6 +4,7 @@ import cz.cvut.fel.ear.carstatus.load_files.LoadSimulationFromCSV;
 import cz.cvut.fel.ear.carstatus.load_files.LoadSimulationFromJSON;
 import cz.cvut.fel.ear.carstatus.service.Simulation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,19 +39,21 @@ public class SimulationController {
     String uploadFileHandler(@RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
             try {
-                byte[] bytes = file.getBytes();
-                if (file.getContentType().equals("json")) {
-                    if (jsonLoader.readSimulationFromFile(Arrays.toString(bytes))) {
-                      return "Loading of simulation file was succesfull";
+                String content = new String(file.getBytes());
+                if (file.getContentType().equals("application/json")) {
+                    Pair<Boolean, String> result = jsonLoader.readSimulationFromFile(content);
+                    if (Boolean.TRUE.equals(result.getFirst())) {
+                        return result.getSecond();
                     }
-                    return "Something wrong happened";
-                } else if (file.getContentType().equals("csv")) {
-                    if (csvLoader.readSimulationFromFile(Arrays.toString(bytes))) {
-                        return "Loading of simulation file was succesfull";
+                    return result.getSecond();
+                } else if (file.getContentType().equals("text/csv")) {
+                    Pair<Boolean, String> result = csvLoader.readSimulationFromFile(content);
+                    if (Boolean.TRUE.equals(result.getFirst())) {
+                        return result.getSecond();
                     }
-                    return "Something wrong happened";
+                    return result.getSecond();
                 } else {
-                    return "Upload of file failed: you tried to upload unsupported file type";
+                    return "Upload of file failed: you tried to upload unsupported file type: "+file.getContentType();
                 }
 
             } catch (Exception e) {
