@@ -2,10 +2,7 @@ package cz.cvut.fel.ear.carstatus.statistics;
 
 import cz.cvut.fel.ear.carstatus.builders.StatisticsBuilder;
 import cz.cvut.fel.ear.carstatus.enums.EStatisticsType;
-import cz.cvut.fel.ear.carstatus.filters.DestinationFilter;
-import cz.cvut.fel.ear.carstatus.filters.DriverFilter;
-import cz.cvut.fel.ear.carstatus.filters.NoFilter;
-import cz.cvut.fel.ear.carstatus.filters.TimeFilter;
+import cz.cvut.fel.ear.carstatus.filters.*;
 import cz.cvut.fel.ear.carstatus.interfaces.IFilter;
 import cz.cvut.fel.ear.carstatus.interfaces.IStatistics;
 import cz.cvut.fel.ear.carstatus.model.Roadpath;
@@ -46,11 +43,13 @@ public class StatisticsFactory {
         IFilter driver = new DriverFilter();
         IFilter destination = new DestinationFilter();
         IFilter time = new TimeFilter();
+        IFilter malfunction = new MalfunctionFilter();
         handler.setNext(driver);
         driver.setNext(destination);
         destination.setNext(time);
+        time.setNext(malfunction);
         List<Roadtrip> filtered = handler.handleRequest(filter,roadTripService.findAll());
-        return new StatisticsBuilder().numberOfKm(filtered).numberOfRoadtrips(filtered).averageSpeed(filtered);
+        return new StatisticsBuilder().numberOfKm(filtered).numberOfRoadtrips(filtered).averageSpeed(filtered).maxSpeed(filtered);
     }
 
     public Statistics getCompleteStatistics(StatisticsFilter filter) {

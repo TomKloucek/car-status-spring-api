@@ -1,6 +1,5 @@
 package cz.cvut.fel.ear.carstatus;
 
-import cz.cvut.fel.ear.carstatus.builders.RoadTripBuilder;
 import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
@@ -22,7 +21,6 @@ public class CarState {
     private Logger logger;
     private Driver currentDriver;
     private boolean isMalfunctioned;
-    RoadTripBuilder builder;
 
     @Autowired
     BatteryService batteryService;
@@ -37,7 +35,6 @@ public class CarState {
         this.battery = batteryService.getCurrentBattery();
         liquids = liquidService.findAll();
         currentDriver = roadTripService.lastDriver();
-        this.builder = new RoadTripBuilder();
         this.observers = new ArrayList<>();
 
     }

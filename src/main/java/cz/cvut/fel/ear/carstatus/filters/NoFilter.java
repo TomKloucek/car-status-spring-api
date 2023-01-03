@@ -17,8 +17,7 @@ public class NoFilter implements IFilter {
 
     @Override
     public List<Roadtrip> handleRequest(StatisticsFilter filter, List<Roadtrip> roadtrips) {
-        roadtrips = new MalfunctionFilter().handleRequest(filter, roadtrips);
-        if (filter.getFrom() != null || filter.getTo() != null || filter.getSpecificDriver() != null || filter.getFinishDestination() != null || filter.getStartDestination() != null) {
+        if (this.next != null && (filter.getFrom() != null || filter.getTo() != null || filter.getSpecificDriver() != null || filter.getFinishDestination() != null || filter.getStartDestination() != null)) {
             return this.next.handleRequest(filter, roadtrips);
         }
         return roadtrips;

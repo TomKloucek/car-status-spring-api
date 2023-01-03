@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.statistics;
 
 import cz.cvut.fel.ear.carstatus.model.Driver;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 

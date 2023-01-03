@@ -43,7 +43,6 @@ public class Roadpath extends AbstractEntity{
     public String toString() {
         return "Roadpath{" +
                 "averageSpeed=" + averageSpeed +
-                ", roadtrip=" + roadtrip +
                 ", road=" + road +
                 '}';
     }

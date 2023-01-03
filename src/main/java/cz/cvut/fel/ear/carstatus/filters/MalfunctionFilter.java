@@ -22,7 +22,7 @@ public class MalfunctionFilter extends NoFilter {
             }
         }
         roadtrips = result;
-        if (filter.getFrom() != null || filter.getTo() != null || filter.getSpecificDriver() != null || filter.getFinishDestination() != null || filter.getStartDestination() != null) {
+        if (this.next != null && (filter.getFrom() != null || filter.getTo() != null || filter.getSpecificDriver() != null || filter.getFinishDestination() != null || filter.getStartDestination() != null)) {
             return this.next.handleRequest(filter, roadtrips);
         }
         return roadtrips;

@@ -12,13 +12,13 @@ public class DriverFilter extends NoFilter {
         List<Roadtrip> result = new ArrayList<>();
         if (filter.getSpecificDriver() != null) {
             for (Roadtrip roadtrip : roadtrips) {
-                if (roadtrip.getDriver().equals(filter.getSpecificDriver())) {
+                if (roadtrip.getDriver() != null && roadtrip.getDriver().equals(filter.getSpecificDriver())) {
                     result.add(roadtrip);
                 }
             }
             roadtrips = result;
         }
-        if (filter.getFrom() != null || filter.getTo() != null || filter.getFinishDestination() != null || filter.getStartDestination() != null) {
+        if (this.next != null && (filter.getFrom() != null || filter.getTo() != null || filter.getFinishDestination() != null || filter.getStartDestination() != null)) {
             return  next.handleRequest(filter, roadtrips);
         }
         return roadtrips;

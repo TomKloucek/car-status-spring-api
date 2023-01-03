@@ -15,16 +15,10 @@ public class StatisticsFilterBuilder {
     private boolean malfunction;
 
     public StatisticsFilterBuilder from(Date from) {
-        if (from == null) {
-            from = null;
-        }
         this.from = from;
         return this;
     }
     public StatisticsFilterBuilder to(Date to) {
-        if (to == null) {
-            to = null;
-        }
         this.to = to;
         return this;
 
