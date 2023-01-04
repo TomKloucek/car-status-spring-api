@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.interfaces;
 
+import org.springframework.data.util.Pair;
+
 public interface ILoadSimulationFile {
-    public void readSimulationFromFile(String path);
+    public Pair<Boolean, String> readSimulationFromFile(String fileContent);
 }

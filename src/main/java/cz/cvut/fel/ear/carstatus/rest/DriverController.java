@@ -24,10 +24,13 @@ public class DriverController {
     private final DriverService driverService;
     private final RoadTripService roadTripService;
 
+    private final Logger logger;
+
     @Autowired
-    public DriverController(DriverService driverService, RoadTripService roadTripService) {
+    public DriverController(DriverService driverService, RoadTripService roadTripService, Logger logger) {
         this.driverService = driverService;
         this.roadTripService = roadTripService;
+        this.logger = logger;
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,7 +46,7 @@ public class DriverController {
     public List<Roadtrip> getSpecificDriversRoadtrips(@PathVariable Integer id) {
         final Driver driver = driverService.find(id);
         if (driver == null) {
-            Logger.getInstance().log("Driver with id:"+id+" was not found");
+            logger.log("Driver with id:"+id+" was not found");
             throw NotFoundException.create("Driver", id);
         }
         return driverService.getAllRoadtripsMadeByDriver(id);
