@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Load simulation file</title>
+</head>
+
+<body>
+    <form action="rest/simulation/" method="post" enctype="multipart/form-data">
+        <label for="file">Simulation Load:</label><br>
+        <label for="json">JSON</label>
+        <input id="json" type="radio" name="type">
+        <label for="csv">CSV</label>
+        <input id="csv" type="radio" name="type">
+        <input type="file" id="file" name="file"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
