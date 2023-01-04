@@ -19,4 +19,8 @@ public class Helpers {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
     }
+
+    public static boolean isWithinRange(Date date, Date startDate, Date endDate) {
+        return !(date.before(startDate) || date.after(endDate));
+    }
 }

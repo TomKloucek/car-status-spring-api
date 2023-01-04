@@ -72,7 +72,6 @@ public class Roadtrip extends AbstractEntity{
                 "maxSpeed=" + maxSpeed +
                 ", withMalfunction=" + withMalfunction +
                 ", finished=" + finished +
-                ", roadpathList=" + roadpathList +
                 ", driver=" + driver +
                 '}';
     }
