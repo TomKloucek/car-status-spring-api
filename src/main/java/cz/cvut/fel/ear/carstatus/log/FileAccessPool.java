@@ -1,7 +1,5 @@
 package cz.cvut.fel.ear.carstatus.log;
 
-import cz.cvut.fel.ear.carstatus.log.FileAccess;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
