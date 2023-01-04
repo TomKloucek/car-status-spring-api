@@ -1,7 +1,7 @@
 package cz.cvut.fel.ear.carstatus.webapp;
 
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.model.Battery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/")
 public class WebApp {
+
+    private final Logger logger;
+
+    @Autowired
+    public WebApp(Logger logger) {
+        this.logger = logger;
+    }
 
     @GetMapping(value = "/load_simulation",produces = MediaType.TEXT_HTML_VALUE)
     public String simForm() {
@@ -29,7 +34,7 @@ public class WebApp {
             reader.close();
             return stringBuilder.toString();
         } catch (Exception e) {
-            Logger.getInstance().log("Nedokazal se precist soubor ve webapp");
+            logger.log("Nedokazal se precist soubor ve webapp");
             return "Something wrong happened";
         }
     }

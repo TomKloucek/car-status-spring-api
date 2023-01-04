@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import cz.cvut.fel.ear.carstatus.load_files.LoadSimulationFromCSV;
+import cz.cvut.fel.ear.carstatus.load_files.LoadSimulationFromJSON;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.service.Simulation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +11,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 @RestController
 @RequestMapping("/rest/simulation")
 public class SimulationController {
 
     private final Simulation simulation;
     private final Logger logger;
+    private final LoadSimulationFromCSV csvLoader;
+    private final LoadSimulationFromJSON jsonLoader;
 
     @Autowired
-    public SimulationController(Simulation simulation, Logger logger) {
+    public SimulationController(Simulation simulation, Logger logger, LoadSimulationFromCSV csvLoader, LoadSimulationFromJSON jsonLoader) {
         this.simulation = simulation;
         this.logger = logger;
+        this.csvLoader = csvLoader;
+        this.jsonLoader = jsonLoader;
     }
 
     @PutMapping(value = "/{number}",produces = MediaType.APPLICATION_JSON_VALUE)

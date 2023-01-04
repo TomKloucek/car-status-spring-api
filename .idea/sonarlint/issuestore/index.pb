@@ -106,7 +106,3 @@ s
 Csrc/main/java/cz/cvut/fel/ear/carstatus/rest/BatteryController.java,b/8/b84cbe3a34ca3a9a531fcfac9fc861f8b98571af
 y
 Isrc/main/java/cz/cvut/fel/ear/carstatus/statistics/StatisticsFactory.java,e/1/e1343e25d233c778ce0a5e5477515ffdb0cfa76d
-s
-Csrc/main/java/cz/cvut/fel/ear/carstatus/webapp/load_simulation.html,3/0/30f97147ef75d93d9dfc994e2f30a6a11c054fe4
-g
-7src/main/java/cz/cvut/fel/ear/carstatus/model/User.java,3/6/36f1430a8f1c35a36f19fb5509cc4306d8cba60d
