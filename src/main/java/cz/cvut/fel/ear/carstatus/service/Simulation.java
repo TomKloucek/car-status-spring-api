@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -23,15 +24,17 @@ public class Simulation {
     private RoadTripService roadTripService;
 
     private RoadPathService roadPathService;
+    private BatteryService batteryService;
 
     @Autowired
-    public Simulation(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs) {
+    public Simulation(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs) {
         this.rnd = new Random();
         this.roadPathService = rps;
         this.driverService = ds;
         this.roadTripService = rts;
         this.liquidService = ls;
         this.roadService = rs;
+        this.batteryService = bs;
     }
 
     public List<Road> generateRoads(int length) {
@@ -51,33 +54,42 @@ public class Simulation {
 
     public void generateOneRoadTrip() {
         List<Driver> drivers = driverService.findAll();
-        System.out.println(drivers);
         Driver driver = drivers.get(rnd.nextInt(drivers.size()));
         int tripLength = rnd.nextInt(5)+1;
         List<Road> roads = this.generateRoads(tripLength);
         Roadtrip roadtrip = new Roadtrip();
         roadtrip.setWithMalfunction(false);
-        roadtrip.setMaxSpeed(rnd.nextInt(150));
+        roadtrip.setMaxSpeed(rnd.nextInt(150)+50);
         List<Roadpath> roadpathList = new ArrayList<>();
         for (Road road : roads) {
             Roadpath roadpath = new Roadpath();
             roadpath.setRoadtrip(roadtrip);
             roadpath.setRoad(road);
+            roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
             roadpathList.add(roadpath);
         }
         roadtrip.setRoadpathList(roadpathList);
+        roadtrip.setFinished(new Date());
+        roadtrip.setDriver(driver);
         updateCarLiquids(tripLength);
+        updateBattery(tripLength);
         roadTripService.persist(roadtrip);
         for (Roadpath rp : roadpathList) {
             roadPathService.persist(rp);
         }
     }
 
-    public void updateCarLiquids(int roadLength) {
+    private void updateCarLiquids(int roadLength) {
         for (Liquid l : liquidService.findAll()) {
             l.setLevel(l.getLevel()-roadLength*2);
             liquidService.update(l);
-            liquidService.persist(l);
         }
+    }
+
+    private void updateBattery(int roadLength) {
+        Battery battery = batteryService.getCurrentBattery();
+        battery.setCondition((int) (battery.getCondition()-(roadLength*0.25)));
+        battery.setCapacity((int) (battery.getCapacity()-(roadLength*0.7)));
+        batteryService.updateBattery(battery);
     }
 }

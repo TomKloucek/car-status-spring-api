@@ -4,7 +4,9 @@ import cz.cvut.fel.ear.carstatus.dao.DriverDao;
 import cz.cvut.fel.ear.carstatus.dao.RoadTripDao;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
+import cz.cvut.fel.ear.carstatus.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,9 +17,12 @@ import java.util.Objects;
 public class DriverService {
     private final DriverDao dao;
 
+    private final PasswordEncoder encoder;
+
     @Autowired
-    public DriverService(DriverDao rd) {
+    public DriverService(DriverDao rd, PasswordEncoder encoder) {
         dao = rd;
+        this.encoder = encoder;
     }
 
     @Transactional
@@ -32,6 +37,11 @@ public class DriverService {
 
     @Transactional
     public void persist(Driver driver) {
+        Objects.requireNonNull(driver);
+        driver.setPassword(encoder.encode(driver.getPassword()));
+        if (driver.getRole() == null) {
+            driver.setRole(Constants.DEFAULT_ROLE);
+        }
         dao.persist(driver);
     }
 

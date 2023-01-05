@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +21,7 @@ public class Road extends AbstractEntity {
     @Column(nullable = false)
     private int length;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "road_id")
     private List<Roadpath> roadpathList;

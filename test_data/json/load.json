@@ -1,0 +1,28 @@
+[
+  {
+    "username": "lol@lol.cz",
+    "password": "noice",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "birthdate": "2020-01-01"
+  },
+  {
+    "condition": 100,
+    "capacity": 80
+  },
+  {
+    "startingpoint": "Brno",
+    "endpoint": "Liberec",
+    "length": 307
+  },
+  {
+    "startingpoint": "Liberec",
+    "endpoint": "Brno",
+    "length": 307
+  },
+  {
+    "position": "4",
+    "pressure": 25,
+    "condition": 99
+  }
+]

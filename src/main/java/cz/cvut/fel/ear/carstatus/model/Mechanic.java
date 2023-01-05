@@ -18,7 +18,7 @@ public class Mechanic extends User {
 
     @Basic(optional = false)
     @Column(nullable = false)
-    private int phoneNumber;
+    private String phoneNumber;
 
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "carcheck_id")
@@ -51,11 +51,11 @@ public class Mechanic extends User {
         this.operatingTo = operatingTo;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

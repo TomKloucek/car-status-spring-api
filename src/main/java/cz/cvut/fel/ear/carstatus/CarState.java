@@ -1,12 +1,12 @@
 package cz.cvut.fel.ear.carstatus;
 
-import cz.cvut.fel.ear.carstatus.builders.RoadTripBuilder;
 import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
 import cz.cvut.fel.ear.carstatus.service.BatteryService;
 import cz.cvut.fel.ear.carstatus.service.LiquidService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
+import cz.cvut.fel.ear.carstatus.service.TyreService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ public class CarState {
     private Logger logger;
     private Driver currentDriver;
     private boolean isMalfunctioned;
-    RoadTripBuilder builder;
 
     @Autowired
     BatteryService batteryService;
@@ -33,11 +32,13 @@ public class CarState {
     @Autowired
     RoadTripService roadTripService;
 
+    @Autowired
+    TyreService tyreService;
+
     private CarState() {
         this.battery = batteryService.getCurrentBattery();
         liquids = liquidService.findAll();
         currentDriver = roadTripService.lastDriver();
-        this.builder = new RoadTripBuilder();
         this.observers = new ArrayList<>();
 
     }
@@ -51,6 +52,24 @@ public class CarState {
             }
         }
         return _instance;
+    }
+
+    public boolean isPossibleToDrive() {
+        return !isMalfunctioned;
+    }
+
+    public void updateMalfunctionality() {
+        for (Liquid l: liquids) {
+            if (l.checkWhetherIsBelowOrAtMinLevel()) {
+                this.isMalfunctioned = true;
+            }
+        }
+        if (!batteryService.batteryIsFunctional()) {
+            this.isMalfunctioned = true;
+        }
+        if (tyreService.tyresAreFunctional()) {
+            this.isMalfunctioned = true;
+        }
     }
 
 }

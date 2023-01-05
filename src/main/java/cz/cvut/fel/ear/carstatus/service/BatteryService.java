@@ -51,6 +51,11 @@ public class BatteryService {
         return true;
     }
 
+    public boolean batteryIsFunctional() {
+        Battery battery = getCurrentBattery();
+        return battery.getCapacity() >= Constants.MINIMAL_BATTERY_CHARGE && battery.getCondition() >= Constants.MINIMAL_BATTERY_CONDITION;
+    }
+
     @Transactional
     public void deleteBattery(Battery battery) {
         dao.remove(battery);
