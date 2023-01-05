@@ -8,7 +8,7 @@ import cz.cvut.fel.ear.carstatus.util.Constants;
 public class LowBatteryConditionObserver implements IObserver {
     @Override
     public EMalfunction update(CarStateService service) {
-        if(service.getBattery().getCapacity() < Constants.MINIMAL_BATTERY_CONDITION){
+        if(service.getBattery().getCondition() < Constants.MINIMAL_BATTERY_CONDITION){
             return EMalfunction.LOWBATTERYCONDITION;
         }
         else return null;

@@ -56,6 +56,7 @@ public class CarStateService {
     }
 
     public BaseDecorator getNotifyMalfunctions() {
+        notifyMalfunctions = new BaseDecorator(new Notifier());
         for (EMalfunction malfunction : malfunctions) {
             switch (malfunction) {
                 case LOWTYREPRESSURE:
@@ -82,6 +83,7 @@ public class CarStateService {
     }
 
     public void updateMalfunctionality() {
+        malfunctions = new ArrayList<>();
         for(IObserver observer : observers){
             EMalfunction malfunction = observer.update(this);
             if (malfunction != null) malfunctions.add(malfunction);

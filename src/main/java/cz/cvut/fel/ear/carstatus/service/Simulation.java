@@ -58,6 +58,7 @@ public class Simulation {
     }
 
     public void generateOneRoadTrip() {
+        carStateService.updateMalfunctionality();
         if (carStateService.isPossibleToDrive()) {
             List<Driver> drivers = driverService.findAll();
             Driver driver = drivers.get(rnd.nextInt(drivers.size()));
