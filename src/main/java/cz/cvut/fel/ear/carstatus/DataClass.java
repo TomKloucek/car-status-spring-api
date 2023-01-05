@@ -34,7 +34,6 @@ public class DataClass {
         numberOfTyresAdded = 0;
         numberOfBatteriesChanged = 0;
         numberOfTyresChanged = 0;
-
         numberOfCarchecksMade = 0;
 
         numberOfStatisticsGenerated = 0;

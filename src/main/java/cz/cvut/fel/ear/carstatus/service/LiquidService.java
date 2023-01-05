@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.LiquidDao;
 import cz.cvut.fel.ear.carstatus.dao.RoadDao;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
@@ -46,6 +47,11 @@ public class LiquidService {
     @Transactional
     public void refillLiquid(String type) {
         final Liquid refill = dao.findByType(type);
+        if(type == "cooling"){
+            DataClass.getInstance().incrementNumberOfCoolingLiquidRefills();
+        } else if (type == "braking") {
+            DataClass.getInstance().incrementNumberOfBrakingLiquidReffils();
+        }
         refill.setLevel(100);
         update(refill);
         logger.log("Liquid of type "+type+" was successfully refilled.", ELoggerLevel.DEBUG);
