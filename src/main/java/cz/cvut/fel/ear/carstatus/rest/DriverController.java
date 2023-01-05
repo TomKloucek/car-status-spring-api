@@ -9,6 +9,7 @@ import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
 import cz.cvut.fel.ear.carstatus.util.Permissions;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
+import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class DriverController {
     public List<Roadtrip> getSpecificDriversRoadtrips(@PathVariable Integer id) {
         final Driver driver = driverService.find(id);
         if (driver == null) {
-            logger.log("Driver with id:"+id+" was not found");
+            logger.log("Driver with id:"+id+" was not found", null);
             throw NotFoundException.create("Driver", id);
         }
         return driverService.getAllRoadtripsMadeByDriver(id);

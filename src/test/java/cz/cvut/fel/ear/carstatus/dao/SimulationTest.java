@@ -1,7 +1,8 @@
 package cz.cvut.fel.ear.carstatus.dao;
 
 import cz.cvut.fel.ear.carstatus.CarstatusApplication;
-import cz.cvut.fel.ear.carstatus.model.Battery;
+import cz.cvut.fel.ear.carstatus.commands.GenerateDriverCommand;
+import cz.cvut.fel.ear.carstatus.commands.GenerateRoadCommand;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Road;
 import cz.cvut.fel.ear.carstatus.model.Role;
@@ -42,12 +43,16 @@ public class SimulationTest {
 
     @Autowired
     private RoadService roadService;
-
     @Autowired
     private BatteryService batteryService;
+    @Autowired
+    private GenerateRoadCommand roadCommand;
+
+    @Autowired
+    private GenerateDriverCommand driverCommand;
     @Test
-    public void basicSimulationTest() {
-        Simulation simulation = new Simulation(driverService,roadTripService,roadPathService,liquidService,roadService,batteryService);
+    void basicSimulationTest() {
+        SimulationService simulation = new SimulationService(driverService,roadTripService,roadPathService,liquidService,roadService,batteryService, driverCommand, roadCommand);
         int initialSize = roadTripService.findAll().size();
         generateDriver();
         generateRoads();
