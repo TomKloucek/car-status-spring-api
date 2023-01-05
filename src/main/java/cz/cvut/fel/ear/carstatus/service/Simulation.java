@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
+import cz.cvut.fel.ear.carstatus.SimulationData;
 import cz.cvut.fel.ear.carstatus.dao.DriverDao;
 import cz.cvut.fel.ear.carstatus.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ public class Simulation {
 
     private RoadPathService roadPathService;
     private BatteryService batteryService;
+    private SimulationData simulationData;
 
     @Autowired
     public Simulation(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs) {
@@ -35,6 +38,7 @@ public class Simulation {
         this.liquidService = ls;
         this.roadService = rs;
         this.batteryService = bs;
+        this.simulationData = new SimulationData(DataClass.getInstance());
     }
 
     public List<Road> generateRoads(int length) {

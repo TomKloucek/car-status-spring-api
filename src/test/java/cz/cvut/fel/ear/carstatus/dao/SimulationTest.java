@@ -42,9 +42,12 @@ public class SimulationTest {
 
     @Autowired
     private RoadService roadService;
+
+    @Autowired
+    private BatteryService batteryService;
     @Test
     public void basicSimulationTest() {
-        Simulation simulation = new Simulation(driverService,roadTripService,roadPathService,liquidService,roadService);
+        Simulation simulation = new Simulation(driverService,roadTripService,roadPathService,liquidService,roadService,batteryService);
         int initialSize = roadTripService.findAll().size();
         generateDriver();
         generateRoads();
