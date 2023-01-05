@@ -25,9 +25,12 @@ public class Simulation {
 
     private RoadPathService roadPathService;
     private BatteryService batteryService;
+    private TyreService tyreService;
+
+    private CarStateService carStateService;
 
     @Autowired
-    public Simulation(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs) {
+    public Simulation(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs,CarStateService service, TyreService tyreService) {
         this.rnd = new Random();
         this.roadPathService = rps;
         this.driverService = ds;
@@ -35,6 +38,8 @@ public class Simulation {
         this.liquidService = ls;
         this.roadService = rs;
         this.batteryService = bs;
+        carStateService = service;
+        this.tyreService = tyreService;
     }
 
     public List<Road> generateRoads(int length) {
@@ -53,29 +58,35 @@ public class Simulation {
     }
 
     public void generateOneRoadTrip() {
-        List<Driver> drivers = driverService.findAll();
-        Driver driver = drivers.get(rnd.nextInt(drivers.size()));
-        int tripLength = rnd.nextInt(5)+1;
-        List<Road> roads = this.generateRoads(tripLength);
-        Roadtrip roadtrip = new Roadtrip();
-        roadtrip.setWithMalfunction(false);
-        roadtrip.setMaxSpeed(rnd.nextInt(150)+50);
-        List<Roadpath> roadpathList = new ArrayList<>();
-        for (Road road : roads) {
-            Roadpath roadpath = new Roadpath();
-            roadpath.setRoadtrip(roadtrip);
-            roadpath.setRoad(road);
-            roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
-            roadpathList.add(roadpath);
-        }
-        roadtrip.setRoadpathList(roadpathList);
-        roadtrip.setFinished(new Date());
-        roadtrip.setDriver(driver);
-        updateCarLiquids(tripLength);
-        updateBattery(tripLength);
-        roadTripService.persist(roadtrip);
-        for (Roadpath rp : roadpathList) {
-            roadPathService.persist(rp);
+        if (carStateService.isPossibleToDrive()) {
+            List<Driver> drivers = driverService.findAll();
+            Driver driver = drivers.get(rnd.nextInt(drivers.size()));
+            int tripLength = rnd.nextInt(5) + 1;
+            List<Road> roads = this.generateRoads(tripLength);
+            Roadtrip roadtrip = new Roadtrip();
+            roadtrip.setWithMalfunction(false);
+            roadtrip.setMaxSpeed(rnd.nextInt(150) + 50);
+            List<Roadpath> roadpathList = new ArrayList<>();
+            for (Road road : roads) {
+                Roadpath roadpath = new Roadpath();
+                roadpath.setRoadtrip(roadtrip);
+                roadpath.setRoad(road);
+                roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
+                roadpathList.add(roadpath);
+            }
+            roadtrip.setRoadpathList(roadpathList);
+            roadtrip.setFinished(new Date());
+            roadtrip.setDriver(driver);
+            updateCarLiquids(tripLength);
+            updateBattery(tripLength);
+            updateTyres(tripLength);
+            roadTripService.persist(roadtrip);
+            for (Roadpath rp : roadpathList) {
+                roadPathService.persist(rp);
+            }
+            carStateService.notifyObservers();
+        } else {
+            // TODO throw exception or something like that
         }
     }
 
@@ -91,5 +102,13 @@ public class Simulation {
         battery.setCondition((int) (battery.getCondition()-(roadLength*0.25)));
         battery.setCapacity((int) (battery.getCapacity()-(roadLength*0.7)));
         batteryService.updateBattery(battery);
+    }
+
+    private void updateTyres(int roadLength) {
+        List<Tyre> tyres = tyreService.getCurrentTyres();
+        for(Tyre tyre : tyres){
+            tyre.setPressure(tyre.getPressure() - roadLength*0.001);
+            tyre.setCondition((int) (tyre.getPressure() - roadLength/1000));
+        }
     }
 }

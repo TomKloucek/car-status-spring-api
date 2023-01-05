@@ -1,8 +1,11 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
 import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
+import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
+import cz.cvut.fel.ear.carstatus.notifications.LowTyrePressureDecorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +21,6 @@ public class CarStateService {
     private List<Seat> seats;
     private Logger logger;
     private Driver currentDriver;
-    private boolean isMalfunctioned;
 
     private final BatteryService batteryService;
 
@@ -27,6 +29,8 @@ public class CarStateService {
     private final RoadTripService roadTripService;
 
     private final TyreService tyreService;
+    private List<EMalfunction> malfunctions;
+    private BaseDecorator notifyMalfunctions;
 
     @Autowired
     public CarStateService(BatteryService batteryService, LiquidService liquidService, RoadTripService roadTripService, TyreService tyreService ) {
@@ -37,20 +41,24 @@ public class CarStateService {
     }
 
     public boolean isPossibleToDrive() {
-        return !isMalfunctioned;
+        return malfunctions.isEmpty();
+    }
+
+    public BaseDecorator getNotifyMalfunctions() {
+        for (EMalfunction malfunction : malfunctions) {
+            switch (malfunction) {
+                case LOWTYREPRESSURE:
+                    notifyMalfunctions = new LowTyrePressureDecorator(notifyMalfunctions);
+                    break;
+            }
+        }
+        return notifyMalfunctions;
     }
 
     public void updateMalfunctionality() {
-        for (Liquid l: liquids) {
-            if (l.checkWhetherIsBelowOrAtMinLevel()) {
-                this.isMalfunctioned = true;
-            }
-        }
-        if (!batteryService.batteryIsFunctional()) {
-            this.isMalfunctioned = true;
-        }
-        if (tyreService.tyresAreFunctional()) {
-            this.isMalfunctioned = true;
+        for(IObserver observer : observers){
+            EMalfunction malfunction = observer.update(this);
+            if (malfunction != null) malfunctions.add(malfunction);
         }
     }
 
@@ -66,15 +74,17 @@ public class CarStateService {
         return tyreService.getCurrentTyres();
     }
 
+    public void notifyObservers(){
+        for(IObserver observer : observers){
+            observer.update(this);
+        }
+    }
+
     public List<Seat> getSeats() {
         return seats;
     }
 
     public Driver getCurrentDriver() {
         return currentDriver;
-    }
-
-    public boolean isMalfunctioned() {
-        return isMalfunctioned;
     }
 }

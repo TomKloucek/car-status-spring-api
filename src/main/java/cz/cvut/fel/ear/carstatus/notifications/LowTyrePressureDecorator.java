@@ -6,7 +6,8 @@ public class LowTyrePressureDecorator extends BaseDecorator {
         super(n);
     }
 
-    public void sendMessage(String message) {
-        super.sendMessage(message + " low tyre pressure notifies");
+    public String sendMessage(String message) {
+        super.sendMessage(message + "Low tyre pressure\n");
+        return message;
     }
 }
