@@ -2,6 +2,8 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.dao.LiquidDao;
 import cz.cvut.fel.ear.carstatus.dao.RoadDao;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Liquid;
 import cz.cvut.fel.ear.carstatus.model.Road;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.util.Objects;
 @Repository
 public class LiquidService {
     private final LiquidDao dao;
+    private final Logger logger = new Logger();
 
     @Autowired
     public LiquidService(LiquidDao rd) {
@@ -45,6 +48,7 @@ public class LiquidService {
         final Liquid refill = dao.findByType(type);
         refill.setLevel(100);
         update(refill);
+        logger.log("Liquid of type "+type+" was successfully refilled.", ELoggerLevel.DEBUG);
     }
 
     @Transactional
