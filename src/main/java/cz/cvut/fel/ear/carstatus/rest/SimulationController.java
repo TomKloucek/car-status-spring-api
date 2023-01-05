@@ -33,7 +33,7 @@ public class SimulationController {
         for (int i = 0; i < number; i++) {
             simulation.generateOneRoadTrip();
         }
-        logger.log(SecurityContextHolder.getContext().getAuthentication().getPrincipal()+" generated "+number+" roadtrips using API");
+        logger.log(SecurityContextHolder.getContext().getAuthentication().getPrincipal()+" generated "+number+" roadtrips using API", null);
     }
 
     @PostMapping(value = "/")
@@ -70,7 +70,7 @@ public class SimulationController {
     @PutMapping(value = "",produces = MediaType.APPLICATION_JSON_VALUE)
     public void simulateOne() {
         simulation.generateOneRoadTrip();
-        logger.log(SecurityContextHolder.getContext().getAuthentication().getPrincipal()+" generated one roadtrip using API");
+        logger.log(SecurityContextHolder.getContext().getAuthentication().getPrincipal()+" generated one roadtrip using API", null);
     }
 
 }
