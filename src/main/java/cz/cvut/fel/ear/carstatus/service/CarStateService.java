@@ -7,9 +7,7 @@ import cz.cvut.fel.ear.carstatus.model.*;
 import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
 import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
 import cz.cvut.fel.ear.carstatus.notifications.Notifier;
-import cz.cvut.fel.ear.carstatus.observers.LowBatteryCapacityObserver;
-import cz.cvut.fel.ear.carstatus.observers.LowTyreConditionObserver;
-import cz.cvut.fel.ear.carstatus.observers.LowTyrePressureObserver;
+import cz.cvut.fel.ear.carstatus.observers.*;
 import cz.cvut.fel.ear.carstatus.rest.UserController;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +47,8 @@ public class CarStateService {
         this.malfunctions = new ArrayList<>();
         this.notifyMalfunctions = new BaseDecorator(new Notifier());
         this.observers = new ArrayList<>();
-        this.observers.add(new LowTyreConditionObserver());
-        this.observers.add(new LowBatteryCapacityObserver());
-        this.observers.add(new LowTyrePressureObserver());
+        fillObservers();
+        updateMalfunctionality();
     }
 
     public boolean isPossibleToDrive() {
@@ -103,11 +100,12 @@ public class CarStateService {
         return tyreService.getCurrentTyres();
     }
 
-    public List<Seat> getSeats() {
-        return seats;
-    }
-
-    public Driver getCurrentDriver() {
-        return currentDriver;
+    private void fillObservers() {
+        this.observers.add(new LowTyreConditionObserver());
+        this.observers.add(new LowBatteryCapacityObserver());
+        this.observers.add(new LowTyrePressureObserver());
+        this.observers.add(new LowBatteryConditionObserver());
+        this.observers.add(new LowBrakingLiquidObserver());
+        this.observers.add(new LowCoolingLiquidObserver());
     }
 }
