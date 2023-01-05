@@ -76,7 +76,7 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
                     Tyre tyre = new Tyre();
                     tyre.setPressure(Double.parseDouble(values[java.util.Arrays.asList(keywords).indexOf("pressure")]));
                     tyre.setCondition(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf("condition")]));
-                    tyre.setPosition(values[java.util.Arrays.asList(keywords).indexOf("position")]);
+                    tyre.setPosition(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf("position")]));
                     res = "tyres";
                     tyreService.createNewTyre(tyre);
                 }
