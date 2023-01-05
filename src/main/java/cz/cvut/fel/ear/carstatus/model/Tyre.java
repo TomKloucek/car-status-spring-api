@@ -8,7 +8,7 @@ public class Tyre extends AbstractEntity{
 
     @Basic(optional = false)
     @Column(nullable = false)
-    private String position;
+    private int position;
 
     @Basic(optional = false)
     @Column(nullable = false)
@@ -23,11 +23,11 @@ public class Tyre extends AbstractEntity{
     @Column(nullable = false)
     private boolean inUsage;
 
-    public String getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 
