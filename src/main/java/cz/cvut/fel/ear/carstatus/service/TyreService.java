@@ -80,4 +80,13 @@ public class TyreService {
         }
         return false;
     }
+
+    public boolean tyresAreFunctional() {
+        for (Tyre tyre : getCurrentTyres()) {
+            if (tyre.getPressure() < 30) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

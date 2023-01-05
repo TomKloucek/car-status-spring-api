@@ -10,12 +10,6 @@ public class Simulation {
     private ILoadSimulationFile file;
     private SimulationData data;
 
-    private void loadSimulationFromFile() {
-    }
-
-    public void simulateOneRoadTrip() {
-    }
-
     public void setCommand(ICommand command) {
         this.command = command;
     }
