@@ -2,7 +2,9 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.dao.TyreDao;
 import cz.cvut.fel.ear.carstatus.model.Tyre;
+import cz.cvut.fel.ear.carstatus.rest.UserController;
 import cz.cvut.fel.ear.carstatus.util.Constants;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.scanner.Constant;
@@ -14,6 +16,7 @@ import java.util.Objects;
 @Service
 public class TyreService {
 
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UserController.class);
     private final TyreDao dao;
 
     public TyreService(TyreDao dao) {
@@ -35,7 +38,7 @@ public class TyreService {
         return result;
     }
 
-    @javax.transaction.Transactional
+    @Transactional
     public List<Tyre> findAll() {
         return dao.findAll();
     }
