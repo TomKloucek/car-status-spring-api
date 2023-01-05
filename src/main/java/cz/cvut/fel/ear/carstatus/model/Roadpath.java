@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,9 +11,11 @@ public class Roadpath extends AbstractEntity{
     @Column(nullable = false)
     private int averageSpeed;
 
+    @JsonBackReference
     @OneToOne
     private Roadtrip roadtrip;
 
+    @JsonBackReference
     @OneToOne
     private Road road;
 
