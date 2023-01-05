@@ -84,7 +84,7 @@ public class Simulation {
             for (Roadpath rp : roadpathList) {
                 roadPathService.persist(rp);
             }
-            carStateService.notifyObservers();
+            carStateService.updateMalfunctionality();
         } else {
             // TODO throw exception or something like that
         }
