@@ -34,7 +34,7 @@ public class WebApp {
             reader.close();
             return stringBuilder.toString();
         } catch (Exception e) {
-            logger.log("Nedokazal se precist soubor ve webapp");
+            logger.log("Nedokazal se precist soubor ve webapp", null);
             return "Something wrong happened";
         }
     }
