@@ -1,11 +1,19 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
 import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
+import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
+import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
+import cz.cvut.fel.ear.carstatus.notifications.Notifier;
+import cz.cvut.fel.ear.carstatus.observers.*;
+import cz.cvut.fel.ear.carstatus.rest.UserController;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,7 +26,7 @@ public class CarStateService {
     private List<Seat> seats;
     private Logger logger;
     private Driver currentDriver;
-    private boolean isMalfunctioned;
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     private final BatteryService batteryService;
 
@@ -27,6 +35,8 @@ public class CarStateService {
     private final RoadTripService roadTripService;
 
     private final TyreService tyreService;
+    private List<EMalfunction> malfunctions;
+    private BaseDecorator notifyMalfunctions;
 
     @Autowired
     public CarStateService(BatteryService batteryService, LiquidService liquidService, RoadTripService roadTripService, TyreService tyreService ) {
@@ -34,23 +44,49 @@ public class CarStateService {
         this.liquidService = liquidService;
         this.roadTripService = roadTripService;
         this.tyreService = tyreService;
+        this.malfunctions = new ArrayList<>();
+        this.notifyMalfunctions = new BaseDecorator(new Notifier());
+        this.observers = new ArrayList<>();
+        fillObservers();
+        updateMalfunctionality();
     }
 
     public boolean isPossibleToDrive() {
-        return !isMalfunctioned;
+        return malfunctions.isEmpty();
+    }
+
+    public BaseDecorator getNotifyMalfunctions() {
+        notifyMalfunctions = new BaseDecorator(new Notifier());
+        for (EMalfunction malfunction : malfunctions) {
+            switch (malfunction) {
+                case LOWTYREPRESSURE:
+                    notifyMalfunctions = new LowTyrePressureDecorator(notifyMalfunctions);
+                    break;
+                case LOWBRAKINGLIQUID:
+                    notifyMalfunctions = new LowBrakingLiquidDecorator(notifyMalfunctions);
+                    break;
+                case LOWBATTERYCAPACITY:
+                    notifyMalfunctions = new LowBatteryCapacityDecorator(notifyMalfunctions);
+                    break;
+                case LOWBATTERYCONDITION:
+                    notifyMalfunctions = new LowBatteryConditionDecorator(notifyMalfunctions);
+                    break;
+                case LOWCOOLINGLIQUID:
+                    notifyMalfunctions = new LowCoolingLiquidDecorator(notifyMalfunctions);
+                    break;
+                case LOWTYRECONDITION:
+                    notifyMalfunctions = new LowTyreConditionDecorator(notifyMalfunctions);
+                    break;
+            }
+        }
+        return notifyMalfunctions;
     }
 
     public void updateMalfunctionality() {
-        for (Liquid l: liquids) {
-            if (l.checkWhetherIsBelowOrAtMinLevel()) {
-                this.isMalfunctioned = true;
-            }
-        }
-        if (!batteryService.batteryIsFunctional()) {
-            this.isMalfunctioned = true;
-        }
-        if (tyreService.tyresAreFunctional()) {
-            this.isMalfunctioned = true;
+        malfunctions = new ArrayList<>();
+        for(IObserver observer : observers){
+            EMalfunction malfunction = observer.update(this);
+            if (malfunction != null) malfunctions.add(malfunction);
         }
     }
 
@@ -66,15 +102,12 @@ public class CarStateService {
         return tyreService.getCurrentTyres();
     }
 
-    public List<Seat> getSeats() {
-        return seats;
-    }
-
-    public Driver getCurrentDriver() {
-        return currentDriver;
-    }
-
-    public boolean isMalfunctioned() {
-        return isMalfunctioned;
+    private void fillObservers() {
+        this.observers.add(new LowTyreConditionObserver());
+        this.observers.add(new LowBatteryCapacityObserver());
+        this.observers.add(new LowTyrePressureObserver());
+        this.observers.add(new LowBatteryConditionObserver());
+        this.observers.add(new LowBrakingLiquidObserver());
+        this.observers.add(new LowCoolingLiquidObserver());
     }
 }

@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.webapp;
 
+import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
 import cz.cvut.fel.ear.carstatus.service.CarStateService;
 import cz.cvut.fel.ear.carstatus.model.Liquid;
 import cz.cvut.fel.ear.carstatus.model.Tyre;
@@ -53,7 +54,7 @@ public class HomeController {
                 resultString += "<p>Current level of braking liquid: " + liquid.getLevel() + "</p>";
             }
         }
-
+        resultString += carStateService.getNotifyMalfunctions().sendMessage("");
         return resultString;
     }
 
