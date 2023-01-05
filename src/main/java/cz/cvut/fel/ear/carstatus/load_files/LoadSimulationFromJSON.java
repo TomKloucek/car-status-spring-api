@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.load_files;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.interfaces.ILoadSimulationFile;
 import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.model.Driver;
@@ -78,6 +79,7 @@ public class LoadSimulationFromJSON implements ILoadSimulationFile {
                     tyreService.createNewTyre(tyre);
                 }
             }
+            DataClass.getInstance().incrementNumberOfJSONFilesLoaded();
             return Pair.of(true,"All object that fulfilled rules were added to application");
         } catch (Exception e) {
             StringWriter sw = new StringWriter();

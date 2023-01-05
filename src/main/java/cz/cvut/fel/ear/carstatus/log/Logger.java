@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.log;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.rest.UserController;
 import cz.cvut.fel.ear.carstatus.util.Constants;
@@ -17,6 +18,7 @@ public class Logger {
     }
 
     public void log(String message, ELoggerLevel level) {
+        DataClass.getInstance().incrementNumberOfLoggerCalls();
         switch (level) {
             case DEBUG:
                 LOG.debug(message);

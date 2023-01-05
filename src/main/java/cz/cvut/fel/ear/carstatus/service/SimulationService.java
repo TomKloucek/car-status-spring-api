@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.commands.GenerateDriverCommand;
 import cz.cvut.fel.ear.carstatus.commands.GenerateRoadCommand;
 import cz.cvut.fel.ear.carstatus.enums.ECommand;
@@ -47,10 +48,12 @@ public class SimulationService {
     }
 
     public List<Road> generateRoads(int length) {
+        DataClass.getInstance().incrementNumberOfRoadsGenerated();
         List<Road> roads = roadService.findAll();
         List<Road> result = new ArrayList<>();
         result.add(roads.get(rnd.nextInt(roads.size()-1)));
         while (result.size() < length) {
+            DataClass.getInstance().incrementNumberOfRoadsAdded();
             String end = result.get(result.size()-1).getEndPoint();
             for (Road r : roads) {
                 if (r.getStartingPoint().equals(end)) {
@@ -62,6 +65,7 @@ public class SimulationService {
     }
 
     public void generateOneRoadTrip() {
+        DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
         List<Driver> drivers = driverService.findAll();
         Driver driver = drivers.get(rnd.nextInt(drivers.size()));
         int tripLength = rnd.nextInt(5)+1;

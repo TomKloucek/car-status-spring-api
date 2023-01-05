@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.load_files;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.interfaces.ILoadSimulationFile;
 import cz.cvut.fel.ear.carstatus.model.*;
 import cz.cvut.fel.ear.carstatus.service.*;
@@ -83,6 +84,7 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
             } else {
                 return Pair.of(false,"Provided file were not of type { driver, tyre, battery, road }");
             }
+            DataClass.getInstance().incrementNumberOfCSVFilesLoaded();
             return Pair.of(true,res + " were successfully loaded to application");
         } catch (Exception e) {
             return Pair.of(false,e.toString());

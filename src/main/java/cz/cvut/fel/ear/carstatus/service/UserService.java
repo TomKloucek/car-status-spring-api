@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Role;
 import cz.cvut.fel.ear.carstatus.model.User;
@@ -33,6 +34,7 @@ public class UserService {
         if (user.getRole() == null) {
             user.setRole(Constants.DEFAULT_ROLE);
         }
+        DataClass.getInstance().incrementNumberOfUsersRegistered();
         dao.persist(user);
     }
 

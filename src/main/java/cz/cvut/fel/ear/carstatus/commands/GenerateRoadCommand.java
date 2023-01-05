@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.carstatus.commands;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.interfaces.ICommand;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Driver;
@@ -42,12 +43,12 @@ public class GenerateRoadCommand implements ICommand {
         from.setEndPoint(cityTwo);
         from.setLength(roadLength);
         roadService.persist(from);
-        logger.log("road with id:"+from.getId());
+        logger.log("road with id:"+from.getId(), ELoggerLevel.DEBUG);
         Road to = new Road();
         to.setStartingPoint(cityTwo);
         to.setEndPoint(cityOne);
         to.setLength(roadLength);
         roadService.persist(to);
-        logger.log("road with id:"+to.getId());
+        logger.log("road with id:"+to.getId(), ELoggerLevel.DEBUG);
     }
 }

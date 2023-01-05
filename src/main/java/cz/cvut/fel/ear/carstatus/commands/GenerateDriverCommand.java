@@ -2,6 +2,9 @@ package cz.cvut.fel.ear.carstatus.commands;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
+import cz.cvut.fel.ear.carstatus.DataClass;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.interfaces.ICommand;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Driver;
@@ -47,6 +50,7 @@ public class GenerateDriverCommand implements ICommand {
         driver.setPassword(faker.team()+faker.address().buildingNumber());
         driver.setBirthDate(faker.date().between(minDate,maxDate));
         driverService.persist(driver);
-        logger.log("created driver with id:"+driver.getId());
+        DataClass.getInstance().incrementNumberOfDriversGenerated();
+        logger.log("created driver with id:"+driver.getId(), ELoggerLevel.DEBUG);
     }
 }
