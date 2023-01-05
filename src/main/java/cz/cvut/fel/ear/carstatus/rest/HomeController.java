@@ -18,6 +18,12 @@ public class HomeController {
         return "Hello Driver";
     }
 
+    @PreAuthorize("hasRole('MECHANIC')")
+    @GetMapping("/mechanic")
+    public String mechanic(){
+        return "Hello Mechanic";
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public String admin(){
