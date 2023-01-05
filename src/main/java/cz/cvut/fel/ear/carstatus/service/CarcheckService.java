@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarcheckService {
@@ -48,13 +49,9 @@ public class CarcheckService {
     }
 
     public List<Carcheck> getCarchecksMadeByMechanic(Mechanic mechanic) {
-        List<Carcheck> result = new ArrayList<>();
-        for (Carcheck c : dao.findAll()) {
-            if (c.getMechanic().equals(mechanic)) {
-                result.add(c);
-            }
-        }
-        return result;
+        return dao.findAll().stream()
+                .filter(c -> c.getMechanic().equals(mechanic))
+                .collect(Collectors.toList());
     }
     @Transactional
     public void makeCarcheck(@CurrentSecurityContext(expression="authentication?.name")
@@ -78,19 +75,21 @@ public class CarcheckService {
         List<Tyre> tyres = tyreService.getCurrentTyres();
         Battery battery = batteryService.getCurrentBattery();
         List<Liquid> liquids = liquidService.findAll();
-        for(Tyre tyre : tyres){
-            if(tyre.isInUsage() && tyre.getPressure() <= Constants.MINIMAL_TYRE_PRESSURE && tyre.getCondition() >= Constants.MINIMAL_TYRE_CONDITION){
-                tyre.setPressure(33);
-            } else if (tyre.isInUsage() && tyre.getCondition() < Constants.MINIMAL_TYRE_CONDITION) {
-                tyre.setInUsage(false);
-                Tyre newTyre = new Tyre();
-                newTyre.setInUsage(true);
-                newTyre.setCondition(100);
-                newTyre.setPosition(tyre.getPosition());
-                newTyre.setPressure(33);
-                tyreService.createNewTyre(newTyre);
-            }
-        }
+        tyres.stream()
+                .filter(Tyre::isInUsage)
+                .forEach(tyre -> {
+                    if (tyre.getPressure() <= Constants.MINIMAL_TYRE_PRESSURE && tyre.getCondition() >= Constants.MINIMAL_TYRE_CONDITION) {
+                        tyre.setPressure(33);
+                    } else if (tyre.getCondition() < Constants.MINIMAL_TYRE_CONDITION) {
+                        tyre.setInUsage(false);
+                        Tyre newTyre = new Tyre();
+                        newTyre.setInUsage(true);
+                        newTyre.setCondition(100);
+                        newTyre.setPosition(tyre.getPosition());
+                        newTyre.setPressure(33);
+                        tyreService.createNewTyre(newTyre);
+                    }
+                });
         if(battery.getCapacity() <= Constants.MINIMAL_BATTERY_CHARGE && battery.getCondition() >= Constants.MINIMAL_BATTERY_CONDITION){
             batteryService.chargeBattery();
         } else if (battery.getCapacity() <= Constants.MINIMAL_BATTERY_CHARGE && battery.getCondition() < Constants.MINIMAL_BATTERY_CONDITION) {
@@ -100,9 +99,9 @@ public class CarcheckService {
             newBattery.setInUsage(true);
             batteryService.changeCurrentBattery(newBattery);
         }
-        for(Liquid liquid : liquids){
-            liquidService.refillLiquid(liquid.getType());
-        }
+        liquids.stream()
+                .map(Liquid::getType)
+                .forEach(liquidService::refillLiquid);
         createNewCarcheck(carcheck);
         DataClass.getInstance().incrementNumberOfCarchecksMade();
         logger.log("Carcheck was done by mechanic "+mechanic.getUsername()+" successfully", ELoggerLevel.DEBUG);
