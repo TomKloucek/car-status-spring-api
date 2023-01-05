@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Mechanic.findByUsername", query = "SELECT DISTINCT mechanic FROM Mechanic mechanic WHERE mechanic.username = :username")
+})
 @DiscriminatorValue("MECHANIC")
 public class Mechanic extends User {
     @Basic(optional = false)

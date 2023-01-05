@@ -1,7 +1,7 @@
 package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @NamedQuery(name = "find_last_carcheck", query = "SELECT c FROM Carcheck c ORDER BY c.checkDate desc")
 @Entity

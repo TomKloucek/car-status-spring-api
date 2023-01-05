@@ -1,6 +1,10 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.BatteryDao;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.exception.BrokenPartException;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.util.Constants;
@@ -13,6 +17,7 @@ import java.util.List;
 @Service
 public class BatteryService {
     private final BatteryDao dao;
+    private final Logger logger = new Logger();
 
     public BatteryService(BatteryDao dao) {
         this.dao = dao;
@@ -33,7 +38,7 @@ public class BatteryService {
          return result;
     }
 
-    @javax.transaction.Transactional
+    @Transactional
     public List<Battery> findAll() {
         return dao.findAll();
     }
@@ -48,12 +53,24 @@ public class BatteryService {
         updateBattery(current);
         battery.setInUsage(true);
         updateBattery(battery);
+        DataClass.getInstance().incrementNumberOfBatteriesChanged();
+        logger.log("Current battery was changed.", ELoggerLevel.DEBUG);
         return true;
     }
 
+    public void chargeBattery(){
+        if(batteryIsFunctional()){
+            getCurrentBattery().setCapacity(100);
+            logger.log("Current battery was charged to 100%.", ELoggerLevel.DEBUG);
+            DataClass.getInstance().incrementNumberOfChargingBatteries();
+        }
+        else{
+            throw new BrokenPartException("Unable to charge battery which is broken (has lower capacity than minimal)");
+        }
+    }
     public boolean batteryIsFunctional() {
         Battery battery = getCurrentBattery();
-        return battery.getCapacity() >= Constants.MINIMAL_BATTERY_CHARGE && battery.getCondition() >= Constants.MINIMAL_BATTERY_CONDITION;
+        return battery.getCondition() >= Constants.MINIMAL_BATTERY_CONDITION;
     }
 
     @Transactional
@@ -69,5 +86,7 @@ public class BatteryService {
     @Transactional
     public void createNewBattery(Battery battery) {
         dao.persist(battery);
+        logger.log("New battery was created.", ELoggerLevel.DEBUG);
+        DataClass.getInstance().incrementNumberOfBatteriesAdded();
     }
 }

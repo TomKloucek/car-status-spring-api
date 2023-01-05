@@ -75,6 +75,7 @@ public class BatteryController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('MECHANIC')")
     @PostMapping(value = "/change", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void changeCurrentBattery(@RequestBody(required = false) Battery battery) {
@@ -83,6 +84,10 @@ public class BatteryController {
         }
     }
 
-
-
+    @PreAuthorize("hasAnyRole('MECHANIC', 'DRIVER')")
+    @PostMapping(value = "/charge", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void chargeCurrentBattery(@RequestBody(required = false) Battery battery) {
+        batteryService.chargeBattery();
+    }
 }
