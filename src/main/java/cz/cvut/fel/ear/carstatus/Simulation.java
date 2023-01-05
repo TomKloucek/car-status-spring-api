@@ -14,7 +14,7 @@ public class Simulation {
         this.command = command;
     }
 
-    public void executeCommand(ArrayList<String> parameters) {
-        command.execute(parameters);
+    public void executeCommand() {
+        command.execute();
     }
 }

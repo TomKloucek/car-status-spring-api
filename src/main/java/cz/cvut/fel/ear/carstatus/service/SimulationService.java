@@ -1,6 +1,9 @@
 package cz.cvut.fel.ear.carstatus.service;
 
-import cz.cvut.fel.ear.carstatus.dao.DriverDao;
+import cz.cvut.fel.ear.carstatus.commands.GenerateDriverCommand;
+import cz.cvut.fel.ear.carstatus.commands.GenerateRoadCommand;
+import cz.cvut.fel.ear.carstatus.enums.ECommand;
+import cz.cvut.fel.ear.carstatus.interfaces.ICommand;
 import cz.cvut.fel.ear.carstatus.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class Simulation {
+public class SimulationService {
 
     private Random rnd;
 
@@ -25,9 +28,15 @@ public class Simulation {
 
     private RoadPathService roadPathService;
     private BatteryService batteryService;
+    private ICommand command;
+
+    private final GenerateDriverCommand driverCommand;
+    private final GenerateRoadCommand roadCommand;
 
     @Autowired
-    public Simulation(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs) {
+    public SimulationService(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs, GenerateDriverCommand driverCommand, GenerateRoadCommand roadCommand) {
+        this.driverCommand = driverCommand;
+        this.roadCommand = roadCommand;
         this.rnd = new Random();
         this.roadPathService = rps;
         this.driverService = ds;
@@ -91,5 +100,22 @@ public class Simulation {
         battery.setCondition((int) (battery.getCondition()-(roadLength*0.25)));
         battery.setCapacity((int) (battery.getCapacity()-(roadLength*0.7)));
         batteryService.updateBattery(battery);
+    }
+
+    public void setCommand(ECommand command) {
+        switch (command) {
+            case ROAD:
+                this.command = roadCommand;
+                break;
+            case DRIVER:
+                this.command = driverCommand;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void executeCommand() {
+        command.execute();
     }
 }

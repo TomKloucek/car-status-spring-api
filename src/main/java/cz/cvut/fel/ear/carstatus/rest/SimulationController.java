@@ -3,7 +3,7 @@ package cz.cvut.fel.ear.carstatus.rest;
 import cz.cvut.fel.ear.carstatus.load_files.LoadSimulationFromCSV;
 import cz.cvut.fel.ear.carstatus.load_files.LoadSimulationFromJSON;
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.service.Simulation;
+import cz.cvut.fel.ear.carstatus.service.SimulationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
@@ -15,13 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/rest/simulation")
 public class SimulationController {
 
-    private final Simulation simulation;
+    private final SimulationService simulation;
     private final Logger logger;
     private final LoadSimulationFromCSV csvLoader;
     private final LoadSimulationFromJSON jsonLoader;
 
     @Autowired
-    public SimulationController(Simulation simulation, Logger logger, LoadSimulationFromCSV csvLoader, LoadSimulationFromJSON jsonLoader) {
+    public SimulationController(SimulationService simulation, Logger logger, LoadSimulationFromCSV csvLoader, LoadSimulationFromJSON jsonLoader) {
         this.simulation = simulation;
         this.logger = logger;
         this.csvLoader = csvLoader;
