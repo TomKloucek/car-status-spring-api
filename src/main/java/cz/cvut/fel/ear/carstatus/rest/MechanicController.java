@@ -20,9 +20,10 @@ public class MechanicController {
         this.carcheckService = carcheckService;
     }
     @PreAuthorize("hasRole('MECHANIC')")
-    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void makeCarcheck(@CurrentSecurityContext(expression="authentication?.name")
+    @PutMapping(value = "/make-carcheck")
+    public String makeCarcheck(@CurrentSecurityContext(expression="authentication?.name")
                                  String username) {
         carcheckService.makeCarcheck(username);
+        return "Carcheck was made successfully.";
     }
 }
