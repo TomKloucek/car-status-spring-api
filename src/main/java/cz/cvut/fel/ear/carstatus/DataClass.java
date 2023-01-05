@@ -1,7 +1,6 @@
 package cz.cvut.fel.ear.carstatus;
 public class DataClass {
     private static DataClass instance = null;
-    private int numberOfMethodCalls;
     private int numberOfLoggerCalls;
     private int numberOfSimulationMethodCalls;
     private int numberOfDriversGenerated;
@@ -10,7 +9,7 @@ public class DataClass {
     private int numberOfRoadsAdded;
     private int numberOfBatteriesAdded;
     private int numberOfTyresAdded;
-    private int numberOfRoadtripsGenerated;
+
     private int numberOfBatteriesChanged;
     private int numberOfTyresChanged;
     private int numberOfCarchecksMade;
@@ -25,7 +24,6 @@ public class DataClass {
 
 
     private DataClass() {
-        numberOfMethodCalls = 0;
         numberOfLoggerCalls = 0;
         numberOfSimulationMethodCalls = 0;
         numberOfDriversGenerated = 0;
@@ -34,12 +32,14 @@ public class DataClass {
         numberOfRoadsAdded = 0;
         numberOfBatteriesAdded = 0;
         numberOfTyresAdded = 0;
-        numberOfRoadtripsGenerated = 0;
         numberOfBatteriesChanged = 0;
         numberOfTyresChanged = 0;
         numberOfCarchecksMade = 0;
+
         numberOfStatisticsGenerated = 0;
+
         numberOfChargingBatteries = 0;
+
         numberOfTyresInflated = 0;
         numberOfCoolingLiquidRefills = 0;
         numberOfBrakingLiquidReffils = 0;
@@ -50,180 +50,165 @@ public class DataClass {
 
     public static DataClass getInstance() {
         if (instance == null) {
-            instance = new DataClass();
+            synchronized (DataClass.class) {
+                if (instance == null) {
+                    instance = new DataClass();
+                }
+            }
         }
         return instance;
     }
 
-    public static void setInstance(DataClass instance) {
-        DataClass.instance = instance;
-    }
 
     public int getNumberOfDriversGenerated() {
         return numberOfDriversGenerated;
     }
 
-    public void setNumberOfDriversGenerated(int numberOfDriversGenerated) {
-        this.numberOfDriversGenerated = numberOfDriversGenerated;
+    public void incrementNumberOfDriversGenerated() {
+        this.numberOfDriversGenerated += 1;
     }
 
     public int getNumberOfRoadsGenerated() {
         return numberOfRoadsGenerated;
     }
 
-    public void setNumberOfRoadsGenerated(int numberOfRoadsGenerated) {
-        this.numberOfRoadsGenerated = numberOfRoadsGenerated;
+    public void incrementNumberOfRoadsGenerated() {
+        this.numberOfRoadsGenerated += 1;
     }
 
     public int getNumberOfDriversAdded() {
         return numberOfDriversAdded;
     }
 
-    public void setNumberOfDriversAdded(int numberOfDriversAdded) {
-        this.numberOfDriversAdded = numberOfDriversAdded;
+    public void incrementNumberOfDriversAdded() {
+        this.numberOfDriversAdded += 1;
     }
 
     public int getNumberOfRoadsAdded() {
         return numberOfRoadsAdded;
     }
 
-    public void setNumberOfRoadsAdded(int numberOfRoadsAdded) {
-        this.numberOfRoadsAdded = numberOfRoadsAdded;
+    public void incrementNumberOfRoadsAdded() {
+        this.numberOfRoadsAdded += 1;
     }
 
     public int getNumberOfBatteriesAdded() {
         return numberOfBatteriesAdded;
     }
 
-    public void setNumberOfBatteriesAdded(int numberOfBatteriesAdded) {
-        this.numberOfBatteriesAdded = numberOfBatteriesAdded;
+    public void incrementNumberOfBatteriesAdded() {
+        this.numberOfBatteriesAdded += 1;
     }
 
     public int getNumberOfTyresAdded() {
         return numberOfTyresAdded;
     }
 
-    public void setNumberOfTyresAdded(int numberOfTyresAdded) {
-        this.numberOfTyresAdded = numberOfTyresAdded;
-    }
-
-    public int getNumberOfRoadtripsGenerated() {
-        return numberOfRoadtripsGenerated;
-    }
-
-    public void setNumberOfRoadtripsGenerated(int numberOfRoadtripsGenerated) {
-        this.numberOfRoadtripsGenerated = numberOfRoadtripsGenerated;
+    public void incrementNumberOfTyresAdded() {
+        this.numberOfTyresAdded += 1;
     }
 
     public int getNumberOfBatteriesChanged() {
         return numberOfBatteriesChanged;
     }
 
-    public void setNumberOfBatteriesChanged(int numberOfBatteriesChanged) {
-        this.numberOfBatteriesChanged = numberOfBatteriesChanged;
+    public void incrementNumberOfBatteriesChanged() {
+        this.numberOfBatteriesChanged += 1;
     }
 
     public int getNumberOfTyresChanged() {
         return numberOfTyresChanged;
     }
 
-    public void setNumberOfTyresChanged(int numberOfTyresChanged) {
-        this.numberOfTyresChanged = numberOfTyresChanged;
+    public void incrementNumberOfTyresChanged() {
+        this.numberOfTyresChanged += 1;
     }
 
     public int getNumberOfCarchecksMade() {
         return numberOfCarchecksMade;
     }
 
-    public void setNumberOfCarchecksMade(int numberOfCarchecksMade) {
-        this.numberOfCarchecksMade = numberOfCarchecksMade;
+    public void incrementNumberOfCarchecksMade() {
+        this.numberOfCarchecksMade += 1;
     }
 
     public int getNumberOfStatisticsGenerated() {
         return numberOfStatisticsGenerated;
     }
 
-    public void setNumberOfStatisticsGenerated(int numberOfStatisticsGenerated) {
-        this.numberOfStatisticsGenerated = numberOfStatisticsGenerated;
+    public void incrementNumberOfStatisticsGenerated() {
+        this.numberOfStatisticsGenerated += 1;
     }
 
     public int getNumberOfChargingBatteries() {
         return numberOfChargingBatteries;
     }
 
-    public void setNumberOfChargingBatteries(int numberOfChargingBatteries) {
-        this.numberOfChargingBatteries = numberOfChargingBatteries;
+    public void incrementNumberOfChargingBatteries() {
+        this.numberOfChargingBatteries += 1;
     }
 
     public int getNumberOfTyresInflated() {
         return numberOfTyresInflated;
     }
 
-    public void setNumberOfTyresInflated(int numberOfTyresInflated) {
-        this.numberOfTyresInflated = numberOfTyresInflated;
+    public void incrementNumberOfTyresInflated() {
+        this.numberOfTyresInflated += 1;
     }
 
     public int getNumberOfCoolingLiquidRefills() {
         return numberOfCoolingLiquidRefills;
     }
 
-    public void setNumberOfCoolingLiquidRefills(int numberOfCoolingLiquidRefills) {
-        this.numberOfCoolingLiquidRefills = numberOfCoolingLiquidRefills;
+    public void incrementNumberOfCoolingLiquidRefills() {
+        this.numberOfCoolingLiquidRefills += 1;
     }
 
     public int getNumberOfBrakingLiquidReffils() {
         return numberOfBrakingLiquidReffils;
     }
 
-    public void setNumberOfBrakingLiquidReffils(int numberOfBrakingLiquidReffils) {
-        this.numberOfBrakingLiquidReffils = numberOfBrakingLiquidReffils;
+    public void incrementNumberOfBrakingLiquidReffils() {
+        this.numberOfBrakingLiquidReffils += 1;
     }
 
     public int getNumberOfCSVFilesLoaded() {
         return numberOfCSVFilesLoaded;
     }
 
-    public void setNumberOfCSVFilesLoaded(int numberOfCSVFilesLoaded) {
-        this.numberOfCSVFilesLoaded = numberOfCSVFilesLoaded;
+    public void incrementNumberOfCSVFilesLoaded() {
+        this.numberOfCSVFilesLoaded += 1;
     }
 
     public int getNumberOfJSONFilesLoaded() {
         return numberOfJSONFilesLoaded;
     }
 
-    public void setNumberOfJSONFilesLoaded(int numberOfJSONFilesLoaded) {
-        this.numberOfJSONFilesLoaded = numberOfJSONFilesLoaded;
+    public void incrementNumberOfJSONFilesLoaded() {
+        this.numberOfJSONFilesLoaded += 1;
     }
 
     public int getNumberOfUsersRegistered() {
         return numberOfUsersRegistered;
     }
 
-    public void setNumberOfUsersRegistered(int numberOfUsersRegistered) {
-        this.numberOfUsersRegistered = numberOfUsersRegistered;
-    }
-
-    public int getNumberOfMethodCalls() {
-        return numberOfMethodCalls;
-    }
-
-    public void setNumberOfMethodCalls(int numberOfMethodCalls) {
-        this.numberOfMethodCalls = numberOfMethodCalls;
+    public void incrementNumberOfUsersRegistered() {
+        this.numberOfUsersRegistered += 1;
     }
 
     public int getNumberOfLoggerCalls() {
         return numberOfLoggerCalls;
     }
 
-    public void setNumberOfLoggerCalls(int numberOfLoggerCalls) {
-        this.numberOfLoggerCalls = numberOfLoggerCalls;
+    public void incrementNumberOfLoggerCalls() {
+        this.numberOfLoggerCalls += 1;
     }
 
     public int getNumberOfSimulationMethodCalls() {
         return numberOfSimulationMethodCalls;
     }
 
-    public void setNumberOfSimulationMethodCalls(int numberOfSimulationMethodCalls) {
-        this.numberOfSimulationMethodCalls = numberOfSimulationMethodCalls;
+    public void incrementNumberOfSimulationMethodCalls() {
+        this.numberOfSimulationMethodCalls += 1;
     }
 }

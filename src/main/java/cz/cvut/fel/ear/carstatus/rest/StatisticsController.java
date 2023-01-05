@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
 import cz.cvut.fel.ear.carstatus.statistics.Statistics;
@@ -48,6 +49,7 @@ public class StatisticsController {
                 builder = builder.driver(driverService.find((int) filter.get("driver")));
                 builder = builder.start((String) filter.get("start"));
                 builder = builder.finish((String) filter.get("finish"));
+                DataClass.getInstance().incrementNumberOfStatisticsGenerated();
                 return factory.getStatistics(builder.build());
         } catch (Exception ignored) {
                 StringWriter sw = new StringWriter();

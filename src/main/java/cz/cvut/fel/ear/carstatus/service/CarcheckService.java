@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.CarCheckDao;
 import cz.cvut.fel.ear.carstatus.dao.MechanicDao;
 import cz.cvut.fel.ear.carstatus.dao.UserDao;
@@ -103,6 +104,7 @@ public class CarcheckService {
             liquidService.refillLiquid(liquid.getType());
         }
         createNewCarcheck(carcheck);
+        DataClass.getInstance().incrementNumberOfCarchecksMade();
         logger.log("Carcheck was done by mechanic "+mechanic.getUsername()+" successfully", ELoggerLevel.DEBUG);
     }
 

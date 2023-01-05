@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.DriverDao;
 import cz.cvut.fel.ear.carstatus.dao.RoadTripDao;
 import cz.cvut.fel.ear.carstatus.model.Driver;
@@ -42,6 +43,7 @@ public class DriverService {
         if (driver.getRole() == null) {
             driver.setRole(Constants.DEFAULT_ROLE);
         }
+        DataClass.getInstance().incrementNumberOfDriversAdded();
         dao.persist(driver);
     }
 
