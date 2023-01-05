@@ -72,7 +72,7 @@ public class LoadSimulationFromJSON implements ILoadSimulationFile {
                     roadService.persist(road);
                 } else if (isTyre(jsonObject)) {
                     Tyre tyre = new Tyre();
-                    tyre.setPosition((String) jsonObject.get("position"));
+                    tyre.setPosition(Integer.parseInt((String) jsonObject.get("position")));
                     tyre.setPressure((double) (long) jsonObject.get("pressure"));
                     tyre.setCondition((int) (long) jsonObject.get("condition"));
                     tyreService.createNewTyre(tyre);
