@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class SimulationService {
@@ -36,7 +37,7 @@ public class SimulationService {
     private final GenerateRoadCommand roadCommand;
 
     @Autowired
-    public SimulationService(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs, GenerateDriverCommand driverCommand, GenerateRoadCommand roadCommand) {
+    public SimulationService(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs, GenerateDriverCommand driverCommand, GenerateRoadCommand roadCommand, CarStateService carStateService) {
         this.driverCommand = driverCommand;
         this.roadCommand = roadCommand;
         this.rnd = new Random();
@@ -46,6 +47,7 @@ public class SimulationService {
         this.liquidService = ls;
         this.roadService = rs;
         this.batteryService = bs;
+        this.carStateService = carStateService;
     }
 
     public List<Road> generateRoads(int length) {
@@ -75,14 +77,15 @@ public class SimulationService {
             Roadtrip roadtrip = new Roadtrip();
             roadtrip.setWithMalfunction(false);
             roadtrip.setMaxSpeed(rnd.nextInt(150) + 50);
-            List<Roadpath> roadpathList = new ArrayList<>();
-            for (Road road : roads) {
-                Roadpath roadpath = new Roadpath();
-                roadpath.setRoadtrip(roadtrip);
-                roadpath.setRoad(road);
-                roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
-                roadpathList.add(roadpath);
-            }
+            List<Roadpath> roadpathList = roads.stream()
+                    .map(road -> {
+                        Roadpath roadpath = new Roadpath();
+                        roadpath.setRoadtrip(roadtrip);
+                        roadpath.setRoad(road);
+                        roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
+                        return roadpath;
+                    })
+                    .collect(Collectors.toList());
             roadtrip.setRoadpathList(roadpathList);
             roadtrip.setFinished(new Date());
             roadtrip.setDriver(driver);

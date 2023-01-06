@@ -1,6 +1,6 @@
 package cz.cvut.fel.ear.carstatus.webapp;
 
-import cz.cvut.fel.ear.carstatus.enums.EPermissionLevel;
+import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
 import cz.cvut.fel.ear.carstatus.service.CarStateService;
 import cz.cvut.fel.ear.carstatus.model.Liquid;
@@ -30,7 +30,17 @@ public class HomeController {
     public String home(@CurrentSecurityContext(expression="authentication?.name")
                            String username){
         String resultString = "";
-        resultString += "<p>Current user>: " + username + "</p>";
+        resultString += "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "  <link rel=\"stylesheet\" href=\"style.css\">\n" +
+                "  <meta http-equiv=\"refresh\" content=\"30\">"+
+                "</head>\n" +
+                "<body>";
+        resultString += "<div class='parent'>";
+        resultString += " <div class='child1'>";
+        resultString += "<h3>INFORMATION ABOUT APPLICATION:</h3>";
+        resultString += "<p>Current user: " + username + "</p>";
         List<Tyre> tyres = carStateService.getTyres();
         for (Tyre tyre :  tyres){
             if(tyre.getPosition() == 1){
@@ -38,8 +48,8 @@ public class HomeController {
                 resultString += "<p>Left front tyre current condition: " + tyre.getCondition() + "</p>";
             }
             if(tyre.getPosition() == 2){
-                resultString += "<p>Left back tyre current inflation:" + tyre.getPressure() + "</p>";
-                resultString += "<p>Left back tyre current condition:" + tyre.getCondition() + "</p>";
+                resultString += "<p>Left back tyre current inflation: " + tyre.getPressure() + "</p>";
+                resultString += "<p>Left back tyre current condition: " + tyre.getCondition() + "</p>";
             }
             if(tyre.getPosition() == 3){
                 resultString += "<p>Right front  tyre current inflation: " + tyre.getPressure() + "</p>";
@@ -50,6 +60,7 @@ public class HomeController {
                 resultString += "<p>Right back tyre current condition: " + tyre.getCondition() + "</p>";
             }
         }
+
 
         resultString += "<p>Current capacity condition: " + carStateService.getBattery().getCapacity() +"</p>";
         resultString += "<p>Current battery condition: " + carStateService.getBattery().getCondition() +"</p>";
@@ -62,6 +73,34 @@ public class HomeController {
                 resultString += "<p>Current level of braking liquid: " + liquid.getLevel() + "</p>";
             }
         }
+        resultString += "</div>";
+        resultString += " <div class='child2'>";
+
+        String statistics = "";
+        statistics += "<h3>STATISTICS:</h3>";
+        statistics += "<p> Number of logger calls: " + DataClass.getInstance().getNumberOfLoggerCalls();
+        statistics += "<p> Number of users registered: " + DataClass.getInstance().getNumberOfUsersRegistered();
+        statistics += "<p> Number of simulation method calls: " + DataClass.getInstance().getNumberOfSimulationMethodCalls();
+        statistics += "<p> Number of drivers generated: " + DataClass.getInstance().getNumberOfDriversGenerated();
+        statistics += "<p> Number of drivers added: " + DataClass.getInstance().getNumberOfDriversAdded();
+        statistics += "<p> Number of roads generated: " + DataClass.getInstance().getNumberOfRoadsGenerated();
+        statistics += "<p> Number of roads added: " + DataClass.getInstance().getNumberOfRoadsAdded();
+        statistics += "<p> Number of batteries added: " + DataClass.getInstance().getNumberOfBatteriesAdded();
+        statistics += "<p> Number of tyres added: " + DataClass.getInstance().getNumberOfTyresAdded();
+        statistics += "<p> Number of batteries charged: " + DataClass.getInstance().getNumberOfChargingBatteries();
+        statistics += "<p> Number of batteries changed: " + DataClass.getInstance().getNumberOfBatteriesChanged();
+        statistics += "<p> Number of car checks made: " + DataClass.getInstance().getNumberOfCarchecksMade();
+        statistics += "<p> Number of statistics generated: " + DataClass.getInstance().getNumberOfStatisticsGenerated();
+        statistics += "<p> Number of tyres inflated: " + DataClass.getInstance().getNumberOfTyresInflated();
+        statistics += "<p> Number of cooling liquid refills: " + DataClass.getInstance().getNumberOfCoolingLiquidRefills();
+        statistics += "<p> Number of braking liquid refills: " + DataClass.getInstance().getNumberOfBrakingLiquidReffils();
+        statistics += "<p> Number of CSV files loaded: " + DataClass.getInstance().getNumberOfCSVFilesLoaded();
+        statistics += "<p> Number of JSON files loaded: " + DataClass.getInstance().getNumberOfJSONFilesLoaded();
+
+        resultString += statistics;
+
+        resultString += "</div>";
+        resultString += " <div class='child-malfunction'>";
         resultString += carStateService.getNotifyMalfunctions().sendMessage("");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -75,6 +114,9 @@ public class HomeController {
                     "  <button value='submit' type=\"submit\" id=\"button\">Do a carcheck</button>\n" +
                     "</form>\n";
         }
+        resultString += "</div>";
+        resultString += "</div>";
+        resultString +=  "</body>\n" + "</html>";
         return resultString;
     }
 
