@@ -11,6 +11,6 @@ public class LowTyrePressureDecorator extends BaseDecorator {
 
     @Override
     public String sendMessage(String message) {
-        return super.sendMessage(message + "<p>Low tyre pressure</p>");
+        return super.sendMessage(message + "<p color='red'>Low tyre pressure</p>");
     }
 }

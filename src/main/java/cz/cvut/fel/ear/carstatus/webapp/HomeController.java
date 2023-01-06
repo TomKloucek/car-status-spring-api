@@ -6,11 +6,18 @@ import cz.cvut.fel.ear.carstatus.service.CarStateService;
 import cz.cvut.fel.ear.carstatus.model.Liquid;
 import cz.cvut.fel.ear.carstatus.model.Tyre;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 public class HomeController {
@@ -92,11 +99,21 @@ public class HomeController {
 
         resultString += statistics;
 
-
-
         resultString += "</div>";
         resultString += " <div class='child-malfunction'>";
         resultString += carStateService.getNotifyMalfunctions().sendMessage("");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Set<String> roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+        if (roles.contains("ROLE_MECHANIC")) {
+            ServletUriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentRequestUri();
+            builder.scheme("http");
+            URI newUri = builder.build().toUri();
+            resultString += "<form id=\"form\" method=\"post\" action="+newUri+"rest/mechanic/make-carcheck"+">\n" +
+                    "  <button value='submit' type=\"submit\" id=\"button\">Do a carcheck</button>\n" +
+                    "</form>\n";
+        }
         resultString += "</div>";
         resultString += "</div>";
         resultString +=  "</body>\n" + "</html>";

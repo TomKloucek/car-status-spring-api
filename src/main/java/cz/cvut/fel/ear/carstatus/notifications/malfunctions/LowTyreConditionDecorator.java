@@ -11,6 +11,6 @@ public class LowTyreConditionDecorator extends BaseDecorator {
 
     @Override
     public String sendMessage(String message) {
-        return super.sendMessage(message + "<p>Low tyre condition</p>");
+        return super.sendMessage(message + "<p color='red'>Low tyre condition</p>");
     }
 }

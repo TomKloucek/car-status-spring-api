@@ -10,6 +10,6 @@ public class LowBrakingLiquidDecorator extends BaseDecorator {
 
     @Override
     public String sendMessage(String message) {
-        return super.sendMessage(message + "<p>Low braking liquid level</p>");
+        return super.sendMessage(message + "<p color='red'>Low braking liquid level</p>");
     }
 }

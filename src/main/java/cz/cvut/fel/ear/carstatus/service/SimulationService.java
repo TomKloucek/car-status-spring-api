@@ -30,13 +30,14 @@ public class SimulationService {
 
     private RoadPathService roadPathService;
     private BatteryService batteryService;
+    private CarStateService carStateService;
     private ICommand command;
 
     private final GenerateDriverCommand driverCommand;
     private final GenerateRoadCommand roadCommand;
 
     @Autowired
-    public SimulationService(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs, GenerateDriverCommand driverCommand, GenerateRoadCommand roadCommand) {
+    public SimulationService(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs, GenerateDriverCommand driverCommand, GenerateRoadCommand roadCommand, CarStateService carStateService) {
         this.driverCommand = driverCommand;
         this.roadCommand = roadCommand;
         this.rnd = new Random();
@@ -46,6 +47,7 @@ public class SimulationService {
         this.liquidService = ls;
         this.roadService = rs;
         this.batteryService = bs;
+        this.carStateService = carStateService;
     }
 
     public List<Road> generateRoads(int length) {
@@ -66,31 +68,35 @@ public class SimulationService {
     }
 
     public void generateOneRoadTrip() {
-        DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
-        List<Driver> drivers = driverService.findAll();
-        Driver driver = drivers.get(rnd.nextInt(drivers.size()));
-        int tripLength = rnd.nextInt(5)+1;
-        List<Road> roads = this.generateRoads(tripLength);
-        Roadtrip roadtrip = new Roadtrip();
-        roadtrip.setWithMalfunction(false);
-        roadtrip.setMaxSpeed(rnd.nextInt(150)+50);
-        List<Roadpath> roadpathList = roads.stream()
-                .map(road -> {
-                    Roadpath roadpath = new Roadpath();
-                    roadpath.setRoadtrip(roadtrip);
-                    roadpath.setRoad(road);
-                    roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
-                    return roadpath;
-                })
-                .collect(Collectors.toList());
-        roadtrip.setRoadpathList(roadpathList);
-        roadtrip.setFinished(new Date());
-        roadtrip.setDriver(driver);
-        updateCarLiquids(tripLength);
-        updateBattery(tripLength);
-        roadTripService.persist(roadtrip);
-        for (Roadpath rp : roadpathList) {
-            roadPathService.persist(rp);
+        if(carStateService.isPossibleToDrive()) {
+            DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
+            List<Driver> drivers = driverService.findAll();
+            Driver driver = drivers.get(rnd.nextInt(drivers.size()));
+            int tripLength = rnd.nextInt(5) + 1;
+            List<Road> roads = this.generateRoads(tripLength);
+            Roadtrip roadtrip = new Roadtrip();
+            roadtrip.setWithMalfunction(false);
+            roadtrip.setMaxSpeed(rnd.nextInt(150) + 50);
+            List<Roadpath> roadpathList = roads.stream()
+                    .map(road -> {
+                        Roadpath roadpath = new Roadpath();
+                        roadpath.setRoadtrip(roadtrip);
+                        roadpath.setRoad(road);
+                        roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
+                        return roadpath;
+                    })
+                    .collect(Collectors.toList());
+            roadtrip.setRoadpathList(roadpathList);
+            roadtrip.setFinished(new Date());
+            roadtrip.setDriver(driver);
+            updateCarLiquids(tripLength);
+            updateBattery(tripLength);
+            roadTripService.persist(roadtrip);
+            for (Roadpath rp : roadpathList) {
+                roadPathService.persist(rp);
+            }
+        } else {
+            // TODO logger a neco udelat treba to predelat na boolean a kdyztak vratit nejakej vysledek
         }
     }
 

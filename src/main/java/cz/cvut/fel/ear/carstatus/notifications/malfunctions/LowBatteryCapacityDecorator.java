@@ -10,6 +10,6 @@ public class LowBatteryCapacityDecorator extends BaseDecorator {
 
     @Override
     public String sendMessage(String message) {
-        return super.sendMessage(message + "<p>Low battery capacity</p>");
+        return super.sendMessage(message + "<p color='red'>Low battery capacity</p>");
     }
 }
