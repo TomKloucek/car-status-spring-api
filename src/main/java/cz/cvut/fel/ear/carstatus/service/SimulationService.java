@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class SimulationService {
@@ -73,14 +74,15 @@ public class SimulationService {
         Roadtrip roadtrip = new Roadtrip();
         roadtrip.setWithMalfunction(false);
         roadtrip.setMaxSpeed(rnd.nextInt(150)+50);
-        List<Roadpath> roadpathList = new ArrayList<>();
-        for (Road road : roads) {
-            Roadpath roadpath = new Roadpath();
-            roadpath.setRoadtrip(roadtrip);
-            roadpath.setRoad(road);
-            roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
-            roadpathList.add(roadpath);
-        }
+        List<Roadpath> roadpathList = roads.stream()
+                .map(road -> {
+                    Roadpath roadpath = new Roadpath();
+                    roadpath.setRoadtrip(roadtrip);
+                    roadpath.setRoad(road);
+                    roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
+                    return roadpath;
+                })
+                .collect(Collectors.toList());
         roadtrip.setRoadpathList(roadpathList);
         roadtrip.setFinished(new Date());
         roadtrip.setDriver(driver);
