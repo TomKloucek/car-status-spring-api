@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
 import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
 import cz.cvut.fel.ear.carstatus.log.Logger;
@@ -25,9 +26,8 @@ public class CarStateService {
     private List<Liquid> liquids;
     private List<Tyre> tyres;
     private List<Seat> seats;
-    private Logger logger;
     private Driver currentDriver;
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = new Logger();
 
     private final BatteryService batteryService;
 
@@ -53,6 +53,7 @@ public class CarStateService {
     }
 
     public boolean isPossibleToDrive() {
+        logger.log("Application checked if it is possible to drive the car.", ELoggerLevel.INFO);
         return malfunctions.isEmpty();
     }
 
@@ -62,21 +63,27 @@ public class CarStateService {
                 .forEach(malfunction -> {
                     switch (malfunction) {
                         case LOWTYREPRESSURE:
+                            logger.log("Low tyre pressure was discovered.", ELoggerLevel.INFO);
                             notifyMalfunctions = new LowTyrePressureDecorator(notifyMalfunctions);
                             break;
                         case LOWBRAKINGLIQUID:
+                            logger.log("Low braking liquid level was discovered.", ELoggerLevel.INFO);
                             notifyMalfunctions = new LowBrakingLiquidDecorator(notifyMalfunctions);
                             break;
                         case LOWBATTERYCAPACITY:
+                            logger.log("Low battery capacity was discovered.", ELoggerLevel.INFO);
                             notifyMalfunctions = new LowBatteryCapacityDecorator(notifyMalfunctions);
                             break;
                         case LOWBATTERYCONDITION:
+                            logger.log("Low battery condition was discovered.", ELoggerLevel.INFO);
                             notifyMalfunctions = new LowBatteryConditionDecorator(notifyMalfunctions);
                             break;
                         case LOWCOOLINGLIQUID:
+                            logger.log("Low cooling liquid level was discovered.", ELoggerLevel.INFO);
                             notifyMalfunctions = new LowCoolingLiquidDecorator(notifyMalfunctions);
                             break;
                         case LOWTYRECONDITION:
+                            logger.log("Low tyre condition was discovered.", ELoggerLevel.INFO);
                             notifyMalfunctions = new LowTyreConditionDecorator(notifyMalfunctions);
                             break;
                     }
@@ -90,6 +97,7 @@ public class CarStateService {
                 .map(observer -> observer.update(this))
                 .filter(Objects::nonNull)
                 .forEach(malfunction -> malfunctions.add(malfunction));
+        logger.log("Malfunctions were updated.", ELoggerLevel.INFO);
     }
 
     public Battery getBattery() {

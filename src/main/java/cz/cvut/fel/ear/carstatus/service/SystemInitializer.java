@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.model.Admin;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Role;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Component
 public class SystemInitializer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SystemInitializer.class);
+    private final cz.cvut.fel.ear.carstatus.log.Logger logger = new cz.cvut.fel.ear.carstatus.log.Logger();
 
     /**
      * Default admin username
@@ -46,6 +47,7 @@ public class SystemInitializer {
             generateAdmin();
             return null;
         });
+        logger.log("System was successfully initialized.", ELoggerLevel.INFO);
     }
 
     /**
@@ -64,8 +66,7 @@ public class SystemInitializer {
         admin.setRole(Role.ADMIN);
         admin.setExpires(new Date());
 
-        LOG.info("Generated admin user with credentials " + admin.getUsername() + "/" + admin.getPassword() + admin.getRole());
+        logger.log("Generated admin user with credentials " + admin.getUsername() + "/" + admin.getPassword() + admin.getRole(), ELoggerLevel.INFO);
         userService.persist(admin);
-
     }
 }

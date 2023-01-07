@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.carstatus.log;
 
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.exception.EarException;
 import cz.cvut.fel.ear.carstatus.rest.UserController;
 import cz.cvut.fel.ear.carstatus.util.Constants;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class Logger {
             fileAccess.closeFile();
             fileAccessPool.releaseFileAccess(fileAccess);
         } catch (Exception e) {
-            // TODO
+            throw new EarException("Could not access file.");
         }
     }
 }

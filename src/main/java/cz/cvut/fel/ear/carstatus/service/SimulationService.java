@@ -4,7 +4,9 @@ import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.commands.GenerateDriverCommand;
 import cz.cvut.fel.ear.carstatus.commands.GenerateRoadCommand;
 import cz.cvut.fel.ear.carstatus.enums.ECommand;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.interfaces.ICommand;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +22,15 @@ public class SimulationService {
 
     private Random rnd;
 
+    private final Logger logger = new Logger();
+
     private DriverService driverService;
 
     private RoadService roadService;
 
     private LiquidService liquidService;
+
+    private TyreService tyreService;
 
     private RoadTripService roadTripService;
 
@@ -37,7 +43,8 @@ public class SimulationService {
     private final GenerateRoadCommand roadCommand;
 
     @Autowired
-    public SimulationService(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs, GenerateDriverCommand driverCommand, GenerateRoadCommand roadCommand, CarStateService carStateService) {
+    public SimulationService(DriverService ds, RoadTripService rts, RoadPathService rps, LiquidService ls, RoadService rs, BatteryService bs, GenerateDriverCommand driverCommand, GenerateRoadCommand roadCommand, CarStateService carStateService,
+    TyreService tyreservice) {
         this.driverCommand = driverCommand;
         this.roadCommand = roadCommand;
         this.rnd = new Random();
@@ -46,6 +53,7 @@ public class SimulationService {
         this.roadTripService = rts;
         this.liquidService = ls;
         this.roadService = rs;
+        this.tyreService = tyreservice;
         this.batteryService = bs;
         this.carStateService = carStateService;
     }
@@ -61,6 +69,7 @@ public class SimulationService {
             for (Road r : roads) {
                 if (r.getStartingPoint().equals(end)) {
                     result.add(r);
+                    logger.log("New road from "+r.getStartingPoint()+ " to " + r.getEndPoint() +" was generated.", ELoggerLevel.INFO);
                 }
             }
         }
@@ -68,36 +77,43 @@ public class SimulationService {
     }
 
     public void generateOneRoadTrip() {
-        if(carStateService.isPossibleToDrive()) {
-            DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
-            List<Driver> drivers = driverService.findAll();
-            Driver driver = drivers.get(rnd.nextInt(drivers.size()));
-            int tripLength = rnd.nextInt(5) + 1;
-            List<Road> roads = this.generateRoads(tripLength);
-            Roadtrip roadtrip = new Roadtrip();
-            roadtrip.setWithMalfunction(false);
-            roadtrip.setMaxSpeed(rnd.nextInt(150) + 50);
-            List<Roadpath> roadpathList = roads.stream()
-                    .map(road -> {
-                        Roadpath roadpath = new Roadpath();
-                        roadpath.setRoadtrip(roadtrip);
-                        roadpath.setRoad(road);
-                        roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
-                        return roadpath;
-                    })
-                    .collect(Collectors.toList());
-            roadtrip.setRoadpathList(roadpathList);
-            roadtrip.setFinished(new Date());
-            roadtrip.setDriver(driver);
-            updateCarLiquids(tripLength);
-            updateBattery(tripLength);
-            roadTripService.persist(roadtrip);
-            for (Roadpath rp : roadpathList) {
-                roadPathService.persist(rp);
-            }
-        } else {
-            // TODO logger a neco udelat treba to predelat na boolean a kdyztak vratit nejakej vysledek
+        DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
+        List<Driver> drivers = driverService.findAll();
+        Driver driver = drivers.get(rnd.nextInt(drivers.size()));
+        int tripLength = rnd.nextInt(5) + 1;
+        List<Road> roads = this.generateRoads(tripLength);
+        Roadtrip roadtrip = new Roadtrip();
+        roadtrip.setWithMalfunction(false);
+        roadtrip.setMaxSpeed(rnd.nextInt(150) + 50);
+        logger.log("Max speed was set to : " + roadtrip.getMaxSpeed() +".", ELoggerLevel.INFO);
+        List<Roadpath> roadpathList = roads.stream()
+                .map(road -> {
+                    Roadpath roadpath = new Roadpath();
+                    roadpath.setRoadtrip(roadtrip);
+                    logger.log("Road trip was set.", ELoggerLevel.INFO);
+                    roadpath.setRoad(road);
+                    logger.log("Road trip road was set.", ELoggerLevel.INFO);
+                    roadpath.setAverageSpeed(rnd.nextInt((roadtrip.getMaxSpeed() - 25) + 1) + 25);
+                    logger.log("Road trip average speed was set to: " + roadpath.getAverageSpeed() + ".", ELoggerLevel.INFO);
+                    return roadpath;
+                })
+                .collect(Collectors.toList());
+        roadtrip.setRoadpathList(roadpathList);
+        Date date = new Date();
+        roadtrip.setFinished(date);
+        logger.log("Road trip length was: "+ tripLength + ".", ELoggerLevel.INFO);
+        logger.log("Road trip finish date was set to: "+ date.toString() + ".", ELoggerLevel.INFO);
+        roadtrip.setDriver(driver);
+        updateCarLiquids(tripLength);
+        updateBattery(tripLength);
+        updateTyres(tripLength);
+        roadTripService.persist(roadtrip);
+        for (Roadpath rp : roadpathList) {
+            roadPathService.persist(rp);
         }
+        logger.log("New road trip was generated.", ELoggerLevel.INFO);
+        logger.log("Car drove one more trip.",ELoggerLevel.INFO);
+
     }
 
     private void updateCarLiquids(int roadLength) {
@@ -110,11 +126,20 @@ public class SimulationService {
     private void updateBattery(int roadLength) {
         Battery battery = batteryService.getCurrentBattery();
         battery.setCondition((int) (battery.getCondition()-(roadLength*0.25)));
-        battery.setCapacity((int) (battery.getCapacity()-(roadLength*0.7)));
+        battery.setCapacity((int) (battery.getCapacity()-(roadLength*1)));
         batteryService.updateBattery(battery);
+    }
+    private void updateTyres(int roadLength) {
+        List <Tyre> tyres = tyreService.getCurrentTyres();
+        for(Tyre tyre : tyres){
+            tyre.setCondition((int) (tyre.getCondition()-(roadLength*0.0001)*rnd.nextInt(20)));
+            tyre.setPressure((int) (tyre.getPressure()-(roadLength*0.003)*rnd.nextInt(50)));
+            tyreService.updateTyre(tyre);
+        }
     }
 
     public void setCommand(ECommand command) {
+        logger.log("Command was set to: " +command.name() +".",ELoggerLevel.INFO);
         switch (command) {
             case ROAD:
                 this.command = roadCommand;
@@ -128,6 +153,7 @@ public class SimulationService {
     }
 
     public void executeCommand() {
+        logger.log("Command was executed.",ELoggerLevel.INFO);
         command.execute();
     }
 }

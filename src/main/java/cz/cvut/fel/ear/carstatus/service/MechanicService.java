@@ -2,6 +2,8 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.dao.CarCheckDao;
 import cz.cvut.fel.ear.carstatus.dao.MechanicDao;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Carcheck;
 import cz.cvut.fel.ear.carstatus.model.Mechanic;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import java.util.List;
 @Service
 public class MechanicService {
     private final MechanicDao dao;
+    private final Logger logger = new Logger();
+
 
     public MechanicService(MechanicDao dao) {
         this.dao = dao;
@@ -19,11 +23,13 @@ public class MechanicService {
 
     @Transactional(readOnly = true)
     public Mechanic find(Integer id) {
+        logger.log("Application found mechanic with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 
-    @javax.transaction.Transactional
+    @Transactional
     public List<Mechanic> findAll() {
+        logger.log("Application found all mechanics in database.", ELoggerLevel.INFO);
         return dao.findAll();
     }
 }
