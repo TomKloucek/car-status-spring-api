@@ -85,9 +85,9 @@ public class BatteryController {
     }
 
     @PreAuthorize("hasAnyRole('MECHANIC', 'DRIVER')")
-    @PostMapping(value = "/charge", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/charge")
     @ResponseStatus(HttpStatus.CREATED)
-    public void chargeCurrentBattery(@RequestBody(required = false) Battery battery) {
+    public void chargeCurrentBattery() {
         batteryService.chargeBattery();
     }
 }

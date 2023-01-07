@@ -58,6 +58,7 @@ public class BatteryService {
         return true;
     }
 
+    @Transactional
     public void chargeBattery(){
         if(batteryIsFunctional()){
             getCurrentBattery().setCapacity(100);

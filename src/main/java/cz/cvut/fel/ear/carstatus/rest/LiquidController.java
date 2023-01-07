@@ -43,13 +43,13 @@ public class LiquidController {
     }
 
     @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
-    @PutMapping(value = "/cooling/refill", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/cooling/refill")
     public void refillCoolingLiquid() {
         liquidService.refillLiquid("cooling");
     }
 
     @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
-    @PutMapping(value = "/braking/refill", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/braking/refill")
     public void refillBrakingLiquid() {
         liquidService.refillLiquid("braking");
     }

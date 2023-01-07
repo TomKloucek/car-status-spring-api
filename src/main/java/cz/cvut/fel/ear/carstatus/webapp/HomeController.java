@@ -29,12 +29,15 @@ public class HomeController {
     @GetMapping
     public String home(@CurrentSecurityContext(expression="authentication?.name")
                            String username){
+        carStateService.updateMalfunctionality();
         String resultString = "";
         resultString += "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +
                 "  <link rel=\"stylesheet\" href=\"style.css\">\n" +
-                "  <meta http-equiv=\"refresh\" content=\"30\">"+
+                " <script src=\"library.js\"></script>\n" +
+                "    <script src=\"app.js\"></script>" +
+                "  <meta http-equiv=\"refresh\" content=\"5\">"+
                 "</head>\n" +
                 "<body>";
         resultString += "<div class='parent'>";
@@ -44,33 +47,33 @@ public class HomeController {
         List<Tyre> tyres = carStateService.getTyres();
         for (Tyre tyre :  tyres){
             if(tyre.getPosition() == 1){
-                resultString += "<p>Left front tyre current inflation: " + tyre.getPressure() + "</p>";
-                resultString += "<p>Left front tyre current condition: " + tyre.getCondition() + "</p>";
+                resultString += "<p>Left front tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
+                resultString += "<p>Left front tyre current condition: " + tyre.getCondition() + " %" + "</p>";
             }
-            if(tyre.getPosition() == 2){
-                resultString += "<p>Left back tyre current inflation: " + tyre.getPressure() + "</p>";
-                resultString += "<p>Left back tyre current condition: " + tyre.getCondition() + "</p>";
+            else if(tyre.getPosition() == 3){
+                resultString += "<p>Right front  tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
+                resultString += "<p>Right front tyre current condition: " + tyre.getCondition() + " %" + "</p>";
             }
-            if(tyre.getPosition() == 3){
-                resultString += "<p>Right front  tyre current inflation: " + tyre.getPressure() + "</p>";
-                resultString += "<p>Right front tyre current condition: " + tyre.getCondition() + "</p>";
+            else if(tyre.getPosition() == 2){
+                resultString += "<p>Left back tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
+                resultString += "<p>Left back tyre current condition: " + tyre.getCondition() + " %" + "</p>";
             }
-            if(tyre.getPosition() == 4){
-                resultString += "<p>Right back tyre current inflation: " + tyre.getPressure() + "</p>";
-                resultString += "<p>Right back tyre current condition: " + tyre.getCondition() + "</p>";
+            else if(tyre.getPosition() == 4){
+                resultString += "<p>Right back tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
+                resultString += "<p>Right back tyre current condition: " + tyre.getCondition() + " %" + "</p>";
             }
         }
 
 
-        resultString += "<p>Current capacity condition: " + carStateService.getBattery().getCapacity() +"</p>";
-        resultString += "<p>Current battery condition: " + carStateService.getBattery().getCondition() +"</p>";
+        resultString += "<p>Current battery capacity: " + carStateService.getBattery().getCapacity() + " %" + "</p>";
+        resultString += "<p>Current battery condition: " + carStateService.getBattery().getCondition() + " %"  +"</p>";
         List <Liquid> liquids = carStateService.getLiquids();
         for(Liquid liquid : liquids){
             if(liquid.getType() == "cooling"){
-                resultString += "<p>Current level of cooling liquid: " + liquid.getLevel() + "</p>";
+                resultString += "<p>Current level of cooling liquid: " + liquid.getLevel() + " %" + "</p>";
             }
             if(liquid.getType() == "braking"){
-                resultString += "<p>Current level of braking liquid: " + liquid.getLevel() + "</p>";
+                resultString += "<p>Current level of braking liquid: " + liquid.getLevel() + " %" + "</p>";
             }
         }
         resultString += "</div>";
@@ -113,6 +116,12 @@ public class HomeController {
             resultString += "<form id=\"form\" method=\"post\" action="+newUri+"rest/mechanic/make-carcheck"+">\n" +
                     "  <button value='submit' type=\"submit\" id=\"button\">Do a carcheck</button>\n" +
                     "</form>\n";
+            resultString += "<button onclick=\"inflateTyres()\">Inflate tyres</button>";
+            resultString += "<button onclick=\"inflateTyres()\">Recharge battery</button>";
+        }
+        else if (roles.contains("ROLE_DRIVER")) {
+            resultString += "<button onclick=\"inflateTyres()\">Inflate tyres</button>";
+            resultString += "<button onclick=\"rechargeBattery()\">Recharge battery</button>";
         }
         resultString += "</div>";
         resultString += "</div>";

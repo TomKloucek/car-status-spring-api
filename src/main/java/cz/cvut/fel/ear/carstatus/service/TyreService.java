@@ -71,6 +71,7 @@ public class TyreService {
         logger.log("Tyre with id "+ id.toString()+" was inflated.", ELoggerLevel.DEBUG);
     }
 
+    @Transactional
     public void inflateTyres() {
         for (Tyre tyre : getCurrentTyres()) {
             tyre.setPressure(33);
