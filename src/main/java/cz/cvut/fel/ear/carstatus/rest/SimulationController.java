@@ -49,7 +49,7 @@ public class SimulationController {
         if(carBrokeDown){
             logger.log("Car was able to drive " + DataClass.getInstance().getNumberOfSimulationMethodCalls() + " trips before it broke down.", ELoggerLevel.INFO);
         }
-        logger.log(SecurityContextHolder.getContext().getAuthentication().getPrincipal()+" generated "+DataClass.getInstance().getNumberOfSimulationMethodCalls()+" roadtrips using API", ELoggerLevel.INFO);
+        logger.log(SecurityContextHolder.getContext().getAuthentication().getName()+" generated "+DataClass.getInstance().getNumberOfSimulationMethodCalls()+" roadtrips using API", ELoggerLevel.INFO);
     }
 
     @PostMapping(value = "/")
