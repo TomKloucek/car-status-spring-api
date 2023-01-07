@@ -69,10 +69,10 @@ public class HomeController {
         resultString += "<p>Current battery condition: " + carStateService.getBattery().getCondition() + " %"  +"</p>";
         List <Liquid> liquids = carStateService.getLiquids();
         for(Liquid liquid : liquids){
-            if(liquid.getType() == "cooling"){
+            if(liquid.getType().equals( "cooling")){
                 resultString += "<p>Current level of cooling liquid: " + liquid.getLevel() + " %" + "</p>";
             }
-            if(liquid.getType() == "braking"){
+            if(liquid.getType().equals("braking")){
                 resultString += "<p>Current level of braking liquid: " + liquid.getLevel() + " %" + "</p>";
             }
         }
@@ -116,12 +116,16 @@ public class HomeController {
             resultString += "<form id=\"form\" method=\"post\" action="+newUri+"rest/mechanic/make-carcheck"+">\n" +
                     "  <button value='submit' type=\"submit\" id=\"button\">Do a carcheck</button>\n" +
                     "</form>\n";
-            resultString += "<button onclick=\"inflateTyres()\">Inflate tyres</button>";
-            resultString += "<button onclick=\"inflateTyres()\">Recharge battery</button>";
+            resultString += "<p><button onclick=\"inflateTyres()\">Inflate tyres</button></p>";
+            resultString += "<p><button onclick=\"rechargeBattery()\">Recharge battery</button></p>";
+            resultString += "<p><button onclick=\"refillBrakingLiquid()\">Refill braking liquid</button></p>";
+            resultString += "<p><button onclick=\"refillCoolingLiquid()\">Refill cooling liquid</button></p>";
         }
         else if (roles.contains("ROLE_DRIVER")) {
-            resultString += "<button onclick=\"inflateTyres()\">Inflate tyres</button>";
-            resultString += "<button onclick=\"rechargeBattery()\">Recharge battery</button>";
+            resultString += "<p><button onclick=\"inflateTyres()\">Inflate tyres</button></p>";
+            resultString += "<p><button onclick=\"rechargeBattery()\">Recharge battery</button></p>";
+            resultString += "<p><button onclick=\"refillBrakingLiquid()\">Refill braking liquid</button></p>";
+            resultString += "<p><button onclick=\"refillCoolingLiquid()\">Refill cooling liquid</button></p>";
         }
         resultString += "</div>";
         resultString += "</div>";

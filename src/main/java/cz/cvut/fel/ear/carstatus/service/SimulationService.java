@@ -118,7 +118,12 @@ public class SimulationService {
 
     private void updateCarLiquids(int roadLength) {
         for (Liquid l : liquidService.findAll()) {
-            l.setLevel(l.getLevel()-roadLength*2);
+            if(l.getType().equals("braking") && l.getLevel()-roadLength*2 > 0){
+                l.setLevel(l.getLevel()-roadLength*2);
+            }
+            else if (l.getType().equals("cooling") && l.getLevel()-roadLength*1 > 0){
+                l.setLevel(l.getLevel()-roadLength*1);
+            }
             liquidService.update(l);
         }
     }
@@ -126,14 +131,20 @@ public class SimulationService {
     private void updateBattery(int roadLength) {
         Battery battery = batteryService.getCurrentBattery();
         battery.setCondition((int) (battery.getCondition()-(roadLength*0.25)));
-        battery.setCapacity((int) (battery.getCapacity()-(roadLength*1)));
+        int subtractedAmount = roadLength*rnd.nextInt(20);
+        while (battery.getCapacity()-subtractedAmount < 0){
+            subtractedAmount = roadLength*rnd.nextInt(20);
+        }
+        if(battery.getCapacity()-subtractedAmount > 0){
+            battery.setCapacity((int) (battery.getCapacity()-subtractedAmount));
+        }
         batteryService.updateBattery(battery);
     }
     private void updateTyres(int roadLength) {
         List <Tyre> tyres = tyreService.getCurrentTyres();
         for(Tyre tyre : tyres){
             tyre.setCondition((int) (tyre.getCondition()-(roadLength*0.0001)*rnd.nextInt(20)));
-            tyre.setPressure((int) (tyre.getPressure()-(roadLength*0.003)*rnd.nextInt(50)));
+            tyre.setPressure((int) (tyre.getPressure()-(roadLength*0.002)*rnd.nextInt(40)));
             tyreService.updateTyre(tyre);
         }
     }

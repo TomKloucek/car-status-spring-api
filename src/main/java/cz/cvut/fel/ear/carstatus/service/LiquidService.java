@@ -52,9 +52,9 @@ public class LiquidService {
     @Transactional
     public void refillLiquid(String type) {
         final Liquid refill = dao.findByType(type);
-        if(type == "cooling"){
+        if(type.equals("cooling")){
             DataClass.getInstance().incrementNumberOfCoolingLiquidRefills();
-        } else if (type == "braking") {
+        } else if (type.equals("braking")) {
             DataClass.getInstance().incrementNumberOfBrakingLiquidReffils();
         }
         refill.setLevel(100);

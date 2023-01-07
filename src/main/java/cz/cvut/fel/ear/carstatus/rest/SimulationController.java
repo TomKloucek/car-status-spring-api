@@ -36,10 +36,13 @@ public class SimulationController {
     @PutMapping(value = "/{number}",produces = MediaType.APPLICATION_JSON_VALUE)
     public void simulateNTimes(@PathVariable Integer number) {
         boolean carBrokeDown = false;
+        int tripsGenerated = 0;
         for (int i = 0; i < number; i++) {
+            carStateService.updateMalfunctionality();
             if(carStateService.isPossibleToDrive()) {
                 simulation.generateOneRoadTrip();
                 carStateService.updateMalfunctionality();
+                tripsGenerated += 1;
             }
             else {
                 carBrokeDown = true;
@@ -47,9 +50,9 @@ public class SimulationController {
             }
         }
         if(carBrokeDown){
-            logger.log("Car was able to drive " + DataClass.getInstance().getNumberOfSimulationMethodCalls() + " trips before it broke down.", ELoggerLevel.INFO);
+            logger.log("Car was able to drive " + tripsGenerated + " trips before it broke down.", ELoggerLevel.INFO);
         }
-        logger.log(SecurityContextHolder.getContext().getAuthentication().getName()+" generated "+DataClass.getInstance().getNumberOfSimulationMethodCalls()+" roadtrips using API", ELoggerLevel.INFO);
+        logger.log(SecurityContextHolder.getContext().getAuthentication().getName()+" generated "+tripsGenerated+" roadtrips using API", ELoggerLevel.INFO);
     }
 
     @PostMapping(value = "/")
