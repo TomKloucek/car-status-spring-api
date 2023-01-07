@@ -1,9 +1,15 @@
 package cz.cvut.fel.ear.carstatus.util;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Helpers {
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
@@ -12,6 +18,13 @@ public class Helpers {
         } else {
             return 0;
         }
+    }
+
+    public static boolean currentUserIsDriver() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Set<String> roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+        return roles.contains("ROLE_DRIVER");
     }
 
     public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {

@@ -24,6 +24,7 @@ public class Roadtrip extends AbstractEntity{
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "roadtrip_id")
+    @OrderBy("road.length")
     private List<Roadpath> roadpathList;
 
     @ManyToOne

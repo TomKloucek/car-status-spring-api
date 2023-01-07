@@ -77,7 +77,6 @@ public class Mechanic extends User {
                 ", operatingTo=" + operatingTo +
                 ", phoneNumber=" + phoneNumber +
                 ", carcheckList=" + carcheckList +
-//                ", user=" + user +
                 '}';
     }
 }

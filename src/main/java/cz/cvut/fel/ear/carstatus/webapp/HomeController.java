@@ -26,6 +26,7 @@ public class HomeController {
         this.carStateService = carStateService;
     }
 
+    @PreAuthorize("hasRole('DRIVER') || hasRole('MECHANIC') || hasRole('ADMIN')")
     @GetMapping
     public String home(@CurrentSecurityContext(expression="authentication?.name")
                            String username){
@@ -37,7 +38,7 @@ public class HomeController {
                 "  <link rel=\"stylesheet\" href=\"style.css\">\n" +
                 " <script src=\"library.js\"></script>\n" +
                 "    <script src=\"app.js\"></script>" +
-                "  <meta http-equiv=\"refresh\" content=\"5\">"+
+                "  <meta http-equiv=\"refresh\" content=\"50\">"+
                 "</head>\n" +
                 "<body>";
         resultString += "<div class='parent'>";
@@ -67,6 +68,9 @@ public class HomeController {
 
         resultString += "<p>Current battery capacity: " + carStateService.getBattery().getCapacity() + " %" + "</p>";
         resultString += "<p>Current battery condition: " + carStateService.getBattery().getCondition() + " %"  +"</p>";
+        if (carStateService.getDriversSeat() != null) {
+            resultString += "<p>Current seat position capacity: [ vertical=" + carStateService.getDriversSeat().getVerticalPosition() + " | horizontal=" + carStateService.getDriversSeat().getHorizontalPosition() + " ]" + "</p>";
+        }
         List <Liquid> liquids = carStateService.getLiquids();
         for(Liquid liquid : liquids){
             if(liquid.getType().equals( "cooling")){
@@ -127,6 +131,24 @@ public class HomeController {
             resultString += "<p><button onclick=\"refillBrakingLiquid()\">Refill braking liquid</button></p>";
             resultString += "<p><button onclick=\"refillCoolingLiquid()\">Refill cooling liquid</button></p>";
         }
+        if (roles.contains("ROLE_DRIVER")) {
+            resultString += "<h2 style='color: black;'>Change driver seat position:</h2>";
+            resultString += "<div class='flexbox'>";
+            resultString += "<div class='flex-button'>";
+            resultString += "<button onclick=\"changePosition('up')\">↑</button>";
+            resultString += "</div>";
+            resultString += "<div class='flex-button'>";
+            resultString += "<button onclick=\"changePosition('left')\">←</button>";
+            resultString += "</div>";
+            resultString += "<div class='flex-button'>";
+            resultString += "<button onclick=\"changePosition('right')\">→</button>";
+            resultString += "</div>";
+            resultString += "<div class='flex-button'>";
+            resultString += "<button onclick=\"changePosition('down')\">↓</button>";
+            resultString += "</div>";
+            resultString += "</div>";
+        }
+        resultString += "<p><button onclick=\"genRoadTrip()\">Generate roadtrip</button></p>";
         resultString += "</div>";
         resultString += "</div>";
         resultString +=  "</body>\n" + "</html>";

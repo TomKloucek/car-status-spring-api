@@ -9,9 +9,8 @@ import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
 import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
 import cz.cvut.fel.ear.carstatus.notifications.Notifier;
 import cz.cvut.fel.ear.carstatus.observers.*;
-import cz.cvut.fel.ear.carstatus.rest.UserController;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ public class CarStateService {
     private List<Liquid> liquids;
     private List<Tyre> tyres;
     private List<Seat> seats;
+    private Seat driversSeat;
     private Driver currentDriver;
     private static final Logger logger = new Logger();
 
@@ -34,16 +34,18 @@ public class CarStateService {
     private final LiquidService liquidService;
 
     private final RoadTripService roadTripService;
+    private final SeatService seatService;
 
     private final TyreService tyreService;
     private List<EMalfunction> malfunctions;
     private BaseDecorator notifyMalfunctions;
 
     @Autowired
-    public CarStateService(BatteryService batteryService, LiquidService liquidService, RoadTripService roadTripService, TyreService tyreService ) {
+    public CarStateService(BatteryService batteryService, LiquidService liquidService, RoadTripService roadTripService, SeatService seatService, TyreService tyreService ) {
         this.batteryService = batteryService;
         this.liquidService = liquidService;
         this.roadTripService = roadTripService;
+        this.seatService = seatService;
         this.tyreService = tyreService;
         this.malfunctions = new ArrayList<>();
         this.notifyMalfunctions = new BaseDecorator(new Notifier());
@@ -119,5 +121,10 @@ public class CarStateService {
         this.observers.add(new LowBatteryConditionObserver());
         this.observers.add(new LowBrakingLiquidObserver());
         this.observers.add(new LowCoolingLiquidObserver());
+    }
+
+    @PreAuthorize("hasRole('DRIVER') || hasRole('MECHANIC') || hasRole('ADMIN')")
+    public Seat getDriversSeat() {
+        return seatService.getCurrentDriversSeat();
     }
 }
