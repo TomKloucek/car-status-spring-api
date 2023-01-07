@@ -76,6 +76,11 @@ public class SimulationService {
     }
 
     public void generateOneRoadTrip() {
+        Battery batteryInUsage;
+        batteryInUsage = batteryService.findAll().stream().filter(Battery::isInUsage).findFirst().orElse(null);
+        if (batteryInUsage != null){
+            batteryService.changeCurrentBattery(batteryInUsage);
+        }
         logger.log("--------------------------------------------",ELoggerLevel.INFO);
         logger.log("Start of road trip.", ELoggerLevel.INFO);
         DataClass.getInstance().incrementNumberOfSimulationMethodCalls();

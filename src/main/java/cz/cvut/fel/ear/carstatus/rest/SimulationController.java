@@ -52,7 +52,7 @@ public class SimulationController {
         if(carBrokeDown){
             logger.log("Car was able to drive " + tripsGenerated + " trips before it broke down.", ELoggerLevel.INFO);
         }
-        logger.log(SecurityContextHolder.getContext().getAuthentication().getName()+" generated "+tripsGenerated+" roadtrips using API", ELoggerLevel.INFO);
+        logger.log(SecurityContextHolder.getContext().getAuthentication().getName()+" generated "+tripsGenerated+" road trips using API", ELoggerLevel.INFO);
     }
 
     @PostMapping(value = "/")
@@ -91,8 +91,15 @@ public class SimulationController {
 
     @PutMapping(value = "",produces = MediaType.APPLICATION_JSON_VALUE)
     public void simulateOne() {
-        simulation.generateOneRoadTrip();
-        logger.log(SecurityContextHolder.getContext().getAuthentication().getPrincipal()+" generated one roadtrip using API", ELoggerLevel.INFO);
+        carStateService.updateMalfunctionality();
+        if(carStateService.isPossibleToDrive()) {
+            simulation.generateOneRoadTrip();
+            logger.log(SecurityContextHolder.getContext().getAuthentication().getName()+" generated one road trip using API", ELoggerLevel.INFO);
+        }
+        else {
+            logger.log(SecurityContextHolder.getContext().getAuthentication().getName()+" user was not able to generate road trip, because car is broken.", ELoggerLevel.INFO);
+        }
+
     }
 
 }

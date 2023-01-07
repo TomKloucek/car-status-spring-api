@@ -26,7 +26,7 @@ public class HomeController {
         this.carStateService = carStateService;
     }
 
-    @PreAuthorize("hasRole('DRIVER') || hasRole('MECHANIC') || hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('MECHANIC', 'DRIVER', 'ADMIN')")
     @GetMapping
     public String home(@CurrentSecurityContext(expression="authentication?.name")
                            String username){
