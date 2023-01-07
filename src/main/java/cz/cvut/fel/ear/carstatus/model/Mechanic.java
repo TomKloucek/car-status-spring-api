@@ -23,9 +23,6 @@ public class Mechanic extends User {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JoinColumn(name = "carcheck_id")
-    private List<Carcheck> carcheckList;
 
 //    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 //    private User user;
@@ -62,13 +59,6 @@ public class Mechanic extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Carcheck> getCarcheckList() {
-        return carcheckList;
-    }
-
-    public void setCarcheckList(List<Carcheck> carcheckList) {
-        this.carcheckList = carcheckList;
-    }
 
     @Override
     public String toString() {
@@ -76,7 +66,6 @@ public class Mechanic extends User {
                 "operatingFrom=" + operatingFrom +
                 ", operatingTo=" + operatingTo +
                 ", phoneNumber=" + phoneNumber +
-                ", carcheckList=" + carcheckList +
                 '}';
     }
 }

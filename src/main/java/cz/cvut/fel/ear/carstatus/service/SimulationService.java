@@ -76,6 +76,11 @@ public class SimulationService {
     }
 
     public void generateOneRoadTrip() {
+        Battery batteryInUsage;
+        batteryInUsage = batteryService.findAll().stream().filter(Battery::isInUsage).findFirst().orElse(null);
+        if (batteryInUsage != null){
+            batteryService.changeCurrentBattery(batteryInUsage);
+        }
         logger.log("--------------------------------------------",ELoggerLevel.INFO);
         logger.log("Start of road trip.", ELoggerLevel.INFO);
         DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
@@ -167,6 +172,10 @@ public class SimulationService {
     }
 
     public void executeCommand() {
+        if(this.command == null){
+            logger.log("Because command was not set, it was set to a road command by default.",ELoggerLevel.INFO);
+            this.command = roadCommand;
+        }
         logger.log("Command was executed.",ELoggerLevel.INFO);
         command.execute();
     }

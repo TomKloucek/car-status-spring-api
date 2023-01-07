@@ -1,6 +1,11 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
+import cz.cvut.fel.ear.carstatus.exception.PersistenceException;
+import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Carcheck;
 import cz.cvut.fel.ear.carstatus.model.Mechanic;
 import cz.cvut.fel.ear.carstatus.service.CarcheckService;
@@ -19,6 +24,7 @@ import java.util.List;
 @RequestMapping("/rest/carcheck")
 public class CarcheckController {
 
+    private static final Logger logger = new Logger();
     private final CarcheckService carcheckService;
     private final MechanicService mechanicService;
 
@@ -32,8 +38,10 @@ public class CarcheckController {
     public Carcheck getSpecificCarcheck(@PathVariable Integer id) {
         final Carcheck carcheck = carcheckService.find(id);
         if (carcheck == null) {
+            logger.log("Car check with ID: " + id + " was not found.", ELoggerLevel.ERROR);
             throw NotFoundException.create("Carcheck", id);
         }
+        logger.log("Car check with ID: " + id + " was found.", ELoggerLevel.ERROR);
         return carcheck;
     }
 
@@ -55,25 +63,6 @@ public class CarcheckController {
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Carcheck> getCarchecks() {
         return carcheckService.findAll();
-    }
-
-    @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void removeCarcheck(@RequestBody Carcheck carcheck) {
-        carcheckService.deleteCarcheck(carcheck);
-    }
-
-    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateCarcheck(@RequestBody Carcheck carcheck) {
-        carcheckService.updateCarcheck(carcheck);
-    }
-
-
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addCarcheck(@RequestBody(required = false) Carcheck carcheck) {
-        carcheckService.createNewCarcheck(carcheck);
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", carcheck.getId());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
 }

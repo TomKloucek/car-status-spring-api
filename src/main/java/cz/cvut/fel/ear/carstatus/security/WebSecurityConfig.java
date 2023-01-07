@@ -31,7 +31,7 @@ public class WebSecurityConfig{
 //                        .mvcMatchers("/rest/battery").permitAll() //exception from authentication rule
                         .antMatchers(HttpMethod.GET, "/**").authenticated()
                         .antMatchers(HttpMethod.PUT, "/**").authenticated()
-                        .antMatchers(HttpMethod.DELETE, "/**").authenticated()
+                        .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
                         .antMatchers(HttpMethod.POST, "/**").hasAnyRole("ADMIN", "DRIVER","MECHANIC")
                         .anyRequest().authenticated())
                 .userDetailsService(jpaUserDetailsService)

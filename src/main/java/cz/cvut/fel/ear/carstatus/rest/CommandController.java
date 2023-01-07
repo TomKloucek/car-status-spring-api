@@ -5,6 +5,7 @@ import cz.cvut.fel.ear.carstatus.enums.ECommand;
 import cz.cvut.fel.ear.carstatus.service.SimulationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,6 +33,7 @@ public class CommandController {
         simulation.setCommand(ECommand.ROAD);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/execute",produces = MediaType.APPLICATION_JSON_VALUE)
     public void executeCommand() {
         simulation.executeCommand();

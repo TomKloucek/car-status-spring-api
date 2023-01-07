@@ -1,8 +1,8 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
-import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
-import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
-import cz.cvut.fel.ear.carstatus.exception.UndeletableException;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.exception.*;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.service.BatteryService;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("/rest/battery")
 public class BatteryController {
 
+    private static final Logger logger = new Logger();
     private final BatteryService batteryService;
 
     @Autowired
@@ -32,8 +33,10 @@ public class BatteryController {
     public Battery getSpecificBattery(@PathVariable Integer id) {
         final Battery battery = batteryService.find(id);
         if (battery == null) {
-            throw NotFoundException.create("Category", id);
+            logger.log("Battery with ID: " + id + " was not found.", ELoggerLevel.ERROR);
+            throw NotFoundException.create("Battery", id);
         }
+        logger.log("Battery with ID: " + id + " was found.", ELoggerLevel.INFO);
         return battery;
 
     }
@@ -43,7 +46,6 @@ public class BatteryController {
         return batteryService.getCurrentBattery();
     }
 
-    @PreAuthorize("hasRole('DRIVER')")
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Battery> getAllBatteries() {
         return batteryService.findAll();
@@ -51,42 +53,80 @@ public class BatteryController {
 
     @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void removeBattery(@RequestBody Battery battery) {
-        if (battery.isInUsage()) {
-            throw new UndeletableException("Tried to delete battery which was in usage");
+        if(battery.getId() == null){
+            logger.log("Tried to delete battery without providing its ID.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to delete battery without providing its ID.");
         }
-        batteryService.deleteBattery(battery);
+        else if (batteryService.getCurrentBattery().getId() == battery.getId()) {
+            logger.log("Tried to delete battery which was in usage.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to delete battery which was in usage");
+        }
+        if(battery.getId() > 0 && batteryService.find(battery.getId()) != null){
+            batteryService.deleteBattery(battery);
+        }
+        else {
+            logger.log("Tried to delete battery with not existing id.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to delete battery with not existing id.");
+        }
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateBattery(@RequestBody Battery battery) {
-        if (battery.isInUsage()) {
-            throw new UndeletableException("Tried to update battery which was in usage");
+        if(battery.getId() == null){
+            logger.log("Tried to update battery without providing its ID.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to update battery without providing its ID.");
         }
-        batteryService.updateBattery(battery);
+        if (batteryService.getCurrentBattery().getId() == battery.getId()) {
+            logger.log("Tried to update battery which was in usage.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to update battery which was in usage");
+        }
+        else if(battery.isInUsage()){
+            logger.log("Tried to update battery and set its usage to true, which leads to unstable behaviour," +
+                    " this is why the action was aborted.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to update battery and set its usage to true, which is unstable behaviour," +
+                    " this is why the action was aborted.");
+        }
+        if(this.getAllBatteries().size() >= battery.getId() && battery.getId() > 0 && !battery.isInUsage() &&
+                batteryService.find(battery.getId()) != null){
+            batteryService.updateBattery(battery);
+        }
+        else {
+            logger.log("Tried to update battery with not existing id.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to update battery with not existing id.");
+        }
     }
 
 
-    @PreAuthorize("hasRole('DRIVER')")
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addBattery(@RequestBody(required = false) Battery battery) {
-        batteryService.createNewBattery(battery);
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", battery.getId());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    public ResponseEntity<Void> addBattery(@RequestBody Battery battery) {
+        if(battery.isInUsage()){
+            logger.log("Tried to create battery and set its usage to true, which leads to unstable behaviour," +
+                    " this is why the action was aborted.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to create battery and set its usage to true, which is unstable behaviour," +
+                    " this is why the action was aborted.");
+        }
+        else if(battery.getId() == null || (battery.getId() != null && battery.getId() > this.getAllBatteries().size())){
+            batteryService.createNewBattery(battery);
+            final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", battery.getId());
+            return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        }
+        else {
+            logger.log("Cannot create battery with existing id.", ELoggerLevel.ERROR);
+            throw new PersistenceException("Cannot create battery with existing id.");
+        }
     }
 
     @PreAuthorize("hasRole('MECHANIC')")
     @PostMapping(value = "/change", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void changeCurrentBattery(@RequestBody(required = false) Battery battery) {
+    public void changeCurrentBattery(@RequestBody Battery battery) {
         if (!batteryService.changeCurrentBattery(battery)) {
-            throw new UnchangeableException("Tried to change current battery to broken battery");
+            logger.log("Tried to change current battery to broken battery.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to change current battery to broken battery.");
         }
     }
 
-    @PreAuthorize("hasAnyRole('MECHANIC', 'DRIVER')")
     @PutMapping(value = "/charge")
-    @ResponseStatus(HttpStatus.CREATED)
     public void chargeCurrentBattery() {
         batteryService.chargeBattery();
     }

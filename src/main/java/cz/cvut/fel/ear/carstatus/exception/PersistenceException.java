@@ -9,4 +9,8 @@ public class PersistenceException extends EarException {
     public PersistenceException(Throwable cause) {
         super(cause);
     }
+
+    public PersistenceException(String message) {
+        super(message);
+    }
 }

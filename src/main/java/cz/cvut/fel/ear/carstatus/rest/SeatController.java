@@ -10,7 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/rest/tyre")
+@RequestMapping("/rest/seat")
 public class SeatController {
     private final SeatService seatService;
     private final Logger logger;

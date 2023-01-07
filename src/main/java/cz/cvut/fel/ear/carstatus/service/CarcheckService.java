@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.CarCheckDao;
 import cz.cvut.fel.ear.carstatus.dao.MechanicDao;
@@ -40,17 +41,18 @@ public class CarcheckService {
 
     @Transactional(readOnly = true)
     public Carcheck find(Integer id) {
-        logger.log("Application found car check with ID: " + id + " in database.", ELoggerLevel.INFO);
+        logger.log("Application tried to find car check with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
-
+    @Transactional
     public Carcheck getLastCarcheck() {
         logger.log("Application provided information about last car check.", ELoggerLevel.INFO);
         return dao.getLastCarcheck();
     }
 
+    @Transactional
     public List<Carcheck> getCarchecksMadeByMechanic(Mechanic mechanic) {
-        logger.log("Application provided application about car checks done by mechanic:" + mechanic.getUsername() +".", ELoggerLevel.INFO);
+        logger.log("Application provided application about car checks done by mechanic: " + mechanic.getUsername() +".", ELoggerLevel.INFO);
         return dao.findAll().stream()
                 .filter(c -> c.getMechanic().equals(mechanic))
                 .collect(Collectors.toList());

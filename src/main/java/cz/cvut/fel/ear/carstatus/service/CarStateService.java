@@ -123,7 +123,7 @@ public class CarStateService {
         this.observers.add(new LowCoolingLiquidObserver());
     }
 
-    @PreAuthorize("hasRole('DRIVER') || hasRole('MECHANIC') || hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC', 'ADMIN')")
     public Seat getDriversSeat() {
         return seatService.getCurrentDriversSeat();
     }

@@ -3,6 +3,7 @@ package cz.cvut.fel.ear.carstatus.service;
 import cz.cvut.fel.ear.carstatus.dao.CarCheckDao;
 import cz.cvut.fel.ear.carstatus.dao.MechanicDao;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Carcheck;
 import cz.cvut.fel.ear.carstatus.model.Mechanic;
@@ -23,8 +24,15 @@ public class MechanicService {
 
     @Transactional(readOnly = true)
     public Mechanic find(Integer id) {
-        logger.log("Application found mechanic with ID: " + id + " in database.", ELoggerLevel.INFO);
-        return dao.find(id);
+        logger.log("Application tried to find mechanic with ID: " + id + " in database.", ELoggerLevel.INFO);
+        if(dao.find(id) == null){
+            logger.log("Mechanic with ID: " + id + " was not found.", ELoggerLevel.INFO);
+            throw NotFoundException.create("Mechanic", id);
+        }
+        else {
+            logger.log("Mechanic with ID: " + id + " was found.", ELoggerLevel.ERROR);
+            return dao.find(id);
+        }
     }
 
     @Transactional
