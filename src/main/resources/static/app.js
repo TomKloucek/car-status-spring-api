@@ -75,25 +75,25 @@ function changePosition(direction) {
     switch (direction) {
         case 'up':
             http.put(
-                'http://localhost:8080/carstatus/rest/tyre/up')
+                'http://localhost:8080/carstatus/rest/seat/up')
                 .then(data => {if (data.err !== undefined) { alert(data.err) }})
                 .catch(err => alert(err.data));
             break;
         case 'left':
             http.put(
-                'http://localhost:8080/carstatus/rest/tyre/left')
+                'http://localhost:8080/carstatus/rest/seat/left')
                 .then(data => {if (data.err !== undefined) { alert(data.err) }})
                 .catch(err => alert(err.data));
             break;
         case 'right':
             http.put(
-                'http://localhost:8080/carstatus/rest/tyre/right')
+                'http://localhost:8080/carstatus/rest/seat/right')
                 .then(data => {if (data.err !== undefined) { alert(data.err) }})
                 .catch(err => alert(err.data));
             break
         case 'down':
             http.put(
-                'http://localhost:8080/carstatus/rest/tyre/down')
+                'http://localhost:8080/carstatus/rest/seat/down')
                 .then(data => {if (data.err !== undefined) { alert(data.err) }})
                 .catch(err => alert(err.data));
             break
