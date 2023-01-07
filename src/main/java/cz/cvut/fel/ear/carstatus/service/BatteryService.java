@@ -26,10 +26,10 @@ public class BatteryService {
 
     @Transactional(readOnly = true)
     public Battery find(Integer id) {
-        logger.log("Application found battery with ID: " + id + " in database.", ELoggerLevel.INFO);
+        logger.log("Application tried to find battery with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
-
+    @Transactional
     public Battery getCurrentBattery() {
         Battery result = null;
          for (Battery b : dao.findAll()) {
@@ -74,6 +74,7 @@ public class BatteryService {
             throw new BrokenPartException("Unable to charge battery which is broken (has lower capacity than minimal)");
         }
     }
+    @Transactional
     public boolean batteryIsFunctional() {
         Battery battery = getCurrentBattery();
         return battery.getCondition() >= Constants.MINIMAL_BATTERY_CONDITION;

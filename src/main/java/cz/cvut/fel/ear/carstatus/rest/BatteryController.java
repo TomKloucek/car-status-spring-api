@@ -33,8 +33,10 @@ public class BatteryController {
     public Battery getSpecificBattery(@PathVariable Integer id) {
         final Battery battery = batteryService.find(id);
         if (battery == null) {
+            logger.log("Battery with ID: " + id + " was not found.", ELoggerLevel.ERROR);
             throw NotFoundException.create("Battery", id);
         }
+        logger.log("Battery with ID: " + id + " was found.", ELoggerLevel.INFO);
         return battery;
 
     }

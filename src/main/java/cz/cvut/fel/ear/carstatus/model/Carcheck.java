@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,8 +13,9 @@ public class Carcheck extends AbstractEntity {
     @Column(nullable = false)
     private Date checkDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
+    @JsonIgnore
     private Mechanic mechanic;
 
 

@@ -172,6 +172,10 @@ public class SimulationService {
     }
 
     public void executeCommand() {
+        if(this.command == null){
+            logger.log("Because command was not set, it was set to a road command by default.",ELoggerLevel.INFO);
+            this.command = roadCommand;
+        }
         logger.log("Command was executed.",ELoggerLevel.INFO);
         command.execute();
     }
