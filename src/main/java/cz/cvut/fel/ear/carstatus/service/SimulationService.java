@@ -69,7 +69,7 @@ public class SimulationService {
             for (Road r : roads) {
                 if (r.getStartingPoint().equals(end)) {
                     result.add(r);
-                    logger.log("New road from "+r.getStartingPoint()+ " to " + r.getEndPoint() +" was generated.", ELoggerLevel.INFO);
+                    logger.log("New road from "+r.getStartingPoint()+ " to " + r.getEndPoint() + " was generated.", ELoggerLevel.INFO);
                 }
             }
         }
@@ -77,6 +77,8 @@ public class SimulationService {
     }
 
     public void generateOneRoadTrip() {
+        logger.log("--------------------------------------------",ELoggerLevel.INFO);
+        logger.log("Start of road trip.", ELoggerLevel.INFO);
         DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
         List<Driver> drivers = driverService.findAll();
         Driver driver = drivers.get(rnd.nextInt(drivers.size()));
@@ -113,6 +115,8 @@ public class SimulationService {
         }
         logger.log("New road trip was generated.", ELoggerLevel.INFO);
         logger.log("Car drove one more trip.",ELoggerLevel.INFO);
+        logger.log("Road trip finished.", ELoggerLevel.INFO);
+        logger.log("--------------------------------------------",ELoggerLevel.INFO);
 
     }
 
