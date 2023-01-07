@@ -1,26 +1,25 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import cz.cvut.fel.ear.carstatus.DataClass;
+import cz.cvut.fel.ear.carstatus.builders.StatisticsBuilder;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.log.Logger;
+import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
-import cz.cvut.fel.ear.carstatus.statistics.Statistics;
 import cz.cvut.fel.ear.carstatus.statistics.StatisticsFactory;
-import cz.cvut.fel.ear.carstatus.statistics.StatisticsFilter;
 import cz.cvut.fel.ear.carstatus.builders.StatisticsFilterBuilder;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/statistics")
@@ -28,12 +27,16 @@ public class StatisticsController {
 
     private final DriverService driverService;
     private final StatisticsFactory factory;
+    private final RoadTripService roadTripService;
+    private final Logger logger;
 
 
     @Autowired
-    public StatisticsController(DriverService driverService, StatisticsFactory factory) {
+    public StatisticsController(DriverService driverService, StatisticsFactory factory, RoadTripService roadTripService, Logger logger) {
         this.driverService = driverService;
         this.factory = factory;
+        this.roadTripService = roadTripService;
+        this.logger = logger;
     }
 
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,7 +58,23 @@ public class StatisticsController {
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
                 ignored.printStackTrace(pw);
-                return sw.toString();
+                logger.log(sw.toString(), ELoggerLevel.ERROR);
+                return ""; // TODO napsat neco lepsiho
+        }
+    }
+
+    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object getStatisticsSpecific(@PathVariable Integer id) {
+        try {
+            List<Roadtrip> filtered = new ArrayList<>();
+            filtered.add(roadTripService.find(id));
+            return new StatisticsBuilder().numberOfKm(filtered).numberOfRoadtrips(filtered).averageSpeed(filtered).maxSpeed(filtered).build();
+        } catch (Exception ignored) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            ignored.printStackTrace(pw);
+            logger.log(sw.toString(), ELoggerLevel.ERROR);
+            return ""; // TODO napsat neco lepsiho
         }
     }
 }

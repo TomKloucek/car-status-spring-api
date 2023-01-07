@@ -11,10 +11,7 @@ import cz.cvut.fel.ear.carstatus.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,13 +59,15 @@ public class SimulationService {
         DataClass.getInstance().incrementNumberOfRoadsGenerated();
         List<Road> roads = roadService.findAll();
         List<Road> result = new ArrayList<>();
-        result.add(roads.get(rnd.nextInt(roads.size()-1)));
+        Road cur = roads.get(rnd.nextInt(roads.size()-1));
+        result.add(cur);
         while (result.size() < length) {
             DataClass.getInstance().incrementNumberOfRoadsAdded();
-            String end = result.get(result.size()-1).getEndPoint();
             for (Road r : roads) {
-                if (r.getStartingPoint().equals(end)) {
+                if (r.getStartingPoint().equals(cur.getEndPoint())) {
                     result.add(r);
+                    cur = r;
+                    Collections.shuffle(roads);
                     logger.log("New road from "+r.getStartingPoint()+ " to " + r.getEndPoint() + " was generated.", ELoggerLevel.INFO);
                 }
             }
@@ -82,7 +81,7 @@ public class SimulationService {
         DataClass.getInstance().incrementNumberOfSimulationMethodCalls();
         List<Driver> drivers = driverService.findAll();
         Driver driver = drivers.get(rnd.nextInt(drivers.size()));
-        int tripLength = rnd.nextInt(5) + 1;
+        int tripLength = rnd.nextInt(10) + 1;
         List<Road> roads = this.generateRoads(tripLength);
         Roadtrip roadtrip = new Roadtrip();
         roadtrip.setWithMalfunction(false);
