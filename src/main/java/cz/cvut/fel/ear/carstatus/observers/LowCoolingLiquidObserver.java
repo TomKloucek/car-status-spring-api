@@ -12,7 +12,7 @@ public class LowCoolingLiquidObserver implements IObserver {
     public EMalfunction update(CarStateService service) {
         List<Liquid> liquids = service.getLiquids();
         for(Liquid liquid : liquids){
-            if(liquid.getType() == "cooling" && liquid.getLevel() < liquid.getMinLevel()){
+            if(liquid.getType().equals("cooling") && liquid.getLevel() < liquid.getMinLevel()){
                 return EMalfunction.LOWCOOLINGLIQUID;
             }
         }

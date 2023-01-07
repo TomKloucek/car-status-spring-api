@@ -12,7 +12,7 @@ public class LowBrakingLiquidObserver implements IObserver {
     public EMalfunction update(CarStateService service) {
         List<Liquid> liquids = service.getLiquids();
         for(Liquid liquid : liquids){
-            if(liquid.getType() == "braking" && liquid.getLevel() < liquid.getMinLevel()){
+            if(liquid.getType().equals("braking") && liquid.getLevel() < liquid.getMinLevel()){
                 return EMalfunction.LOWBRAKINGLIQUID;
             }
             else {

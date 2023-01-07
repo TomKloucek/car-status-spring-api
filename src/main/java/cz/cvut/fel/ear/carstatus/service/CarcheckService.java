@@ -8,14 +8,11 @@ import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.ValidationException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
-import cz.cvut.fel.ear.carstatus.rest.UserController;
 import cz.cvut.fel.ear.carstatus.util.Constants;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,26 +26,31 @@ public class CarcheckService {
     private final TyreService tyreService;
     private final BatteryService batteryService;
     private final LiquidService liquidService;
+    private final CarStateService carStateService;
 
-    public CarcheckService(CarCheckDao dao, UserDao userDao, MechanicDao mechanicDao, TyreService tyreService, BatteryService batteryService, LiquidService liquidService) {
+    public CarcheckService(CarCheckDao dao, UserDao userDao, MechanicDao mechanicDao, TyreService tyreService, BatteryService batteryService, LiquidService liquidService, CarStateService carStateService) {
         this.dao = dao;
         this.userDao = userDao;
         this.mechanicDao = mechanicDao;
         this.tyreService = tyreService;
         this.batteryService = batteryService;
         this.liquidService = liquidService;
+        this.carStateService = carStateService;
     }
 
     @Transactional(readOnly = true)
     public Carcheck find(Integer id) {
+        logger.log("Application found car check with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 
     public Carcheck getLastCarcheck() {
+        logger.log("Application provided information about last car check.", ELoggerLevel.INFO);
         return dao.getLastCarcheck();
     }
 
     public List<Carcheck> getCarchecksMadeByMechanic(Mechanic mechanic) {
+        logger.log("Application provided application about car checks done by mechanic:" + mechanic.getUsername() +".", ELoggerLevel.INFO);
         return dao.findAll().stream()
                 .filter(c -> c.getMechanic().equals(mechanic))
                 .collect(Collectors.toList());
@@ -63,10 +65,12 @@ public class CarcheckService {
             carcheck.setMechanic(mechanic);
         }
         else{
+            logger.log("User who is not a mechanic tried to do a car check.", ELoggerLevel.INFO);
             throw new ValidationException("Logged user is not a mechanic.");
         }
         Date date = new Date();
         if (date.after(mechanic.getOperatingTo())){
+            logger.log("There was attempt to do a car check outside of mechanic operation date.", ELoggerLevel.INFO);
             throw new ValidationException("Mechanic does not operate during given date.");
         }
         else {
@@ -92,7 +96,8 @@ public class CarcheckService {
                 });
         if(battery.getCapacity() <= Constants.MINIMAL_BATTERY_CHARGE && battery.getCondition() >= Constants.MINIMAL_BATTERY_CONDITION){
             batteryService.chargeBattery();
-        } else if (battery.getCapacity() <= Constants.MINIMAL_BATTERY_CHARGE && battery.getCondition() < Constants.MINIMAL_BATTERY_CONDITION) {
+        }
+        else if (battery.getCapacity() <= Constants.MINIMAL_BATTERY_CHARGE || battery.getCondition() < Constants.MINIMAL_BATTERY_CONDITION) {
             Battery newBattery = new Battery();
             newBattery.setCapacity(100);
             newBattery.setCondition(100);
@@ -104,12 +109,14 @@ public class CarcheckService {
                 .forEach(liquidService::refillLiquid);
         createNewCarcheck(carcheck);
         DataClass.getInstance().incrementNumberOfCarchecksMade();
-        logger.log("Carcheck was done by mechanic "+mechanic.getUsername()+" successfully", ELoggerLevel.DEBUG);
+        carStateService.updateMalfunctionality();
+        logger.log("Car check was done by mechanic "+mechanic.getUsername()+" successfully.", ELoggerLevel.INFO);
     }
 
 
     @Transactional
     public List<Carcheck> findAll() {
+        logger.log("Application found all car checks in database.", ELoggerLevel.INFO);
         return dao.findAll();
     }
 
@@ -117,15 +124,18 @@ public class CarcheckService {
     @Transactional
     public void deleteCarcheck(Carcheck carcheck) {
         dao.remove(carcheck);
+        logger.log("Car check with ID: "+carcheck.getId() +" was deleted.", ELoggerLevel.INFO);
     }
 
     @Transactional
     public void updateCarcheck(Carcheck carcheck) {
         dao.update(carcheck);
+        logger.log("Car check with ID: "+carcheck.getId() +" was updated.", ELoggerLevel.INFO);
     }
 
     @Transactional
     public void createNewCarcheck(Carcheck carcheck) {
         dao.persist(carcheck);
+        logger.log("New car check was created.", ELoggerLevel.INFO);
     }
 }

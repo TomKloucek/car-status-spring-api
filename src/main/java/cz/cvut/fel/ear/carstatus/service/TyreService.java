@@ -40,11 +40,13 @@ public class TyreService {
                 result.add(b);
             }
         }
+        logger.log("Application provided information about current tyres.", ELoggerLevel.INFO);
         return result;
     }
 
     @Transactional
     public List<Tyre> findAll() {
+        logger.log("Application found all tyres in database.", ELoggerLevel.INFO);
         return dao.findAll();
     }
 
@@ -56,10 +58,11 @@ public class TyreService {
                 tyreToInflate.setPressure(33);
                 DataClass.getInstance().incrementNumberOfTyresInflated();
                 DataClass.getInstance().incrementNumberOfTyresInflated();
-                dao.persist(tyreToInflate);
+                dao.update(tyreToInflate);
                 return;
             }
         }
+        logger.log("Application could not find tyre in usage with given position.", ELoggerLevel.ERROR);
         throw new NotFoundException("Unable to find tyre in usage with given position.");
     }
 
@@ -67,8 +70,8 @@ public class TyreService {
         final Tyre tyre = dao.find(id);
         tyre.setPressure(33);
         DataClass.getInstance().incrementNumberOfTyresInflated();
-        dao.persist(tyre);
-        logger.log("Tyre with id "+ id.toString()+" was inflated.", ELoggerLevel.DEBUG);
+        dao.update(tyre);
+        logger.log("Tyre with id "+ id.toString()+" was inflated.", ELoggerLevel.INFO);
     }
 
     @Transactional
@@ -76,23 +79,25 @@ public class TyreService {
         for (Tyre tyre : getCurrentTyres()) {
             tyre.setPressure(33);
             DataClass.getInstance().incrementNumberOfTyresInflated();
-            dao.persist(tyre);
+            dao.update(tyre);
         }
-        logger.log("All tyres were inflated.", ELoggerLevel.DEBUG);
+        logger.log("All tyres were inflated.", ELoggerLevel.INFO);
     }
 
     public void deleteTyre(Tyre tyre) {
         dao.remove(tyre);
+        logger.log("Tyre with ID: "+tyre.getId() +" was deleted.", ELoggerLevel.INFO);
     }
-
+    @Transactional
     public void updateTyre(Tyre tyre) {
         dao.update(tyre);
+        logger.log("Tyre with ID: "+tyre.getId() +" was updated.", ELoggerLevel.INFO);
     }
 
     public void createNewTyre(Tyre tyre) {
         dao.persist(tyre);
         DataClass.getInstance().incrementNumberOfTyresAdded();
-        logger.log("New tyre was created.", ELoggerLevel.DEBUG);
+        logger.log("New tyre was created.", ELoggerLevel.INFO);
     }
 
     public boolean changeCurrentTyre(Tyre tyre) {
@@ -106,7 +111,7 @@ public class TyreService {
                 tyre.setInUsage(true);
                 dao.update(tyre);
                 DataClass.getInstance().incrementNumberOfTyresChanged();
-                logger.log("Current tyre was changed.", ELoggerLevel.DEBUG);
+                logger.log("Current tyre with ID: " + tyre.getId()+ " was changed.", ELoggerLevel.DEBUG);
                 return true;
             }
         }
