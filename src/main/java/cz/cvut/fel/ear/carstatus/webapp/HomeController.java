@@ -34,7 +34,7 @@ public class HomeController {
                 "<html>\n" +
                 "<head>\n" +
                 "  <link rel=\"stylesheet\" href=\"style.css\">\n" +
-                "  <meta http-equiv=\"refresh\" content=\"30\">"+
+                "  <meta http-equiv=\"refresh\" content=\"5\">"+
                 "</head>\n" +
                 "<body>";
         resultString += "<div class='parent'>";
@@ -47,22 +47,22 @@ public class HomeController {
                 resultString += "<p>Left front tyre current inflation: " + tyre.getPressure() + "</p>";
                 resultString += "<p>Left front tyre current condition: " + tyre.getCondition() + "</p>";
             }
-            if(tyre.getPosition() == 2){
-                resultString += "<p>Left back tyre current inflation: " + tyre.getPressure() + "</p>";
-                resultString += "<p>Left back tyre current condition: " + tyre.getCondition() + "</p>";
-            }
-            if(tyre.getPosition() == 3){
+            else if(tyre.getPosition() == 3){
                 resultString += "<p>Right front  tyre current inflation: " + tyre.getPressure() + "</p>";
                 resultString += "<p>Right front tyre current condition: " + tyre.getCondition() + "</p>";
             }
-            if(tyre.getPosition() == 4){
+            else if(tyre.getPosition() == 2){
+                resultString += "<p>Left back tyre current inflation: " + tyre.getPressure() + "</p>";
+                resultString += "<p>Left back tyre current condition: " + tyre.getCondition() + "</p>";
+            }
+            else if(tyre.getPosition() == 4){
                 resultString += "<p>Right back tyre current inflation: " + tyre.getPressure() + "</p>";
                 resultString += "<p>Right back tyre current condition: " + tyre.getCondition() + "</p>";
             }
         }
 
 
-        resultString += "<p>Current capacity condition: " + carStateService.getBattery().getCapacity() +"</p>";
+        resultString += "<p>Current battery capacity: " + carStateService.getBattery().getCapacity() +"</p>";
         resultString += "<p>Current battery condition: " + carStateService.getBattery().getCondition() +"</p>";
         List <Liquid> liquids = carStateService.getLiquids();
         for(Liquid liquid : liquids){

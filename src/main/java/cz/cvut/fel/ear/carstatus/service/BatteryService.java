@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class BatteryService {
+
     private final BatteryDao dao;
     private final Logger logger = new Logger();
 
@@ -25,6 +26,7 @@ public class BatteryService {
 
     @Transactional(readOnly = true)
     public Battery find(Integer id) {
+        logger.log("Application found battery with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 
@@ -35,11 +37,13 @@ public class BatteryService {
                  result = b;
              }
          }
-         return result;
+        logger.log("Application provided information about current battery.", ELoggerLevel.INFO);
+        return result;
     }
 
     @Transactional
     public List<Battery> findAll() {
+        logger.log("Application found all batteries in database.", ELoggerLevel.INFO);
         return dao.findAll();
     }
 
@@ -54,14 +58,14 @@ public class BatteryService {
         battery.setInUsage(true);
         updateBattery(battery);
         DataClass.getInstance().incrementNumberOfBatteriesChanged();
-        logger.log("Current battery was changed.", ELoggerLevel.DEBUG);
+        logger.log("Current battery was changed.", ELoggerLevel.INFO);
         return true;
     }
 
     public void chargeBattery(){
         if(batteryIsFunctional()){
             getCurrentBattery().setCapacity(100);
-            logger.log("Current battery was charged to 100%.", ELoggerLevel.DEBUG);
+            logger.log("Current battery was charged to 100%.", ELoggerLevel.INFO);
             DataClass.getInstance().incrementNumberOfChargingBatteries();
         }
         else{
@@ -76,17 +80,19 @@ public class BatteryService {
     @Transactional
     public void deleteBattery(Battery battery) {
         dao.remove(battery);
+        logger.log("Battery with ID: "+battery.getId() +" was deleted.", ELoggerLevel.INFO);
     }
 
     @Transactional
     public void updateBattery(Battery battery) {
         dao.update(battery);
+        logger.log("Battery with ID: "+battery.getId() +" was updated.", ELoggerLevel.INFO);
     }
 
     @Transactional
     public void createNewBattery(Battery battery) {
         dao.persist(battery);
-        logger.log("New battery was created.", ELoggerLevel.DEBUG);
+        logger.log("New battery was created.", ELoggerLevel.INFO);
         DataClass.getInstance().incrementNumberOfBatteriesAdded();
     }
 }
