@@ -1,6 +1,9 @@
 package cz.cvut.fel.ear.carstatus.load_files;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.interfaces.ILoadSimulationFile;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Road;
@@ -27,7 +30,7 @@ import java.util.Set;
 
 @Service
 public class LoadSimulationFromJSON implements ILoadSimulationFile {
-
+    private final Logger logger = new Logger();
     final DriverService driverService;
     final RoadService roadService;
     final BatteryService batteryService;
@@ -78,6 +81,8 @@ public class LoadSimulationFromJSON implements ILoadSimulationFile {
                     tyreService.createNewTyre(tyre);
                 }
             }
+            DataClass.getInstance().incrementNumberOfJSONFilesLoaded();
+            logger.log("All object that fulfilled rules were added to application from JSON.", ELoggerLevel.INFO);
             return Pair.of(true,"All object that fulfilled rules were added to application");
         } catch (Exception e) {
             StringWriter sw = new StringWriter();

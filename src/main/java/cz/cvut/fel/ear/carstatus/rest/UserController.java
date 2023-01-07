@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.ValidationException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
@@ -21,8 +22,6 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/rest/user")
 public class UserController {
-
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UserController.class);
     private final Logger loggerToFile = new Logger();
     private final UserService userService;
 
@@ -42,8 +41,7 @@ public class UserController {
             driver.setUsername(user.getUsername());
             driver.setPassword(user.getPassword());
             userService.persist(driver);
-            loggerToFile.log("Driver "+ user.getUsername() +" successfully registered.");
-            LOG.debug("Driver {} successfully registered.", driver.getUsername());
+            loggerToFile.log("Driver "+ user.getUsername() +" successfully registered.", ELoggerLevel.DEBUG);
         }
 
         final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", user.getId());
@@ -56,12 +54,10 @@ public class UserController {
     public ResponseEntity<Void> addAmin(@RequestBody Admin admin) {
         if(admin.getRole() == Role.ADMIN){
             userService.persist(admin);
-            loggerToFile.log("Admin "+ admin.getUsername() +" successfully registered.");
-            LOG.debug("Admin {} successfully registered.", admin.getUsername());
+            loggerToFile.log("Admin "+ admin.getUsername() +" successfully registered.", ELoggerLevel.DEBUG);
         }
         else{
-            loggerToFile.log("EXCEPTION: Tried to create admin, but role of added user was not admin.");
-            LOG.error("EXCEPTION: Tried to create admin, but role of added user was not admin.");
+            loggerToFile.log("EXCEPTION: Tried to create admin, but role of added user was not admin.",ELoggerLevel.ERROR);
             throw new ValidationException("EXCEPTION: Tried to create admin, but role of added user was not admin.");
         }
 
@@ -75,12 +71,10 @@ public class UserController {
     public ResponseEntity<Void> addMechanic(@RequestBody Mechanic mechanic) {
         if(mechanic.getRole() == Role.MECHANIC){
             userService.persist(mechanic);
-            loggerToFile.log("Mechanic "+ mechanic.getUsername() +" successfully registered.");
-            LOG.debug("Mechanic {} successfully registered.", mechanic.getUsername());
+            loggerToFile.log("Mechanic "+ mechanic.getUsername() +" successfully registered.", ELoggerLevel.DEBUG);
         }
         else{
-            loggerToFile.log("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.");
-            LOG.error("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.");
+            loggerToFile.log("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.", ELoggerLevel.ERROR);
             throw new ValidationException("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.");
         }
         final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", mechanic.getId());

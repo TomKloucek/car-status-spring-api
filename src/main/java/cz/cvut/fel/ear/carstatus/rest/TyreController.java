@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,11 +50,19 @@ public class TyreController {
         return tyreService.findAll();
     }
 
-    @PutMapping(value = "/{id}/inflate", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PutMapping(value = "/inflate/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void inflateTyre(@PathVariable Integer id) {
         tyreService.inflateTyre(id);
     }
 
+    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PutMapping(value = "/inflate-at-position/{position}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void inflateTyreAtPosition(@PathVariable Integer position) {
+        tyreService.inflateTyreAtPosition(position);
+    }
+
+    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
     @PutMapping(value = "/inflate", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void inflateTyres() {
         tyreService.inflateTyres();

@@ -1,6 +1,9 @@
 package cz.cvut.fel.ear.carstatus.load_files;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.interfaces.ILoadSimulationFile;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
 import cz.cvut.fel.ear.carstatus.service.*;
 import cz.cvut.fel.ear.carstatus.util.Helpers;
@@ -18,6 +21,7 @@ import java.util.Set;
 @Service
 public class LoadSimulationFromCSV implements ILoadSimulationFile {
 
+    private final Logger logger = new Logger();
     final DriverService driverService;
     final RoadService roadService;
     final BatteryService batteryService;
@@ -83,6 +87,8 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
             } else {
                 return Pair.of(false,"Provided file were not of type { driver, tyre, battery, road }");
             }
+            DataClass.getInstance().incrementNumberOfCSVFilesLoaded();
+            logger.log(res + "from CSV were successfully loaded to application", ELoggerLevel.INFO);
             return Pair.of(true,res + " were successfully loaded to application");
         } catch (Exception e) {
             return Pair.of(false,e.toString());

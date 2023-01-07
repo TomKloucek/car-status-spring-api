@@ -1,0 +1,15 @@
+.child1 {
+    display: inline-block;
+    vertical-align: top;
+}
+.child2 {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 1em;
+}
+.child-malfunction{
+    display: inline-block;
+    color: red;
+    vertical-align: top;
+    margin-left: 1em;
+}

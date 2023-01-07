@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,12 +42,14 @@ public class LiquidController {
         return liquidService.findAll();
     }
 
-    @PutMapping(value = "/cooling/refill", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PutMapping(value = "/cooling/refill")
     public void refillCoolingLiquid() {
         liquidService.refillLiquid("cooling");
     }
 
-    @PutMapping(value = "/braking/refill", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PutMapping(value = "/braking/refill")
     public void refillBrakingLiquid() {
         liquidService.refillLiquid("braking");
     }

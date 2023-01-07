@@ -1,0 +1,123 @@
+package cz.cvut.fel.ear.carstatus.service;
+
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
+import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
+import cz.cvut.fel.ear.carstatus.log.Logger;
+import cz.cvut.fel.ear.carstatus.model.*;
+import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
+import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
+import cz.cvut.fel.ear.carstatus.notifications.Notifier;
+import cz.cvut.fel.ear.carstatus.observers.*;
+import cz.cvut.fel.ear.carstatus.rest.UserController;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@Service
+public class CarStateService {
+
+    List<IObserver> observers;
+    private Battery battery;
+    private List<Liquid> liquids;
+    private List<Tyre> tyres;
+    private List<Seat> seats;
+    private Driver currentDriver;
+    private static final Logger logger = new Logger();
+
+    private final BatteryService batteryService;
+
+    private final LiquidService liquidService;
+
+    private final RoadTripService roadTripService;
+
+    private final TyreService tyreService;
+    private List<EMalfunction> malfunctions;
+    private BaseDecorator notifyMalfunctions;
+
+    @Autowired
+    public CarStateService(BatteryService batteryService, LiquidService liquidService, RoadTripService roadTripService, TyreService tyreService ) {
+        this.batteryService = batteryService;
+        this.liquidService = liquidService;
+        this.roadTripService = roadTripService;
+        this.tyreService = tyreService;
+        this.malfunctions = new ArrayList<>();
+        this.notifyMalfunctions = new BaseDecorator(new Notifier());
+        this.observers = new ArrayList<>();
+        fillObservers();
+        updateMalfunctionality();
+    }
+
+    public boolean isPossibleToDrive() {
+        logger.log("Application checked if it is possible to drive the car.", ELoggerLevel.INFO);
+        return malfunctions.isEmpty();
+    }
+
+    public BaseDecorator getNotifyMalfunctions() {
+        notifyMalfunctions = new BaseDecorator(new Notifier());
+        malfunctions
+                .forEach(malfunction -> {
+                    switch (malfunction) {
+                        case LOWTYREPRESSURE:
+                            logger.log("Low tyre pressure was discovered.", ELoggerLevel.INFO);
+                            notifyMalfunctions = new LowTyrePressureDecorator(notifyMalfunctions);
+                            break;
+                        case LOWBRAKINGLIQUID:
+                            logger.log("Low braking liquid level was discovered.", ELoggerLevel.INFO);
+                            notifyMalfunctions = new LowBrakingLiquidDecorator(notifyMalfunctions);
+                            break;
+                        case LOWBATTERYCAPACITY:
+                            logger.log("Low battery capacity was discovered.", ELoggerLevel.INFO);
+                            notifyMalfunctions = new LowBatteryCapacityDecorator(notifyMalfunctions);
+                            break;
+                        case LOWBATTERYCONDITION:
+                            logger.log("Low battery condition was discovered.", ELoggerLevel.INFO);
+                            notifyMalfunctions = new LowBatteryConditionDecorator(notifyMalfunctions);
+                            break;
+                        case LOWCOOLINGLIQUID:
+                            logger.log("Low cooling liquid level was discovered.", ELoggerLevel.INFO);
+                            notifyMalfunctions = new LowCoolingLiquidDecorator(notifyMalfunctions);
+                            break;
+                        case LOWTYRECONDITION:
+                            logger.log("Low tyre condition was discovered.", ELoggerLevel.INFO);
+                            notifyMalfunctions = new LowTyreConditionDecorator(notifyMalfunctions);
+                            break;
+                    }
+                });
+        return notifyMalfunctions;
+    }
+
+    public void updateMalfunctionality() {
+        malfunctions = new ArrayList<>();
+        observers.stream()
+                .map(observer -> observer.update(this))
+                .filter(Objects::nonNull)
+                .forEach(malfunction -> malfunctions.add(malfunction));
+        logger.log("Malfunctions were updated.", ELoggerLevel.INFO);
+    }
+
+    public Battery getBattery() {
+        return batteryService.getCurrentBattery();
+    }
+
+    public List<Liquid> getLiquids() {
+        return liquidService.findAll();
+    }
+
+    public List<Tyre> getTyres() {
+        return tyreService.getCurrentTyres();
+    }
+
+    private void fillObservers() {
+        this.observers.add(new LowTyreConditionObserver());
+        this.observers.add(new LowBatteryCapacityObserver());
+        this.observers.add(new LowTyrePressureObserver());
+        this.observers.add(new LowBatteryConditionObserver());
+        this.observers.add(new LowBrakingLiquidObserver());
+        this.observers.add(new LowCoolingLiquidObserver());
+    }
+}

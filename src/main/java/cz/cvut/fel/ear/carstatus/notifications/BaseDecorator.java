@@ -1,15 +1,16 @@
 package cz.cvut.fel.ear.carstatus.notifications;
 
 public class BaseDecorator extends Notifier {
-    private Notifier wrappe;
+    private final Notifier wrappe;
 
     public BaseDecorator(Notifier n)
     {
         this.wrappe = n;
     }
 
-    public void sendMessage(String message)
+    @Override
+    public String sendMessage(String message)
     {
-        wrappe.sendMessage(message);
+        return wrappe.sendMessage(message);
     }
 }

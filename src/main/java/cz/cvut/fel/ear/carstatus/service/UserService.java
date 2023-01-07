@@ -1,5 +1,8 @@
 package cz.cvut.fel.ear.carstatus.service;
 
+import cz.cvut.fel.ear.carstatus.DataClass;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Role;
 import cz.cvut.fel.ear.carstatus.model.User;
@@ -16,6 +19,8 @@ import java.util.Objects;
 public class UserService {
 
     private final UserDao dao;
+    private final Logger logger = new Logger();
+
     private final PasswordEncoder encoder;
 
     final User currentUser = new User();
@@ -33,12 +38,15 @@ public class UserService {
         if (user.getRole() == null) {
             user.setRole(Constants.DEFAULT_ROLE);
         }
+        DataClass.getInstance().incrementNumberOfUsersRegistered();
         dao.persist(user);
+        logger.log("New user was created.", ELoggerLevel.INFO);
     }
 
 
     @Transactional(readOnly = true)
     public boolean exists(String username) {
+        logger.log("Application checked whether user with username: "+username +" exists.", ELoggerLevel.INFO);
         return dao.findByUsername(username) != null;
     }
 }

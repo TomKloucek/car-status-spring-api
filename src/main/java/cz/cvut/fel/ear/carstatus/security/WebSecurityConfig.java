@@ -32,7 +32,7 @@ public class WebSecurityConfig{
                         .antMatchers(HttpMethod.GET, "/**").authenticated()
                         .antMatchers(HttpMethod.PUT, "/**").authenticated()
                         .antMatchers(HttpMethod.DELETE, "/**").authenticated()
-                        .antMatchers(HttpMethod.POST, "/**").hasAnyRole("ADMIN", "DRIVER")
+                        .antMatchers(HttpMethod.POST, "/**").hasAnyRole("ADMIN", "DRIVER","MECHANIC")
                         .anyRequest().authenticated())
                 .userDetailsService(jpaUserDetailsService)
                 .cors().and().csrf().disable()
