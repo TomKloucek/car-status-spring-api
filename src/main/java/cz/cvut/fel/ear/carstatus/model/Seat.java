@@ -16,6 +16,31 @@ public class Seat extends AbstractEntity{
     @Column(nullable = false)
     private boolean driverSeat;
 
+
+    public int getVerticalPosition() {
+        return verticalPosition;
+    }
+
+    public void setVerticalPosition(int verticalPosition) {
+        this.verticalPosition = verticalPosition;
+    }
+
+    public int getHorizontalPosition() {
+        return horizontalPosition;
+    }
+
+    public void setHorizontalPosition(int horizontalPosition) {
+        this.horizontalPosition = horizontalPosition;
+    }
+
+    public boolean isDriverSeat() {
+        return driverSeat;
+    }
+
+    public void setDriverSeat(boolean driverSeat) {
+        this.driverSeat = driverSeat;
+    }
+
     @Override
     public String toString() {
         return "Seat{" +

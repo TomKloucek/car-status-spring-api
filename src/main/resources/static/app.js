@@ -66,3 +66,45 @@ function refillBrakingLiquid() {
         .catch(err => console.log(err));
 }
 
+function changePosition(direction) {
+    // Instantiating new EasyHTTP class
+
+    console.log(direction)
+    const http = new EasyHTTP
+
+    switch (direction) {
+        case 'up':
+            http.put(
+                'http://localhost:8080/carstatus/rest/tyre/up')
+                .then(data => {if (data.err != "") { alert(data.err) }})
+                .catch(err => alert(err.data));
+            break;
+        case 'left':
+            http.put(
+                'http://localhost:8080/carstatus/rest/tyre/left')
+                .then(data => {if (data.err != "") { alert(data.err) }})
+                .catch(err => alert(err.data));
+            break;
+        case 'right':
+            http.put(
+                'http://localhost:8080/carstatus/rest/tyre/right')
+                .then(data => {if (data.err != "") { alert(data.err) }})
+                .catch(err => alert(err.data));
+            break
+        case 'down':
+            http.put(
+                'http://localhost:8080/carstatus/rest/tyre/down')
+                .then(data => {if (data.err != "") { alert(data.err) }})
+                .catch(err => alert(err.data));
+            break
+    }
+}
+
+
+function genRoadTrip() {
+    const http = new EasyHTTP;
+    http.put(
+        'http://localhost:8080/carstatus/rest/simulation')
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
+}

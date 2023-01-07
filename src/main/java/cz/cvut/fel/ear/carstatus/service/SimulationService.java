@@ -139,7 +139,7 @@ public class SimulationService {
             subtractedAmount = roadLength*rnd.nextInt(20);
         }
         if(battery.getCapacity()-subtractedAmount > 0){
-            battery.setCapacity((int) (battery.getCapacity()-subtractedAmount));
+            battery.setCapacity((battery.getCapacity()-subtractedAmount));
         }
         batteryService.updateBattery(battery);
     }
@@ -147,7 +147,7 @@ public class SimulationService {
         List <Tyre> tyres = tyreService.getCurrentTyres();
         for(Tyre tyre : tyres){
             tyre.setCondition((int) (tyre.getCondition()-(roadLength*0.0001)*rnd.nextInt(20)));
-            tyre.setPressure((int) (tyre.getPressure()-(roadLength*0.002)*rnd.nextInt(40)));
+            tyre.setPressure((tyre.getPressure()-(roadLength*0.002)*rnd.nextInt(40)));
             tyreService.updateTyre(tyre);
         }
     }
