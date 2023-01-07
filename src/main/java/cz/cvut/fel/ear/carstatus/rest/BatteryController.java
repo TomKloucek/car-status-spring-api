@@ -49,7 +49,6 @@ public class BatteryController {
         return batteryService.findAll();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void removeBattery(@RequestBody Battery battery) {
         if(battery.getId() == null){
