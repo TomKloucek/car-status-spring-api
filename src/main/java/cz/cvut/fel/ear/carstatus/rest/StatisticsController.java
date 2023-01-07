@@ -2,6 +2,8 @@ package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.builders.StatisticsBuilder;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
@@ -26,13 +28,15 @@ public class StatisticsController {
     private final DriverService driverService;
     private final StatisticsFactory factory;
     private final RoadTripService roadTripService;
+    private final Logger logger;
 
 
     @Autowired
-    public StatisticsController(DriverService driverService, StatisticsFactory factory, RoadTripService roadTripService) {
+    public StatisticsController(DriverService driverService, StatisticsFactory factory, RoadTripService roadTripService, Logger logger) {
         this.driverService = driverService;
         this.factory = factory;
         this.roadTripService = roadTripService;
+        this.logger = logger;
     }
 
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +58,8 @@ public class StatisticsController {
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
                 ignored.printStackTrace(pw);
-                return sw.toString();
+                logger.log(sw.toString(), ELoggerLevel.ERROR);
+                return ""; // TODO napsat neco lepsiho
         }
     }
 
@@ -68,7 +73,8 @@ public class StatisticsController {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ignored.printStackTrace(pw);
-            return sw.toString();
+            logger.log(sw.toString(), ELoggerLevel.ERROR);
+            return ""; // TODO napsat neco lepsiho
         }
     }
 }
