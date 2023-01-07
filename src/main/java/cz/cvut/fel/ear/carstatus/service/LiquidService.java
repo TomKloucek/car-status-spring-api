@@ -26,30 +26,35 @@ public class LiquidService {
 
     @Transactional
     public List<Liquid> findAll() {
+        logger.log("Application found all liquids in database.", ELoggerLevel.INFO);
         return dao.findAll();
     }
 
     @Transactional
     public Liquid find(Integer id) {
+        logger.log("Application found liquid with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 
     @Transactional
     public void persist(Liquid liquid) {
         dao.persist(liquid);
+        logger.log("New liquid was created.", ELoggerLevel.INFO);
+
     }
 
     @Transactional
     public void update(Liquid liquid) {
         dao.update(liquid);
+        logger.log("Liquid with ID: "+liquid.getId() +" was updated.", ELoggerLevel.INFO);
     }
 
     @Transactional
     public void refillLiquid(String type) {
         final Liquid refill = dao.findByType(type);
-        if(type == "cooling"){
+        if(type.equals("cooling")){
             DataClass.getInstance().incrementNumberOfCoolingLiquidRefills();
-        } else if (type == "braking") {
+        } else if (type.equals("braking")) {
             DataClass.getInstance().incrementNumberOfBrakingLiquidReffils();
         }
         refill.setLevel(100);
@@ -59,12 +64,14 @@ public class LiquidService {
 
     @Transactional
     public Liquid find(String type) {
+        logger.log("Application liquid of type: " + type+ " in database.", ELoggerLevel.INFO);
         return dao.findByType(type);
     }
 
     @Transactional
     public void remove(Liquid liquid) {
         Objects.requireNonNull(liquid);
-        dao.update(liquid);
+        dao.remove(liquid);
+        logger.log("Liquid with ID: "+liquid.getId() +" was deleted.", ELoggerLevel.INFO);
     }
 }

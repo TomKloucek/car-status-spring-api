@@ -3,6 +3,8 @@ package cz.cvut.fel.ear.carstatus.service;
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.DriverDao;
 import cz.cvut.fel.ear.carstatus.dao.RoadTripDao;
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.util.Constants;
@@ -18,6 +20,8 @@ import java.util.Objects;
 public class DriverService {
     private final DriverDao dao;
 
+    private static final Logger logger = new Logger();
+
     private final PasswordEncoder encoder;
 
     @Autowired
@@ -28,11 +32,13 @@ public class DriverService {
 
     @Transactional
     public List<Driver> findAll() {
+        logger.log("Application found all drivers in database.", ELoggerLevel.INFO);
         return dao.findAll();
     }
 
     @Transactional
     public Driver find(Integer id) {
+        logger.log("Application found driver with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 
@@ -45,20 +51,24 @@ public class DriverService {
         }
         DataClass.getInstance().incrementNumberOfDriversAdded();
         dao.persist(driver);
+        logger.log("New driver was created.", ELoggerLevel.INFO);
     }
 
     @Transactional
     public void update(Driver driver) {
         dao.update(driver);
+        logger.log("Driver with ID: "+driver.getId() +" was updated.", ELoggerLevel.INFO);
     }
 
     public List<Roadtrip> getAllRoadtripsMadeByDriver(Integer id) {
+        logger.log("Application provided information about all road trips made by driver wit ID: "+id+".", ELoggerLevel.INFO);
         return dao.find(id).getRoadtripList();
     }
 
     @Transactional
     public void remove(Driver driver) {
         Objects.requireNonNull(driver);
-        dao.update(driver);
+        dao.remove(driver);
+        logger.log("Driver with ID: "+driver.getId() +" was removed.", ELoggerLevel.INFO);
     }
 }

@@ -10,6 +10,6 @@ public class LowCoolingLiquidDecorator extends BaseDecorator {
 
     @Override
     public String sendMessage(String message) {
-        return super.sendMessage(message + "<p>Low cooling liquid level</p>");
+        return super.sendMessage(message + "<p color='red'>Low cooling liquid level</p>");
     }
 }

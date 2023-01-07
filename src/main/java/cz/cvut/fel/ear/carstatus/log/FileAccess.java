@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.log;
 
+import cz.cvut.fel.ear.carstatus.exception.EarException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
@@ -25,7 +27,7 @@ public class FileAccess {
             myWriter.write(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new java.util.Date())+" - "+message+"\n");
             myWriter.close();
         } catch (Exception e) {
-            // TODO
+            throw new EarException("Could not write to file.");
         }
     }
 }
