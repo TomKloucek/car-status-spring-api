@@ -1,8 +1,6 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
-import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
-import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;

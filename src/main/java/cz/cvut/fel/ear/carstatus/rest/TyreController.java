@@ -3,7 +3,6 @@ package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.dto.TyreDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
-import cz.cvut.fel.ear.carstatus.exception.*;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Tyre;
 import cz.cvut.fel.ear.carstatus.service.TyreService;

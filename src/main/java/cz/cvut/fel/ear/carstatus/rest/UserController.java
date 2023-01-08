@@ -5,7 +5,6 @@ import cz.cvut.fel.ear.carstatus.dto.MechanicDTO;
 import cz.cvut.fel.ear.carstatus.dto.UserDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.EarException;
-import cz.cvut.fel.ear.carstatus.exception.ValidationException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
 import cz.cvut.fel.ear.carstatus.service.UserService;
