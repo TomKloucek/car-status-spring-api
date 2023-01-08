@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class DriverController {
         final Driver driver = driverService.find(id);
         if (driver == null) {
             logger.log( DRIVER+ id + " was not found.", ELoggerLevel.ERROR);
-            throw NotFoundException.create("Driver", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Driver was not found");
         }
         logger.log(DRIVER + id + " was found.", ELoggerLevel.INFO);
         return driver;
@@ -48,7 +49,7 @@ public class DriverController {
         final Driver driver = driverService.find(id);
         if (driver == null) {
             logger.log(DRIVER+id+" was not found", ELoggerLevel.ERROR);
-            throw NotFoundException.create("Driver", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Driver was not found");
         }
         return driverService.getAllRoadtripsMadeByDriver(id);
     }
@@ -71,18 +72,18 @@ public class DriverController {
         final Driver driverToRemove = driverService.find(id);
         if(driverToRemove != null && driverToRemove.getId() == null){
             logger.log("Tried to delete driver without providing its ID.", ELoggerLevel.ERROR);
-            throw new UnchangeableException("Tried to delete driver without providing its ID.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to delete driver without providing its ID.");
         }
         else if (driverToRemove != null && roadTripService.lastDriver() == driverToRemove) {
             logger.log("Tried to delete last driver, action is aborted.", ELoggerLevel.ERROR);
-            throw new UnchangeableException("Tried to delete last driver, action is aborted.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to delete last driver, action is aborted.");
         }
         if(driverToRemove != null){
             driverService.remove(driverToRemove);
         }
         else {
             logger.log("Tried to delete driver with not existing id.", ELoggerLevel.ERROR);
-            throw new UnchangeableException("Tried to delete driver with not existing id.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to delete driver with not existing id.");
         }
     }
 }

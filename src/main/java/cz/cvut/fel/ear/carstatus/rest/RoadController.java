@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class RoadController {
         final Road road = roadService.find(id);
         if (road == null) {
             logger.log("Road with ID: " + id + " was not found.", ELoggerLevel.ERROR);
-            throw NotFoundException.create("Road", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Road not found");
         }
         logger.log("Road with ID: " + id + " was found.", ELoggerLevel.ERROR);
         return road;
@@ -68,7 +69,7 @@ public class RoadController {
         if (road.getStartingPoint() != null && road.getEndPoint() != null) {
             if(road.getLength() < 0){
                 logger.log("Tried to create road with negative length, action is aborted.", ELoggerLevel.ERROR);
-                throw new EarException("Tried to create road with negative length, action is aborted.");
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to create road with negative length, action is aborted.");
             }
             roadService.persist(road);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
@@ -81,7 +82,7 @@ public class RoadController {
         final Road roadToRemove = roadService.find(id);
         if (roadToRemove == null) {
             logger.log("Tried to delete road with not existing id.", ELoggerLevel.ERROR);
-            throw new UnchangeableException("Tried to delete road with not existing id.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to delete road with not existing id.");
         } else {
             roadService.remove(roadToRemove);
         }

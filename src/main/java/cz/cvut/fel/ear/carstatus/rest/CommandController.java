@@ -22,19 +22,22 @@ public class CommandController {
     }
 
     @PutMapping(value = "/driver",produces = MediaType.APPLICATION_JSON_VALUE)
-    public void changeCommandToDriver() {
+    public String changeCommandToDriver() {
         simulation.setCommand(ECommand.DRIVER);
+        return "Changed command successfully to driver";
     }
 
     @PutMapping(value = "/road",produces = MediaType.APPLICATION_JSON_VALUE)
-    public void changeCommandToRoad() {
+    public String changeCommandToRoad() {
         simulation.setCommand(ECommand.ROAD);
+        return "Changed command successfully to road";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/execute", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void executeCommand() {
+    public String executeCommand() {
         simulation.executeCommand();
+        return "Successfully executed command";
     }
 
 }

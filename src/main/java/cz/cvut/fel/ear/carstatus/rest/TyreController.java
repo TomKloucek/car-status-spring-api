@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class TyreController {
 
         if (tyre == null) {
             logger.log("Tyre with ID: " + id + " was not found.", ELoggerLevel.ERROR);
-            throw NotFoundException.create("Tyre", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tyre was not found.");
+
         }
         logger.log("Tyre with ID: " + id + " was found.", ELoggerLevel.INFO);
         return tyre;
@@ -76,11 +78,11 @@ public class TyreController {
         final Tyre tyreToRemove = tyreService.find(id);
         if (tyreToRemove == null) {
             logger.log("Tried to delete tyre which does not exist.", ELoggerLevel.ERROR);
-            throw new UndeletableException("Tried to delete tyre which does not exist.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to delete tyre which does not exist.");
         }
         else if(tyreToRemove.isInUsage()){
             logger.log("Tried to delete tyre which is in usage, action aborted.", ELoggerLevel.ERROR);
-            throw new UndeletableException("Tried to delete tyre  which is in usage, action aborted.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to delete tyre which is in usage, action aborted.");
         }
         else {
             tyreService.deleteTyre(tyreToRemove);
@@ -97,20 +99,21 @@ public class TyreController {
         tyre.setPosition(tyreDTO.getPosition());
         if(tyre.getPosition() < 1 || tyre.getPosition() > 4){
             logger.log("Tried to create tyre with pointless position, action is aborted.", ELoggerLevel.ERROR);
-            throw new EarException("Tried to create tyre with pointless position, action is aborted.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to create tyre with pointless position, action is aborted.");
         }
         if(tyre.getPressure() < 0 || tyre.getCondition() < 0){
             logger.log("Tried to create tyre with negative pressure or condition, action is aborted.", ELoggerLevel.ERROR);
-            throw new EarException("Tried to create tyre with negative pressure or condition, action is aborted.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to create tyre with negative pressure or condition, action is aborted.");
+
         }
         else if(tyre.getPressure() > 40 || tyre.getCondition() > 100){
             logger.log("Tried to create tyre with pointless pressure or condition, action is aborted.", ELoggerLevel.ERROR);
-            throw new EarException("Tried to create tyre with pointless pressure or condition, action is aborted.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to create tyre with pointless pressure or condition, action is aborted.");
         }
         if(tyre.isInUsage()){
             logger.log("Tried to create tyre and set its usage to true, which leads to unstable behaviour," +
                     " this is why the action was aborted.", ELoggerLevel.ERROR);
-            throw new UnchangeableException("Tried to create tyre and set its usage to true, which leads to unstable behaviour," +
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to create tyre and set its usage to true, which leads to unstable behaviour," +
                     " this is why the action was aborted.");
         }
         else if(tyre.getId() == null || (tyre.getId() != null && tyre.getId() > this.getAllTyres().size())){
@@ -120,7 +123,7 @@ public class TyreController {
         }
         else {
             logger.log("Cannot create tyre with existing id.", ELoggerLevel.ERROR);
-            throw new PersistenceException("Cannot create tyre with existing id.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Cannot create tyre with existing id.");
         }
     }
 }

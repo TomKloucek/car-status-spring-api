@@ -58,7 +58,7 @@ class GenerateRoadsTest {
 
     @Test
     @Transactional
-    public void generateRoads() {
+    void generateRoads() {
         Random rnd = new Random();
         Road r1 = new Road();
         r1.setId(Math.abs(rnd.nextInt()));

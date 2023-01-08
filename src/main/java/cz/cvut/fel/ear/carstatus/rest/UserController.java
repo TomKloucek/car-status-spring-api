@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -81,14 +82,14 @@ public class UserController {
             Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
             if(admin.getBirthDate().before(date) || admin.getBirthDate().after(new Date()) || admin.getExpires().before(date)){
                 loggerToFile.log("Tried to register admin with pointless date of birth.", ELoggerLevel.ERROR);
-                throw new EarException("Tried to register admin with pointless date of birth.");
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to register admin with pointless date of birth.");
             }
             userService.persist(admin);
             loggerToFile.log("Admin "+ admin.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.INFO);
         }
         else{
             loggerToFile.log("EXCEPTION: Tried to create admin, but role of added user was not admin.",ELoggerLevel.ERROR);
-            throw new ValidationException("EXCEPTION: Tried to create admin, but role of added user was not admin.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "EXCEPTION: Tried to create admin, but role of added user was not admin.");
         }
 
         final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri(ID, admin.getId());
@@ -112,18 +113,18 @@ public class UserController {
             Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
             if(mechanic.getBirthDate().before(date) || mechanic.getBirthDate().after(new Date())){
                 loggerToFile.log("Tried to register mechanic with pointless date of birth.", ELoggerLevel.ERROR);
-                throw new EarException("Tried to register mechanic with pointless date of birth.");
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to register mechanic with pointless date of birth.");
             }
             if(mechanic.getOperatingFrom().before(date) || mechanic.getOperatingTo().before(new Date())){
                 loggerToFile.log("Tried to register mechanic with pointless dates of operation.", ELoggerLevel.ERROR);
-                throw new EarException("Tried to register mechanic with pointless date of operation.");
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to register mechanic with pointless date of operation.");
             }
             userService.persist(mechanic);
             loggerToFile.log("Mechanic "+ mechanic.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.INFO);
         }
         else{
             loggerToFile.log("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.", ELoggerLevel.ERROR);
-            throw new ValidationException("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.");
         }
         final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri(ID, mechanic.getId());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
