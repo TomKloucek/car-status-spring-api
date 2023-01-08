@@ -55,8 +55,6 @@ class GenerateRoadsTest {
     @Autowired
     private RoadService roadService;
 
-    @Autowired
-    TyreService tyreservice;
 
     @Test
     @Transactional
