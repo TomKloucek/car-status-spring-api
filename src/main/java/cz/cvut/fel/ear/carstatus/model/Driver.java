@@ -19,8 +19,8 @@ public class Driver extends User{
 
 
     @OneToMany
-    @JsonManagedReference
     @JoinColumn(name = "driver_id")
+    @JsonManagedReference
     private List<Roadtrip> roadtripList;
 
     public List<Seat> getSeatList() {

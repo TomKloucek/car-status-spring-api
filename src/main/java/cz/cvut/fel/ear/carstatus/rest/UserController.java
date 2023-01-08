@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.exception.EarException;
 import cz.cvut.fel.ear.carstatus.exception.ValidationException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
@@ -13,6 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 @RestController
 @RequestMapping("/rest/user")
@@ -35,11 +41,16 @@ public class UserController {
             Driver driver = new Driver();
             driver.setFirstName(user.getFirstName());
             driver.setLastName(user.getLastName());
+            Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
+            if(user.getBirthDate().before(date) || user.getBirthDate().after(new Date())){
+                loggerToFile.log("Tried to register user with pointless date of birth.", ELoggerLevel.ERROR);
+                throw new EarException("Tried to register user with pointless date of birth.");
+            }
             driver.setBirthDate(user.getBirthDate());
             driver.setUsername(user.getUsername());
             driver.setPassword(user.getPassword());
             userService.persist(driver);
-            loggerToFile.log("Driver "+ user.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.DEBUG);
+            loggerToFile.log("Driver "+ user.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.INFO);
         }
 
         final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri(ID, user.getId());
@@ -51,8 +62,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> addAmin(@RequestBody Admin admin) {
         if(admin.getRole() == Role.ADMIN){
+            Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
+            if(admin.getBirthDate().before(date) || admin.getBirthDate().after(new Date()) || admin.getExpires().before(date)){
+                loggerToFile.log("Tried to register admin with pointless date of birth.", ELoggerLevel.ERROR);
+                throw new EarException("Tried to register admin with pointless date of birth.");
+            }
             userService.persist(admin);
-            loggerToFile.log("Admin "+ admin.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.DEBUG);
+            loggerToFile.log("Admin "+ admin.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.INFO);
         }
         else{
             loggerToFile.log("EXCEPTION: Tried to create admin, but role of added user was not admin.",ELoggerLevel.ERROR);
@@ -68,8 +84,17 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> addMechanic(@RequestBody Mechanic mechanic) {
         if(mechanic.getRole() == Role.MECHANIC){
+            Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
+            if(mechanic.getBirthDate().before(date) || mechanic.getBirthDate().after(new Date())){
+                loggerToFile.log("Tried to register mechanic with pointless date of birth.", ELoggerLevel.ERROR);
+                throw new EarException("Tried to register mechanic with pointless date of birth.");
+            }
+            if(mechanic.getOperatingFrom().before(date) || mechanic.getOperatingTo().before(new Date())){
+                loggerToFile.log("Tried to register mechanic with pointless dates of operation.", ELoggerLevel.ERROR);
+                throw new EarException("Tried to register mechanic with pointless date of operation.");
+            }
             userService.persist(mechanic);
-            loggerToFile.log("Mechanic "+ mechanic.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.DEBUG);
+            loggerToFile.log("Mechanic "+ mechanic.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.INFO);
         }
         else{
             loggerToFile.log("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.", ELoggerLevel.ERROR);

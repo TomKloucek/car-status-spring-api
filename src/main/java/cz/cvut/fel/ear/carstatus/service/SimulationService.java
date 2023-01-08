@@ -11,6 +11,7 @@ import cz.cvut.fel.ear.carstatus.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,7 @@ public class SimulationService {
         this.batteryService = bs;
     }
 
+    @Transactional
     public List<Road> generateRoads(int length) {
         DataClass.getInstance().incrementNumberOfRoadsGenerated();
         List<Road> roads = roadService.findAll();
@@ -74,6 +76,7 @@ public class SimulationService {
         return result;
     }
 
+    @Transactional
     public void generateOneRoadTrip() {
         Battery batteryInUsage;
         batteryInUsage = batteryService.findAll().stream().filter(Battery::isInUsage).findFirst().orElse(null);
@@ -123,6 +126,7 @@ public class SimulationService {
 
     }
 
+    @Transactional
     private void updateCarLiquids(int roadLength) {
         for (Liquid l : liquidService.findAll()) {
             if(l.getType().equals("braking") && l.getLevel()-roadLength*2 > 0){
@@ -135,6 +139,7 @@ public class SimulationService {
         }
     }
 
+    @Transactional
     private void updateBattery(int roadLength) {
         Battery battery = batteryService.getCurrentBattery();
         battery.setCondition((int) (battery.getCondition()-(roadLength*0.25)));
@@ -147,6 +152,7 @@ public class SimulationService {
         }
         batteryService.updateBattery(battery);
     }
+    @Transactional
     private void updateTyres(int roadLength) {
         List <Tyre> tyres = tyreService.getCurrentTyres();
         for(Tyre tyre : tyres){
@@ -155,7 +161,7 @@ public class SimulationService {
             tyreService.updateTyre(tyre);
         }
     }
-
+    @Transactional
     public void setCommand(ECommand command) {
         logger.log("Command was set to: " +command.name() +".",ELoggerLevel.INFO);
         switch (command) {
@@ -170,6 +176,7 @@ public class SimulationService {
         }
     }
 
+    @Transactional
     public void executeCommand() {
         if(this.command == null){
             logger.log("Because command was not set, it was set to a road command by default.",ELoggerLevel.INFO);

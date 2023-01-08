@@ -23,28 +23,28 @@ public class SeatController {
        this.logger = logger;
    }
 
-    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PreAuthorize("hasRole('DRIVER')")
     @PutMapping(value = "/up", produces = MediaType.APPLICATION_JSON_VALUE)
     public String addVerticalPosition() {
         logger.log("Application was ordered to move drivers seat up", ELoggerLevel.INFO);
         return seatService.addVerticalPosition() ? "{"+JSONObject.toString("data","Successfully lifted your seat")+"}" : "{"+JSONObject.toString("err","Your seat is now in maximum height")+"}";
     }
 
-    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PreAuthorize("hasRole('DRIVER')")
     @PutMapping(value = "/left", produces = MediaType.APPLICATION_JSON_VALUE)
     public String subtractHorizontalPosition() {
         logger.log("Application was ordered to move drivers seat to left", ELoggerLevel.INFO);
         return seatService.subtractHorizontalPosition() ? "{"+JSONObject.toString("data","Successfully moved your seat left")+"}" : "{"+JSONObject.toString("err","Your seat is now in maximum left")+"}";
     }
 
-    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PreAuthorize("hasRole('DRIVER')")
     @PutMapping(value = "/right", produces = MediaType.APPLICATION_JSON_VALUE)
     public String addHorizontalPosition() {
         logger.log("Application was ordered to move drivers seat to right", ELoggerLevel.INFO);
         return seatService.addHorizontalPosition() ? "{"+JSONObject.toString("data","Successfully moved your seat right")+"}" : "{"+JSONObject.toString("err","Your seat is now in maximum right position")+"}";
     }
 
-    @PreAuthorize("hasAnyRole('DRIVER', 'MECHANIC')")
+    @PreAuthorize("hasRole('DRIVER')")
     @PutMapping(value = "/down", produces = MediaType.APPLICATION_JSON_VALUE)
     public String subtractVerticalPosition() {
         logger.log("Application was ordered to lower drivers seat", ELoggerLevel.INFO);

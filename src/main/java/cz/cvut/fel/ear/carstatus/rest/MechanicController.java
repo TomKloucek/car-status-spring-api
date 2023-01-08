@@ -22,6 +22,6 @@ public class MechanicController {
     public String makeCarcheck(@CurrentSecurityContext(expression="authentication?.name")
                                  String username) {
         carcheckService.makeCarcheck(username);
-        return "Carcheck was made successfully.";
+        return "Car check was made successfully.";
     }
 }

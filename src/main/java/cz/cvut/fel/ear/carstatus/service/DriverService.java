@@ -38,7 +38,7 @@ public class DriverService {
 
     @Transactional
     public Driver find(Integer id) {
-        logger.log("Application found driver with ID: " + id + " in database.", ELoggerLevel.INFO);
+        logger.log("Application tried to find driver with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 
@@ -61,7 +61,7 @@ public class DriverService {
     }
 
     public List<Roadtrip> getAllRoadtripsMadeByDriver(Integer id) {
-        logger.log("Application provided information about all road trips made by driver wit ID: "+id+".", ELoggerLevel.INFO);
+        logger.log("Application provided information about all road trips made by driver with ID: "+id+".", ELoggerLevel.INFO);
         return dao.find(id).getRoadtripList();
     }
 

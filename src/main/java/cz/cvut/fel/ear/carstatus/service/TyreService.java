@@ -26,9 +26,11 @@ public class TyreService {
 
     @Transactional(readOnly = true)
     public Tyre find(Integer id) {
+        logger.log("Application tried to find tyre with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 
+    @Transactional
     public List<Tyre> getCurrentTyres() {
         List<Tyre> result = new ArrayList<>();
         for (Tyre b : dao.findAll()) {
@@ -46,6 +48,7 @@ public class TyreService {
         return dao.findAll();
     }
 
+    @Transactional
     public void inflateTyreAtPosition(Integer position) {
         List<Tyre> tyres = dao.findAll();
         for(Tyre tyre : tyres){
@@ -54,6 +57,7 @@ public class TyreService {
                 tyreToInflate.setPressure(33);
                 DataClass.getInstance().incrementNumberOfTyresInflated();
                 DataClass.getInstance().incrementNumberOfTyresInflated();
+                logger.log("Inflated tyre on position " + position +".", ELoggerLevel.ERROR);
                 dao.update(tyreToInflate);
                 return;
             }
@@ -62,6 +66,7 @@ public class TyreService {
         throw new NotFoundException("Unable to find tyre in usage with given position.");
     }
 
+    @Transactional
     public void inflateTyre(Integer id) {
         final Tyre tyre = dao.find(id);
         tyre.setPressure(33);
@@ -80,6 +85,7 @@ public class TyreService {
         logger.log("All tyres were inflated.", ELoggerLevel.INFO);
     }
 
+    @Transactional
     public void deleteTyre(Tyre tyre) {
         dao.remove(tyre);
         logger.log("Tyre with ID: "+tyre.getId() +" was deleted.", ELoggerLevel.INFO);
@@ -90,12 +96,14 @@ public class TyreService {
         logger.log("Tyre with ID: "+tyre.getId() +" was updated.", ELoggerLevel.INFO);
     }
 
+    @Transactional
     public void createNewTyre(Tyre tyre) {
         dao.persist(tyre);
         DataClass.getInstance().incrementNumberOfTyresAdded();
         logger.log("New tyre was created.", ELoggerLevel.INFO);
     }
 
+    @Transactional
     public boolean changeCurrentTyre(Tyre tyre) {
         if (tyre.getPressure() < Constants.MINIMAL_TYRE_PRESSURE) {
             return false;
@@ -114,6 +122,7 @@ public class TyreService {
         return false;
     }
 
+    @Transactional
     public boolean tyresAreFunctional() {
         for (Tyre tyre : getCurrentTyres()) {
             if (tyre.getPressure() < 30) {
