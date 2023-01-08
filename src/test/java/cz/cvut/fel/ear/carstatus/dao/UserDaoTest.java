@@ -43,7 +43,6 @@ class UserDaoTest {
         user.setLastName("Administrator");
         user.setPassword("adm1n");
         user.setRole(Role.DRIVER);
-        admin.setUser(user);
 
         em.persist(user);
 

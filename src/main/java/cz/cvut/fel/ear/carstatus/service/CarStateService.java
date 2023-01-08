@@ -47,7 +47,7 @@ public class CarStateService {
         this.notifyMalfunctions = new BaseDecorator(new Notifier());
         this.observers = new ArrayList<>();
         fillObservers();
-        updateMalfunctionality();
+        //updateMalfunctionality();
     }
 
     @Transactional
