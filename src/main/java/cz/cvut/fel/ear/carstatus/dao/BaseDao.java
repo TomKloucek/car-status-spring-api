@@ -59,8 +59,8 @@ public abstract class BaseDao<T> implements GenericDao<T> {
 
     @Override
     public T update(T entity) {
-        Objects.requireNonNull(entity);
         try {
+            Objects.requireNonNull(entity);
             return em.merge(entity);
         } catch (RuntimeException e) {
             throw new PersistenceException(e);

@@ -40,9 +40,4 @@ public class WebSecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
-
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 }
