@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.dto;
 
+import cz.cvut.fel.ear.carstatus.model.Role;
+
 import java.util.Date;
 
 public class MechanicDTO {
@@ -11,6 +13,12 @@ public class MechanicDTO {
     private Date operatingFrom;
     private Date operatingTo;
     private String phoneNumber;
+
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
 
     public String getFirstName() {
         return firstName;

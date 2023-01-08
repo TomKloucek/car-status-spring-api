@@ -1,4 +1,4 @@
-package cz.cvut.fel.ear.carstatus.dao;
+package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.CarstatusApplication;
 import cz.cvut.fel.ear.carstatus.TestSecurityConfig;
@@ -31,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Random;
@@ -47,78 +48,36 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 @AutoConfigureDataJpa
-class SimulationTest {
+class GenerateRoadsTest {
 
-    @Autowired
-    private RoadTripService roadTripService;
 
-    @Autowired
-    private RoadPathService roadPathService;
-
-    @Autowired
-    private DriverService driverService;
-
-    @Autowired
-    private LiquidService liquidService;
 
     @Autowired
     private RoadService roadService;
-    @Autowired
-    private BatteryService batteryService;
-    @Autowired
-    private GenerateRoadCommand roadCommand;
-
-    @Autowired
-    private GenerateDriverCommand driverCommand;
-
-    @Autowired
-    CarStateService carStateService;
-
-    @Autowired
-    TyreService tyreservice;
-
-    @Autowired
-    SimulationService simulation;
 
 
     @Test
-    void basicSimulationTest() {
-        int initialSize = roadTripService.findAll().size();
-        Random random = new Random();
-        Battery battery = new Battery();
-        battery.setCapacity(random.nextInt());
-        battery.setCondition(random.nextInt());
-        battery.setInUsage(true);
-        battery.setId(Math.abs(random.nextInt()));
-        batteryService.createNewBattery(battery);
-        batteryService.changeCurrentBattery(battery);
-        generateDriver();
-        generateRoads();
-        simulation.generateOneRoadTrip();
-        assertEquals(initialSize+1,roadTripService.findAll().size());
-    }
-
-    public void generateDriver() {
-        Driver user = new Driver();
-        user.setUsername("pepik");
-        user.setFirstName("System");
-        user.setBirthDate(new Date());
-        user.setLastName("Administrator");
-        user.setPassword("adm1n");
-        user.setRole(Role.DRIVER);
-        driverService.persist(user);
-    }
-
-    public void generateRoads() {
+    @Transactional
+    void generateRoads() {
+        Random rnd = new Random();
         Road r1 = new Road();
+        r1.setId(Math.abs(rnd.nextInt()));
         r1.setLength(210);
         r1.setStartingPoint("Praha");
         r1.setEndPoint("Brno");
         roadService.persist(r1);
+        final Road firstGeneratedRoadResult = roadService.find(r1.getId());
         Road r2 = new Road();
+        r2.setId(Math.abs(rnd.nextInt()));
         r2.setLength(210);
         r2.setEndPoint("Praha");
         r2.setStartingPoint("Brno");
         roadService.persist(r2);
+        final Road secondGeneratedRoadResult = roadService.find(r2.getId());
+
+        assertNotNull(firstGeneratedRoadResult);
+        assertNotNull(secondGeneratedRoadResult);
+        assertEquals(r1, firstGeneratedRoadResult);
+        assertEquals(r2, secondGeneratedRoadResult);
     }
 }

@@ -1,18 +1,19 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
-import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Carcheck;
 import cz.cvut.fel.ear.carstatus.model.Mechanic;
 import cz.cvut.fel.ear.carstatus.service.CarcheckService;
 import cz.cvut.fel.ear.carstatus.service.MechanicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class CarcheckController {
         final Carcheck carcheck = carcheckService.find(id);
         if (carcheck == null) {
             logger.log("Car check with ID: " + id + " was not found.", ELoggerLevel.ERROR);
-            throw NotFoundException.create("Carcheck", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Carcheck not found");
         }
         logger.log("Car check with ID: " + id + " was found.", ELoggerLevel.ERROR);
         return carcheck;
@@ -45,7 +46,7 @@ public class CarcheckController {
     public List<Carcheck> getAllCarcheckMadeByMechanic(@PathVariable Integer id) {
         final Mechanic mechanic = mechanicService.find(id);
         if (mechanic == null) {
-            throw NotFoundException.create("Mechanic", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Mechanic not found");
         }
         return carcheckService.getCarchecksMadeByMechanic(mechanic);
 
