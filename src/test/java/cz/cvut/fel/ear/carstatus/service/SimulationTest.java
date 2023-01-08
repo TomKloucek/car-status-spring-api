@@ -53,23 +53,12 @@ class SimulationTest {
     private RoadTripService roadTripService;
 
     @Autowired
-    private RoadPathService roadPathService;
-
-    @Autowired
     private DriverService driverService;
-
-    @Autowired
-    private LiquidService liquidService;
 
     @Autowired
     private RoadService roadService;
     @Autowired
     private BatteryService batteryService;
-    @Autowired
-    private GenerateRoadCommand roadCommand;
-
-    @Autowired
-    private GenerateDriverCommand driverCommand;
 
     @Autowired
     CarStateService carStateService;
