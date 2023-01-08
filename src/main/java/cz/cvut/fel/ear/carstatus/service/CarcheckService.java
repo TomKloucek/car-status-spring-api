@@ -1,6 +1,5 @@
 package cz.cvut.fel.ear.carstatus.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.CarCheckDao;
 import cz.cvut.fel.ear.carstatus.dao.MechanicDao;

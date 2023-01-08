@@ -23,15 +23,13 @@ public class WebApp {
 
     @GetMapping(value = "/load_simulation",produces = MediaType.TEXT_HTML_VALUE)
     public String simForm() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/main/java/cz/cvut/fel/ear/carstatus/webapp/load_simulation.html"));
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/cz/cvut/fel/ear/carstatus/webapp/load_simulation.html"))) {
             StringBuilder stringBuilder = new StringBuilder();
             char[] buffer = new char[10];
             while (reader.read(buffer) != -1) {
                 stringBuilder.append(new String(buffer));
                 buffer = new char[10];
             }
-            reader.close();
             return stringBuilder.toString();
         } catch (Exception e) {
             logger.log("Nedokazal se precist soubor ve webapp", null);

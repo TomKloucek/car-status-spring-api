@@ -2,11 +2,9 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.LiquidDao;
-import cz.cvut.fel.ear.carstatus.dao.RoadDao;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Liquid;
-import cz.cvut.fel.ear.carstatus.model.Road;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

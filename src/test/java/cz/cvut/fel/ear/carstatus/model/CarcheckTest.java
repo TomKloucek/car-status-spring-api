@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CarcheckTest {
+class CarcheckTest {
 
     @Test
-    public void carCheckIsAppointedToMechanic() {
+    void carCheckIsAppointedToMechanic() {
         final Carcheck carcheck = new Carcheck();
         final Mechanic mechanic = new Mechanic();
         final Mechanic mechanic1 = new Mechanic();
@@ -18,7 +18,7 @@ public class CarcheckTest {
 
         assertNotNull(carcheck);
         assertEquals(carcheck.getMechanic(), mechanic);
-        assertEquals(carcheck.getCheckDate().toString(), "2015-03-31");
+        assertEquals("2015-03-31", carcheck.getCheckDate().toString());
         assertNotEquals(carcheck.getMechanic(), mechanic1);
     }
 }

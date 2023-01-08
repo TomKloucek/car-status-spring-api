@@ -1,9 +1,7 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
-import cz.cvut.fel.ear.carstatus.model.Road;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
-import cz.cvut.fel.ear.carstatus.service.RoadService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
 import org.springframework.beans.factory.annotation.Autowired;

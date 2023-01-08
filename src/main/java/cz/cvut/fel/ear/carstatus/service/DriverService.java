@@ -2,7 +2,6 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.dao.DriverDao;
-import cz.cvut.fel.ear.carstatus.dao.RoadTripDao;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Driver;
@@ -20,13 +19,14 @@ import java.util.Objects;
 public class DriverService {
     private final DriverDao dao;
 
-    private static final Logger logger = new Logger();
+    private final Logger logger;
 
     private final PasswordEncoder encoder;
 
     @Autowired
-    public DriverService(DriverDao rd, PasswordEncoder encoder) {
+    public DriverService(DriverDao rd, Logger logger, PasswordEncoder encoder) {
         dao = rd;
+        this.logger = logger;
         this.encoder = encoder;
     }
 

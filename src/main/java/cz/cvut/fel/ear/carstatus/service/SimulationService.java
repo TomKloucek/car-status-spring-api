@@ -33,7 +33,7 @@ public class SimulationService {
 
     private RoadPathService roadPathService;
     private BatteryService batteryService;
-    private CarStateService carStateService;
+
     private ICommand command;
 
     private final GenerateDriverCommand driverCommand;
@@ -52,7 +52,6 @@ public class SimulationService {
         this.roadService = rs;
         this.tyreService = tyreservice;
         this.batteryService = bs;
-        this.carStateService = carStateService;
     }
 
     public List<Road> generateRoads(int length) {

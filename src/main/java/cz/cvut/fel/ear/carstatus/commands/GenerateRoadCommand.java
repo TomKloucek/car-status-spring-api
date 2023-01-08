@@ -1,19 +1,14 @@
 package cz.cvut.fel.ear.carstatus.commands;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.interfaces.ICommand;
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Road;
-import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 @Service

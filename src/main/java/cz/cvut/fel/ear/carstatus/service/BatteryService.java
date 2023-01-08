@@ -6,11 +6,9 @@ import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.BrokenPartException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Battery;
-import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.util.Constants;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.yaml.snakeyaml.scanner.Constant;
 
 import java.util.List;
 

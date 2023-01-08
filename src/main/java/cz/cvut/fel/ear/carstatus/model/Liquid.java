@@ -1,6 +1,9 @@
 package cz.cvut.fel.ear.carstatus.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 
 @NamedQuery(name = "find_cooling_liquid", query = "SELECT l FROM Liquid l WHERE l.type='cooling'")
 @NamedQuery(name = "find_braking_liquid", query = "SELECT l FROM Liquid l WHERE l.type='braking'")
@@ -44,12 +47,7 @@ public class Liquid extends AbstractEntity {
     }
 
     public boolean checkWhetherIsBelowOrAtMinLevel(){
-        if(minLevel >= level){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return minLevel >= level;
     }
 
     @Override

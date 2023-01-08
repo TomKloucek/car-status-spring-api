@@ -6,24 +6,22 @@ import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
 import cz.cvut.fel.ear.carstatus.service.UserService;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/rest/user")
 public class UserController {
     private final Logger loggerToFile = new Logger();
     private final UserService userService;
+
+    private static final String SUCCESSFULLY_REGISTERED = " successfully registered.";
+    private static final String ID = "/{id}";
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -41,10 +39,10 @@ public class UserController {
             driver.setUsername(user.getUsername());
             driver.setPassword(user.getPassword());
             userService.persist(driver);
-            loggerToFile.log("Driver "+ user.getUsername() +" successfully registered.", ELoggerLevel.DEBUG);
+            loggerToFile.log("Driver "+ user.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.DEBUG);
         }
 
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", user.getId());
+        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri(ID, user.getId());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
@@ -54,14 +52,14 @@ public class UserController {
     public ResponseEntity<Void> addAmin(@RequestBody Admin admin) {
         if(admin.getRole() == Role.ADMIN){
             userService.persist(admin);
-            loggerToFile.log("Admin "+ admin.getUsername() +" successfully registered.", ELoggerLevel.DEBUG);
+            loggerToFile.log("Admin "+ admin.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.DEBUG);
         }
         else{
             loggerToFile.log("EXCEPTION: Tried to create admin, but role of added user was not admin.",ELoggerLevel.ERROR);
             throw new ValidationException("EXCEPTION: Tried to create admin, but role of added user was not admin.");
         }
 
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", admin.getId());
+        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri(ID, admin.getId());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
@@ -71,13 +69,13 @@ public class UserController {
     public ResponseEntity<Void> addMechanic(@RequestBody Mechanic mechanic) {
         if(mechanic.getRole() == Role.MECHANIC){
             userService.persist(mechanic);
-            loggerToFile.log("Mechanic "+ mechanic.getUsername() +" successfully registered.", ELoggerLevel.DEBUG);
+            loggerToFile.log("Mechanic "+ mechanic.getUsername() + SUCCESSFULLY_REGISTERED, ELoggerLevel.DEBUG);
         }
         else{
             loggerToFile.log("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.", ELoggerLevel.ERROR);
             throw new ValidationException("EXCEPTION: Tried to create mechanic, but role of added user was not mechanic.");
         }
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", mechanic.getId());
+        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri(ID, mechanic.getId());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 

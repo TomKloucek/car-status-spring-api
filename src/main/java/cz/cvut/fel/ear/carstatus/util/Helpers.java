@@ -12,6 +12,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Helpers {
+    private Helpers() {
+        throw new IllegalStateException("Utility class");
+    }
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
         if ((birthDate != null) && (currentDate != null)) {
             return Period.between(birthDate, currentDate).getYears();

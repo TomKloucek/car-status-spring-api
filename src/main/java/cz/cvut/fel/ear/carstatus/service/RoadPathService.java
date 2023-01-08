@@ -1,10 +1,8 @@
 package cz.cvut.fel.ear.carstatus.service;
 
-import cz.cvut.fel.ear.carstatus.dao.DriverDao;
 import cz.cvut.fel.ear.carstatus.dao.RoadPathDao;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Roadpath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -6,9 +6,9 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TyreTest {
+class TyreTest {
     @Test
-    public void tyreBlowsDownAsItRuns() {
+    void tyreBlowsDownAsItRuns() {
         final Tyre tyre = new Tyre();
         final Road road = new Road();
         Random random = new Random();

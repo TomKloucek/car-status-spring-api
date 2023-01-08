@@ -4,10 +4,13 @@ import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
 import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.model.*;
+import cz.cvut.fel.ear.carstatus.model.Battery;
+import cz.cvut.fel.ear.carstatus.model.Liquid;
+import cz.cvut.fel.ear.carstatus.model.Seat;
+import cz.cvut.fel.ear.carstatus.model.Tyre;
 import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
-import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
 import cz.cvut.fel.ear.carstatus.notifications.Notifier;
+import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
 import cz.cvut.fel.ear.carstatus.observers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,19 +24,12 @@ import java.util.Objects;
 public class CarStateService {
 
     List<IObserver> observers;
-    private Battery battery;
-    private List<Liquid> liquids;
-    private List<Tyre> tyres;
-    private List<Seat> seats;
-    private Seat driversSeat;
-    private Driver currentDriver;
     private static final Logger logger = new Logger();
 
     private final BatteryService batteryService;
 
     private final LiquidService liquidService;
 
-    private final RoadTripService roadTripService;
     private final SeatService seatService;
 
     private final TyreService tyreService;
@@ -41,10 +37,9 @@ public class CarStateService {
     private BaseDecorator notifyMalfunctions;
 
     @Autowired
-    public CarStateService(BatteryService batteryService, LiquidService liquidService, RoadTripService roadTripService, SeatService seatService, TyreService tyreService ) {
+    public CarStateService(BatteryService batteryService, LiquidService liquidService, SeatService seatService, TyreService tyreService ) {
         this.batteryService = batteryService;
         this.liquidService = liquidService;
-        this.roadTripService = roadTripService;
         this.seatService = seatService;
         this.tyreService = tyreService;
         this.malfunctions = new ArrayList<>();

@@ -3,7 +3,6 @@ package cz.cvut.fel.ear.carstatus.log;
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.EarException;
-import cz.cvut.fel.ear.carstatus.rest.UserController;
 import cz.cvut.fel.ear.carstatus.util.Constants;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -42,7 +41,7 @@ public class Logger {
         try {
             FileAccess fileAccess = fileAccessPool.getFileAccess();
             fileAccess.openFile("log.txt");
-            fileAccess.writeToFile(level.name()+" - "+message);
+            fileAccess.writeToFile(level.name() + " - " + message);
             fileAccess.closeFile();
             fileAccessPool.releaseFileAccess(fileAccess);
         } catch (Exception e) {

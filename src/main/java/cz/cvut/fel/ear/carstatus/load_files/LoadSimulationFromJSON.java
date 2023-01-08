@@ -24,9 +24,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class LoadSimulationFromJSON implements ILoadSimulationFile {
@@ -35,6 +32,8 @@ public class LoadSimulationFromJSON implements ILoadSimulationFile {
     final RoadService roadService;
     final BatteryService batteryService;
     final TyreService tyreService;
+
+    private static final String CONDITION = "condition";
 
     @Autowired
     public LoadSimulationFromJSON(DriverService driverService, RoadService roadService, BatteryService batteryService, TyreService tyreService) {
@@ -64,7 +63,7 @@ public class LoadSimulationFromJSON implements ILoadSimulationFile {
                     driverService.persist(driver);
                 } else if (isBattery(jsonObject)) {
                     Battery battery = new Battery();
-                    battery.setCondition((int) (long) jsonObject.get("condition"));
+                    battery.setCondition((int) (long) jsonObject.get(CONDITION));
                     battery.setCapacity((int) (long) jsonObject.get("capacity"));
                     batteryService.createNewBattery(battery);
                 } else if (isRoad(jsonObject)) {
@@ -76,8 +75,8 @@ public class LoadSimulationFromJSON implements ILoadSimulationFile {
                 } else if (isTyre(jsonObject)) {
                     Tyre tyre = new Tyre();
                     tyre.setPosition(Integer.parseInt((String) jsonObject.get("position")));
-                    tyre.setPressure((double) (long) jsonObject.get("pressure"));
-                    tyre.setCondition((int) (long) jsonObject.get("condition"));
+                    tyre.setPressure((long) jsonObject.get("pressure"));
+                    tyre.setCondition((int) (long) jsonObject.get(CONDITION));
                     tyreService.createNewTyre(tyre);
                 }
             }
@@ -101,10 +100,10 @@ public class LoadSimulationFromJSON implements ILoadSimulationFile {
     }
 
     private boolean isBattery(JSONObject object) {
-        return (object.containsKey("capacity") && object.containsKey("condition"));
+        return (object.containsKey("capacity") && object.containsKey(CONDITION));
     }
 
     private boolean isTyre(JSONObject object) {
-        return (object.containsKey("position") && object.containsKey("condition") && object.containsKey("pressure"));
+        return (object.containsKey("position") && object.containsKey(CONDITION) && object.containsKey("pressure"));
     }
 }
