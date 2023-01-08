@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.dao;
 
 import cz.cvut.fel.ear.carstatus.CarstatusApplication;
+import cz.cvut.fel.ear.carstatus.TestSecurityConfig;
 import cz.cvut.fel.ear.carstatus.commands.GenerateDriverCommand;
 import cz.cvut.fel.ear.carstatus.commands.GenerateRoadCommand;
 import cz.cvut.fel.ear.carstatus.model.Driver;
@@ -8,26 +9,37 @@ import cz.cvut.fel.ear.carstatus.model.Road;
 import cz.cvut.fel.ear.carstatus.model.Role;
 import cz.cvut.fel.ear.carstatus.service.*;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@DataJpaTest
+@RunWith(SpringRunner.class)
 @ComponentScan(basePackageClasses = CarstatusApplication.class, excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class),
         @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = TestConfiguration.class)})
+@AutoConfigureTestEntityManager
+@Import(TestSecurityConfig.class)
+@SpringBootTest
 class SimulationTest {
-
-    @Autowired
-    private TestEntityManager em;
 
     @Autowired
     private RoadTripService roadTripService;
@@ -50,9 +62,18 @@ class SimulationTest {
 
     @Autowired
     private GenerateDriverCommand driverCommand;
+
+    @Autowired
+    CarStateService carStateService;
+
+    @Autowired
+    TyreService tyreservice;
+
+    @Autowired
+    SimulationService simulation;
+
     @Test
     void basicSimulationTest() {
-        SimulationService simulation = new SimulationService(driverService,roadTripService,roadPathService,liquidService,roadService,batteryService, driverCommand, roadCommand);
         int initialSize = roadTripService.findAll().size();
         generateDriver();
         generateRoads();
