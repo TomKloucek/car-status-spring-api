@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CurrentBatteryGetTest {
+class CurrentBatteryGetTest {
     @Autowired
     private MockMvc mockMvc;
 

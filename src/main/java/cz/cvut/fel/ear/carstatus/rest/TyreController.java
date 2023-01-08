@@ -5,10 +5,6 @@ import cz.cvut.fel.ear.carstatus.dto.TyreDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.*;
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.model.Battery;
-import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
-import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
-import cz.cvut.fel.ear.carstatus.exception.UndeletableException;
 import cz.cvut.fel.ear.carstatus.model.Tyre;
 import cz.cvut.fel.ear.carstatus.service.TyreService;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
@@ -127,12 +123,4 @@ public class TyreController {
             throw new PersistenceException("Cannot create tyre with existing id.");
         }
     }
-
-//    @PostMapping(value = "/change", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void changeCurrentTyre(@RequestBody(required = false) Tyre tyre) {
-//        if (!tyreService.changeCurrentTyre(tyre)) {
-//            throw new UnchangeableException("Tried to change tyre with pressure lower than minimal threshold");
-//        }
-//    }
 }

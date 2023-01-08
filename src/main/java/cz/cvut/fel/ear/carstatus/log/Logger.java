@@ -44,6 +44,9 @@ public class Logger {
             fileAccess.writeToFile(level.name() + " - " + message);
             fileAccess.closeFile();
             fileAccessPool.releaseFileAccess(fileAccess);
+        }catch (InterruptedException e) {
+            LOG.warn("Interrupted!", e);
+            Thread.currentThread().interrupt();
         } catch (Exception e) {
             throw new EarException("Could not access file.");
         }

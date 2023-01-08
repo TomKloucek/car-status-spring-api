@@ -1,25 +1,16 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
-import cz.cvut.fel.ear.carstatus.exception.PersistenceException;
-import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
-import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
-import cz.cvut.fel.ear.carstatus.exception.ValidationException;
+import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
-import cz.cvut.fel.ear.carstatus.util.Permissions;
-import cz.cvut.fel.ear.carstatus.util.RestUtils;
-import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
