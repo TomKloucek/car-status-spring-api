@@ -119,6 +119,10 @@ public class BatteryController {
             logger.log("Tried to create battery with negative condition or capacity, action is aborted.", ELoggerLevel.ERROR);
             throw new EarException("Tried to create battery with negative condition or capacity, action is aborted.");
         }
+        else if(battery.getCapacity() > 0 || battery.getCondition() > 0){
+            logger.log("Tried to create battery with condition or capacity above 100%, action is aborted.", ELoggerLevel.ERROR);
+            throw new EarException("Tried to create battery with negative condition or capacity above 100%, action is aborted.");
+        }
         if(battery.isInUsage()){
             logger.log("Tried to create battery and set its usage to true, which leads to unstable behaviour," +
                     WAS_ABORTED, ELoggerLevel.ERROR);

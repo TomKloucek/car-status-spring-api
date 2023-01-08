@@ -107,6 +107,10 @@ public class TyreController {
             logger.log("Tried to create tyre with negative pressure or condition, action is aborted.", ELoggerLevel.ERROR);
             throw new EarException("Tried to create tyre with negative pressure or condition, action is aborted.");
         }
+        else if(tyre.getPressure() > 40 || tyre.getCondition() > 100){
+            logger.log("Tried to create tyre with pointless pressure or condition, action is aborted.", ELoggerLevel.ERROR);
+            throw new EarException("Tried to create tyre with pointless pressure or condition, action is aborted.");
+        }
         if(tyre.isInUsage()){
             logger.log("Tried to create tyre and set its usage to true, which leads to unstable behaviour," +
                     " this is why the action was aborted.", ELoggerLevel.ERROR);
