@@ -1,6 +1,9 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
+import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Road;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.RoadService;
@@ -19,6 +22,7 @@ import java.util.List;
 @RequestMapping("/rest/roadtrip")
 public class RoadtripController {
 
+    private static final Logger logger = new Logger();
     private final RoadTripService roadtripService;
 
     @Autowired
@@ -30,8 +34,10 @@ public class RoadtripController {
     public Roadtrip getSpecificRoadtrip(@PathVariable Integer id) {
         final Roadtrip roadtrip = roadtripService.find(id);
         if (roadtrip == null) {
-            throw NotFoundException.create("Roadtrip", id);
+            logger.log("Road trip with ID: " + id + " was not found.", ELoggerLevel.ERROR);
+            throw NotFoundException.create("Road trip", id);
         }
+        logger.log("Road trip with ID: " + id + " was found.", ELoggerLevel.INFO);
         return roadtrip;
     }
 
@@ -40,22 +46,17 @@ public class RoadtripController {
         return roadtripService.findAll();
     }
 
-    @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void removeRoadtrip(@RequestBody Roadtrip roadtrip) {
-        roadtripService.remove(roadtrip);
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeRoadtrip(@PathVariable Integer id) {
+        final Roadtrip roadTripToRemove = roadtripService.find(id);
+        if(roadTripToRemove == null){
+            logger.log("Tried to delete road trip with not existing id.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to delete road trip with not existing id.");
+        }
+        else {
+            roadtripService.remove(roadTripToRemove);
+        }
     }
 
-    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateRoadtrip(@RequestBody Roadtrip roadtrip) {
-        roadtripService.update(roadtrip);
-    }
-
-
-    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addRoadtrip(@RequestBody(required = false) Roadtrip roadtrip) {
-        roadtripService.persist(roadtrip);
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", roadtrip.getId());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
-    }
 }

@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Driver extends User{
 
     @OneToMany
     @JoinColumn(name = "driver_id")
+    @JsonManagedReference
     private List<Roadtrip> roadtripList;
 
 //    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

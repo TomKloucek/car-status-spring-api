@@ -30,7 +30,7 @@ public class RoadService {
 
     @Transactional
     public Road find(Integer id) {
-        logger.log("Application found road with ID: " + id + " in database.", ELoggerLevel.INFO);
+        logger.log("Application tried to find road with ID: " + id + " in database.", ELoggerLevel.INFO);
         return dao.find(id);
     }
 

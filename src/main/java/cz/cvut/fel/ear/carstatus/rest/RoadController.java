@@ -1,6 +1,10 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
+import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
+import cz.cvut.fel.ear.carstatus.log.Logger;
+import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.model.Carcheck;
 import cz.cvut.fel.ear.carstatus.model.Mechanic;
 import cz.cvut.fel.ear.carstatus.model.Road;
@@ -19,6 +23,7 @@ import java.util.List;
 @RequestMapping("/rest/road")
 public class RoadController {
 
+    private static final Logger logger = new Logger();
     private final RoadService roadService;
 
     @Autowired
@@ -30,8 +35,10 @@ public class RoadController {
     public Road getSpecificRoad(@PathVariable Integer id) {
         final Road road = roadService.find(id);
         if (road == null) {
+            logger.log("Road with ID: " + id + " was not found.", ELoggerLevel.ERROR);
             throw NotFoundException.create("Road", id);
         }
+        logger.log("Road with ID: " + id + " was found.", ELoggerLevel.ERROR);
         return road;
     }
 
@@ -40,22 +47,16 @@ public class RoadController {
         return roadService.findAll();
     }
 
-    @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void removeRoad(@RequestBody Road road) {
-        roadService.remove(road);
-    }
-
-    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateRoad(@RequestBody Road road) {
-        roadService.update(road);
-    }
-
-
-    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addRoad(@RequestBody(required = false) Road road) {
-        roadService.persist(road);
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", road.getId());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeRoad(@PathVariable Integer id) {
+        final Road roadToRemove = roadService.find(id);
+        if(roadToRemove == null){
+            logger.log("Tried to delete road with not existing id.", ELoggerLevel.ERROR);
+            throw new UnchangeableException("Tried to delete road with not existing id.");
+        }
+        else {
+            roadService.remove(roadToRemove);
+        }
     }
 }

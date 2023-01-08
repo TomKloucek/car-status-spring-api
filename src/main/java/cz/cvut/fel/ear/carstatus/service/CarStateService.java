@@ -12,6 +12,7 @@ import cz.cvut.fel.ear.carstatus.observers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +55,12 @@ public class CarStateService {
         updateMalfunctionality();
     }
 
+    @Transactional
     public boolean isPossibleToDrive() {
         logger.log("Application checked if it is possible to drive the car.", ELoggerLevel.INFO);
         return malfunctions.isEmpty();
     }
-
+    @Transactional
     public BaseDecorator getNotifyMalfunctions() {
         notifyMalfunctions = new BaseDecorator(new Notifier());
         malfunctions
@@ -93,6 +95,7 @@ public class CarStateService {
         return notifyMalfunctions;
     }
 
+    @Transactional
     public void updateMalfunctionality() {
         malfunctions = new ArrayList<>();
         observers.stream()
@@ -102,17 +105,21 @@ public class CarStateService {
         logger.log("Malfunctions were updated.", ELoggerLevel.INFO);
     }
 
+    @Transactional
     public Battery getBattery() {
         return batteryService.getCurrentBattery();
     }
 
+    @Transactional
     public List<Liquid> getLiquids() {
         return liquidService.findAll();
     }
 
+    @Transactional
     public List<Tyre> getTyres() {
         return tyreService.getCurrentTyres();
     }
+
 
     private void fillObservers() {
         this.observers.add(new LowTyreConditionObserver());
