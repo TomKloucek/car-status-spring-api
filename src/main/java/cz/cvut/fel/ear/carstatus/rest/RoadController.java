@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.dto.RoadDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
+import cz.cvut.fel.ear.carstatus.exception.EarException;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
 import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
@@ -64,6 +65,10 @@ public class RoadController {
         road.setEndPoint(roadDTO.getEndPoint());
         final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", road.getId());
         if (road.getStartingPoint() != null && road.getEndPoint() != null) {
+            if(road.getLength() < 0){
+                logger.log("Tried to create road with negative length, action is aborted.", ELoggerLevel.ERROR);
+                throw new EarException("Tried to create road with negative length, action is aborted.");
+            }
             roadService.persist(road);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         }
@@ -80,5 +85,5 @@ public class RoadController {
             roadService.remove(roadToRemove);
         }
     }
-    }
+}
 
