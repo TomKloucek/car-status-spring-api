@@ -32,7 +32,7 @@ public class RoadController {
         this.roadService = roadService;
     }
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Road getSpecificRoad(@PathVariable Integer id) {
         final Road road = roadService.find(id);
         if (road == null) {
@@ -43,7 +43,7 @@ public class RoadController {
         return road;
     }
 
-    @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Road> getRoads() {
         return roadService.findAll();
     }
@@ -68,17 +68,17 @@ public class RoadController {
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(headers, HttpStatus.NOT_ACCEPTABLE);
-
+    }
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeRoad(@PathVariable Integer id) {
+    public void removeRoad (@PathVariable Integer id){
         final Road roadToRemove = roadService.find(id);
-        if(roadToRemove == null){
+        if (roadToRemove == null) {
             logger.log("Tried to delete road with not existing id.", ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to delete road with not existing id.");
-        }
-        else {
+        } else {
             roadService.remove(roadToRemove);
         }
     }
-}
+    }
+
