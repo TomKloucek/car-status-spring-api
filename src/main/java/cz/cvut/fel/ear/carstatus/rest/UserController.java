@@ -1,6 +1,6 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
-import cz.cvut.fel.ear.carstatus.dto.DriverDTO;
+import cz.cvut.fel.ear.carstatus.dto.AdminDTO;
 import cz.cvut.fel.ear.carstatus.dto.MechanicDTO;
 import cz.cvut.fel.ear.carstatus.dto.UserDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
@@ -18,7 +18,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -70,7 +69,14 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/register-admin", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addAmin(@RequestBody Admin admin) {
+    public ResponseEntity<Void> addAmin(@RequestBody AdminDTO adminDTO) {
+        Admin admin = new Admin();
+        admin.setBirthDate(adminDTO.getBirthDate());
+        admin.setPassword(adminDTO.getPassword());
+        admin.setFirstName(adminDTO.getFirstName());
+        admin.setLastName(adminDTO.getLastName());
+        admin.setUsername(adminDTO.getUsername());
+        admin.setRole(adminDTO.getRole());
         if(admin.getRole() == Role.ADMIN){
             Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
             if(admin.getBirthDate().before(date) || admin.getBirthDate().after(new Date()) || admin.getExpires().before(date)){

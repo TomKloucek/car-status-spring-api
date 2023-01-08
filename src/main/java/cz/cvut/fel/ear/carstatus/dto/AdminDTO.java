@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.dto;
 
+import cz.cvut.fel.ear.carstatus.model.Role;
+
 import java.util.Date;
 
 public class AdminDTO {
@@ -9,6 +11,7 @@ public class AdminDTO {
     private String username;
     private String password;
     private Date expires;
+    private Role role;
 
     public String getFirstName() {
         return firstName;
@@ -32,5 +35,9 @@ public class AdminDTO {
 
     public Date getExpires() {
         return expires;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }
