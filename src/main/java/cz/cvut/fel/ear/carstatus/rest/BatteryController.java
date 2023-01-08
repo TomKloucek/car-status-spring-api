@@ -77,6 +77,7 @@ public class BatteryController {
     @PutMapping(value = "/")
     public void updateBattery(@RequestBody BatteryDTO batteryDTO) {
         Battery battery = new Battery();
+        battery.setId(batteryDTO.getId());
         battery.setInUsage(batteryDTO.isInUsage());
         battery.setCapacity(batteryDTO.getCapacity());
         battery.setCondition(batteryDTO.getCondition());
@@ -115,7 +116,7 @@ public class BatteryController {
             logger.log("Tried to create battery with negative condition or capacity, action is aborted.", ELoggerLevel.ERROR);
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to create battery with negative condition or capacity, action is aborted.");
         }
-        else if(battery.getCapacity() > 0 || battery.getCondition() > 0){
+        else if(battery.getCapacity() > 100 || battery.getCondition() > 100){
             logger.log("Tried to create battery with condition or capacity above 100%, action is aborted.", ELoggerLevel.ERROR);
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Tried to create battery with negative condition or capacity above 100%, action is aborted.");
         }

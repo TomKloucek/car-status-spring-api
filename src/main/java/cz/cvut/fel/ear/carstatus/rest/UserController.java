@@ -46,7 +46,7 @@ public class UserController {
         user.setLastName(userDTO.getLastName());
         user.setUsername(userDTO.getUsername());
         user.setRole(userDTO.getRole());
-        if(user.getRole() == Role.DRIVER){
+        if(userDTO.getRole() == Role.DRIVER){
             Driver driver = new Driver();
             driver.setFirstName(user.getFirstName());
             driver.setLastName(user.getLastName());
@@ -77,7 +77,7 @@ public class UserController {
         admin.setLastName(adminDTO.getLastName());
         admin.setUsername(adminDTO.getUsername());
         admin.setRole(adminDTO.getRole());
-        if(admin.getRole() == Role.ADMIN){
+        if(adminDTO.getRole() == Role.ADMIN){
             Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
             if(admin.getBirthDate().before(date) || admin.getBirthDate().after(new Date()) || admin.getExpires().before(date)){
                 loggerToFile.log("Tried to register admin with pointless date of birth.", ELoggerLevel.ERROR);
@@ -108,7 +108,7 @@ public class UserController {
         mechanic.setUsername(mechanicDTO.getUsername());
         mechanic.setOperatingTo(mechanicDTO.getOperatingTo());
         mechanic.setPhoneNumber(mechanicDTO.getPhoneNumber());
-        if(mechanic.getRole() == Role.MECHANIC){
+        if(mechanicDTO.getRole() == Role.MECHANIC){
             Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
             if(mechanic.getBirthDate().before(date) || mechanic.getBirthDate().after(new Date())){
                 loggerToFile.log("Tried to register mechanic with pointless date of birth.", ELoggerLevel.ERROR);

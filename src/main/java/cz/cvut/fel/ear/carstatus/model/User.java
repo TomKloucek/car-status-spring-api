@@ -1,5 +1,7 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -29,6 +31,7 @@ public class User extends AbstractEntity {
 
     @Basic(optional = false)
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)

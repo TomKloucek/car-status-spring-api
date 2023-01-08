@@ -1,4 +1,6 @@
 package cz.cvut.fel.ear.carstatus.dto;
+import cz.cvut.fel.ear.carstatus.model.Role;
+
 import java.util.Date;
 
 public class DriverDTO {
@@ -7,6 +9,12 @@ public class DriverDTO {
     private Date birthDate;
     private String username;
     private String password;
+
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
 
     public String getFirstName() {
         return firstName;
