@@ -33,7 +33,7 @@ public class SystemInitializer {
         this.txManager = txManager;
     }
 
-    //@PostConstruct
+    @PostConstruct
     private void initSystem() {
         TransactionTemplate txTemplate = new TransactionTemplate(txManager);
         txTemplate.execute(status -> {

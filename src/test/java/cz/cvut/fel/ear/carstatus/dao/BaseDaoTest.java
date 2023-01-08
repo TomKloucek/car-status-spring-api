@@ -76,13 +76,14 @@ class BaseDaoTest {
     @Transactional
     @Test
     void findAllRetrievesAllInstancesOfType() {
+        int initialSize = sut.findAll().size();
         final Battery firstBattery = generateBattery();
         em.persist(firstBattery);
  final Battery secondBattery = generateBattery();
         em.persist(secondBattery);
 
         final List<Battery> result = sut.findAll();
-        assertEquals(2, result.size());
+        assertEquals(initialSize+2, result.size());
         System.out.println(result.size());
         assertTrue(result.stream().anyMatch(c -> c.getId().equals(firstBattery.getId())));
         assertTrue(result.stream().anyMatch(c -> c.getId().equals(secondBattery.getId())));

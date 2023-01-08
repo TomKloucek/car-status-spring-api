@@ -18,7 +18,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TyresGetTest {
+class TyresGetTest {
     @Autowired
     private MockMvc mockMvc;
 

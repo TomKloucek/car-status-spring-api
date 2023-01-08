@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -54,12 +52,9 @@ public class StatisticsController {
                 builder = builder.finish((String) filter.get("finish"));
                 DataClass.getInstance().incrementNumberOfStatisticsGenerated();
                 return factory.getStatistics(builder.build());
-        } catch (Exception ignored) {
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                ignored.printStackTrace(pw);
-                logger.log(sw.toString(), ELoggerLevel.ERROR);
-                return ""; // TODO napsat neco lepsiho
+        } catch (Exception e) {
+            logger.log(e.toString(), ELoggerLevel.ERROR);
+            return "Filter provided was not possible to accept";
         }
     }
 
@@ -69,12 +64,9 @@ public class StatisticsController {
             List<Roadtrip> filtered = new ArrayList<>();
             filtered.add(roadTripService.find(id));
             return new StatisticsBuilder().numberOfKm(filtered).numberOfRoadtrips(filtered).averageSpeed(filtered).maxSpeed(filtered).build();
-        } catch (Exception ignored) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            ignored.printStackTrace(pw);
-            logger.log(sw.toString(), ELoggerLevel.ERROR);
-            return ""; // TODO napsat neco lepsiho
+        } catch (Exception e) {
+            logger.log(e.toString(), ELoggerLevel.ERROR);
+            return "Statistics with this specific id dont exists";
         }
     }
 }
