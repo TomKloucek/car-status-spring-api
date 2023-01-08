@@ -1,7 +1,8 @@
 package cz.cvut.fel.ear.carstatus.model;
 
-import javax.persistence.*;
-import java.math.BigInteger;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
 public class Tyre extends AbstractEntity{

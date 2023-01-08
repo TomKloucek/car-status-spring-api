@@ -1,16 +1,12 @@
 package cz.cvut.fel.ear.carstatus.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 // We can't name the table User, as it is a reserved table name in some dbs, including Postgres
 @Table(name = "Carstatus_USER")
-@NamedQueries({
-        @NamedQuery(name = "User.findByUsername", query = "SELECT DISTINCT u FROM User u WHERE u.username = :username")
-})
+@NamedQuery(name = "User.findByUsername", query = "SELECT DISTINCT u FROM User u WHERE u.username = :username")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public class User extends AbstractEntity {

@@ -1,15 +1,14 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
-import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
 import cz.cvut.fel.ear.carstatus.exception.ValidationException;
+import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
 import cz.cvut.fel.ear.carstatus.util.Permissions;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
-import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

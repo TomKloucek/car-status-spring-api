@@ -1,10 +1,9 @@
 package cz.cvut.fel.ear.carstatus.webapp;
 
 import cz.cvut.fel.ear.carstatus.DataClass;
-import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
-import cz.cvut.fel.ear.carstatus.service.CarStateService;
 import cz.cvut.fel.ear.carstatus.model.Liquid;
 import cz.cvut.fel.ear.carstatus.model.Tyre;
+import cz.cvut.fel.ear.carstatus.service.CarStateService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +20,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class HomeController {
+    private static final String DIV = "</div>";
+    private static final String DIV_FLEX = "<div class='flex-button'>";
     private final CarStateService carStateService;
     public HomeController(CarStateService carStateService) {
         this.carStateService = carStateService;
@@ -46,25 +47,26 @@ public class HomeController {
         resultString += "<h3>INFORMATION ABOUT APPLICATION:</h3>";
         resultString += "<p>Current user: " + username + "</p>";
         List<Tyre> tyres = carStateService.getTyres();
+        StringBuilder bld = new StringBuilder();
         for (Tyre tyre :  tyres){
             if(tyre.getPosition() == 1){
-                resultString += "<p>Left front tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
-                resultString += "<p>Left front tyre current condition: " + tyre.getCondition() + " %" + "</p>";
+                bld.append("<p>Left front tyre current inflation: ").append(tyre.getPressure()).append(" kPa").append("</p>");
+                bld.append("<p>Left front tyre current condition: ").append(tyre.getCondition()).append(" %").append("</p>");
             }
             else if(tyre.getPosition() == 3){
-                resultString += "<p>Right front  tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
-                resultString += "<p>Right front tyre current condition: " + tyre.getCondition() + " %" + "</p>";
+                bld.append("<p>Right front  tyre current inflation: ").append(tyre.getPressure()).append(" kPa").append("</p>");
+                bld.append("<p>Right front tyre current condition: ").append(tyre.getCondition()).append(" %").append("</p>");
             }
             else if(tyre.getPosition() == 2){
-                resultString += "<p>Left back tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
-                resultString += "<p>Left back tyre current condition: " + tyre.getCondition() + " %" + "</p>";
+                bld.append("<p>Left back tyre current inflation: ").append(tyre.getPressure()).append(" kPa").append("</p>");
+                bld.append("<p>Left back tyre current condition: ").append(tyre.getCondition()).append(" %").append("</p>");
             }
             else if(tyre.getPosition() == 4){
-                resultString += "<p>Right back tyre current inflation: " + tyre.getPressure() + " kPa" + "</p>";
-                resultString += "<p>Right back tyre current condition: " + tyre.getCondition() + " %" + "</p>";
+                bld.append("<p>Right back tyre current inflation: ").append(tyre.getPressure()).append(" kPa").append("</p>");
+                bld.append("<p>Right back tyre current condition: ").append(tyre.getCondition()).append(" %").append("</p>");
             }
         }
-
+        resultString += bld.toString();
 
         resultString += "<p>Current battery capacity: " + carStateService.getBattery().getCapacity() + " %" + "</p>";
         resultString += "<p>Current battery condition: " + carStateService.getBattery().getCondition() + " %"  +"</p>";
@@ -72,15 +74,17 @@ public class HomeController {
             resultString += "<p>Current seat position capacity: [ vertical=" + carStateService.getDriversSeat().getVerticalPosition() + " | horizontal=" + carStateService.getDriversSeat().getHorizontalPosition() + " ]" + "</p>";
         }
         List <Liquid> liquids = carStateService.getLiquids();
+        bld.setLength(0);
         for(Liquid liquid : liquids){
             if(liquid.getType().equals( "cooling")){
-                resultString += "<p>Current level of cooling liquid: " + liquid.getLevel() + " %" + "</p>";
+                bld.append("<p>Current level of cooling liquid: ").append(liquid.getLevel()).append(" %").append("</p>");
             }
             if(liquid.getType().equals("braking")){
-                resultString += "<p>Current level of braking liquid: " + liquid.getLevel() + " %" + "</p>";
+                bld.append("<p>Current level of braking liquid: ").append(liquid.getLevel()).append(" %").append("</p>");
             }
         }
-        resultString += "</div>";
+        resultString += bld.toString();
+        resultString += DIV;
         resultString += " <div class='child2'>";
 
         String statistics = "";
@@ -106,7 +110,7 @@ public class HomeController {
 
         resultString += statistics;
 
-        resultString += "</div>";
+        resultString += DIV;
         resultString += " <div class='child-malfunction'>";
         resultString += carStateService.getNotifyMalfunctions().sendMessage("");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -134,23 +138,23 @@ public class HomeController {
         if (roles.contains("ROLE_DRIVER")) {
             resultString += "<h2 style='color: black;'>Change driver seat position:</h2>";
             resultString += "<div class='flexbox'>";
-            resultString += "<div class='flex-button'>";
+            resultString += DIV_FLEX;
             resultString += "<button onclick=\"changePosition('up')\">↑</button>";
-            resultString += "</div>";
-            resultString += "<div class='flex-button'>";
+            resultString += DIV;
+            resultString += DIV_FLEX;
             resultString += "<button onclick=\"changePosition('left')\">←</button>";
-            resultString += "</div>";
-            resultString += "<div class='flex-button'>";
+            resultString += DIV;
+            resultString += DIV_FLEX;
             resultString += "<button onclick=\"changePosition('right')\">→</button>";
-            resultString += "</div>";
-            resultString += "<div class='flex-button'>";
+            resultString += DIV;
+            resultString += DIV_FLEX;
             resultString += "<button onclick=\"changePosition('down')\">↓</button>";
-            resultString += "</div>";
-            resultString += "</div>";
+            resultString += DIV;
+            resultString += DIV;
         }
         resultString += "<p><button onclick=\"genRoadTrip()\">Generate roadtrip</button></p>";
-        resultString += "</div>";
-        resultString += "</div>";
+        resultString += DIV;
+        resultString += DIV;
         resultString +=  "</body>\n" + "</html>";
         return resultString;
     }

@@ -1,11 +1,6 @@
 package cz.cvut.fel.ear.carstatus.statistics;
 
-import cz.cvut.fel.ear.carstatus.builders.StatisticsBuilder;
 import cz.cvut.fel.ear.carstatus.enums.EStatisticsType;
-import cz.cvut.fel.ear.carstatus.model.Roadtrip;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Statistics {
     private int numberOfRoadtrips;

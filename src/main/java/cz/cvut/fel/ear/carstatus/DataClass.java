@@ -1,6 +1,5 @@
 package cz.cvut.fel.ear.carstatus;
 public class DataClass {
-    private static DataClass instance = null;
     private int numberOfLoggerCalls;
     private int numberOfSimulationMethodCalls;
     private int numberOfDriversGenerated;
@@ -48,15 +47,12 @@ public class DataClass {
         numberOfUsersRegistered = 0;
     }
 
+    private static final class InstanceHolder {
+        private static final DataClass instance = new DataClass();
+    }
+
     public static DataClass getInstance() {
-        if (instance == null) {
-            synchronized (DataClass.class) {
-                if (instance == null) {
-                    instance = new DataClass();
-                }
-            }
-        }
-        return instance;
+        return InstanceHolder.instance;
     }
 
 

@@ -2,13 +2,13 @@ package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.DataClass;
 import cz.cvut.fel.ear.carstatus.builders.StatisticsBuilder;
+import cz.cvut.fel.ear.carstatus.builders.StatisticsFilterBuilder;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.DriverService;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;
 import cz.cvut.fel.ear.carstatus.statistics.StatisticsFactory;
-import cz.cvut.fel.ear.carstatus.builders.StatisticsFilterBuilder;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

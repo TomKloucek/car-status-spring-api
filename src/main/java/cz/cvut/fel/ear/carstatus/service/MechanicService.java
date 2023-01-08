@@ -1,11 +1,9 @@
 package cz.cvut.fel.ear.carstatus.service;
 
-import cz.cvut.fel.ear.carstatus.dao.CarCheckDao;
 import cz.cvut.fel.ear.carstatus.dao.MechanicDao;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.model.Carcheck;
 import cz.cvut.fel.ear.carstatus.model.Mechanic;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

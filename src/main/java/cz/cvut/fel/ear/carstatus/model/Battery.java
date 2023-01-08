@@ -1,6 +1,8 @@
 package cz.cvut.fel.ear.carstatus.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
 public class Battery extends AbstractEntity{

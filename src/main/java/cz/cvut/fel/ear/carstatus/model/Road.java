@@ -3,7 +3,6 @@ package cz.cvut.fel.ear.carstatus.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity

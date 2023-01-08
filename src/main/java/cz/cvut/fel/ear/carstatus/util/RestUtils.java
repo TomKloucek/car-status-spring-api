@@ -7,6 +7,10 @@ import java.net.URI;
 
 public class RestUtils {
 
+    private RestUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * Creates HTTP headers object with a location header with the specified path appended to the current request URI.
      * <p>
@@ -24,6 +28,6 @@ public class RestUtils {
             headers.set(HttpHeaders.LOCATION, location.toASCIIString());
             return headers;
         }
-        return null;
+        return HttpHeaders.EMPTY;
     }
 }

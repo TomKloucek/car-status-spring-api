@@ -5,8 +5,10 @@ import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.interfaces.ILoadSimulationFile;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
-import cz.cvut.fel.ear.carstatus.service.*;
-import cz.cvut.fel.ear.carstatus.util.Helpers;
+import cz.cvut.fel.ear.carstatus.service.BatteryService;
+import cz.cvut.fel.ear.carstatus.service.DriverService;
+import cz.cvut.fel.ear.carstatus.service.RoadService;
+import cz.cvut.fel.ear.carstatus.service.TyreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
     final RoadService roadService;
     final BatteryService batteryService;
     final TyreService tyreService;
+
+    private static final String CONDITION = "condition";
 
     @Autowired
     public LoadSimulationFromCSV(DriverService driverService, RoadService roadService, BatteryService batteryService, TyreService tyreService) {
@@ -70,7 +74,7 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
                     String[] values = lines[i].split(",");
                     Battery battery = new Battery();
                     battery.setCapacity(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf("capacity")]));
-                    battery.setCondition(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf("condition")]));
+                    battery.setCondition(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf(CONDITION)]));
                     res = "batteries";
                     batteryService.createNewBattery(battery);
                 }
@@ -79,7 +83,7 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
                     String[] values = lines[i].split(",");
                     Tyre tyre = new Tyre();
                     tyre.setPressure(Double.parseDouble(values[java.util.Arrays.asList(keywords).indexOf("pressure")]));
-                    tyre.setCondition(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf("condition")]));
+                    tyre.setCondition(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf(CONDITION)]));
                     tyre.setPosition(Integer.parseInt(values[java.util.Arrays.asList(keywords).indexOf("position")]));
                     res = "tyres";
                     tyreService.createNewTyre(tyre);
@@ -121,7 +125,7 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
         Set<String> battery = new HashSet<>();
         Set<String> compare = new HashSet<>();
         battery.add("capacity");
-        battery.add("condition");
+        battery.add(CONDITION);
         Collections.addAll(compare, firstLine.split(","));
         return battery.equals(compare);
     }
@@ -130,7 +134,7 @@ public class LoadSimulationFromCSV implements ILoadSimulationFile {
         Set<String> tyre = new HashSet<>();
         Set<String> compare = new HashSet<>();
         tyre.add("position");
-        tyre.add("condition");
+        tyre.add(CONDITION);
         tyre.add("pressure");
         Collections.addAll(compare, firstLine.split(","));
         return tyre.equals(compare);

@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ComponentScan(basePackageClasses = CarstatusApplication.class, excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class),
         @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = TestConfiguration.class)})
-public class SimulationTest {
+class SimulationTest {
 
     @Autowired
     private TestEntityManager em;

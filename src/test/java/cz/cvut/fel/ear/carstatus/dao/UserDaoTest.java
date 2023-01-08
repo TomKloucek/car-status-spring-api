@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ComponentScan(basePackageClasses = CarstatusApplication.class, excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class),
         @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = TestConfiguration.class)})
-public class UserDaoTest {
+class UserDaoTest {
 
     @PersistenceContext
     private EntityManager em;
@@ -33,7 +33,7 @@ public class UserDaoTest {
     private UserDao sut;
 
     @Test
-    public void findByUsernameReturnsPersonWithMatchingUsername() {
+    void findByUsernameReturnsPersonWithMatchingUsername() {
         final Admin admin = new Admin();
         final User user = new User();
         Random random = new Random();
@@ -55,7 +55,7 @@ public class UserDaoTest {
 
 
     @Test
-    public void findByUsernameReturnsNullForUnknownUsername() {
+    void findByUsernameReturnsNullForUnknownUsername() {
         assertNull(sut.findByUsername("unknownUsername"));
     }
 }

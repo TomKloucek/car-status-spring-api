@@ -41,10 +41,12 @@ public class StatisticsBuilder {
             for (Roadpath roadpath : roadtrip.getRoadpathList()) {
                 Road road = roadpath.getRoad();
                 totalDistance += road.getLength();
-                totalTime += road.getLength()/roadpath.getAverageSpeed();
+                totalTime += (double) road.getLength()/roadpath.getAverageSpeed();
             }
         }
-        this.averageSpeed = (int) (totalDistance/totalTime);
+        if (totalTime != 0) {
+            this.averageSpeed = (int) (totalDistance / totalTime);
+        }
         return this;
     }
 

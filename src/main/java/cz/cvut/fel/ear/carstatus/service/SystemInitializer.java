@@ -2,13 +2,8 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.model.Admin;
-import cz.cvut.fel.ear.carstatus.model.Driver;
 import cz.cvut.fel.ear.carstatus.model.Role;
-import cz.cvut.fel.ear.carstatus.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -30,20 +25,18 @@ public class SystemInitializer {
 
     private final PlatformTransactionManager txManager;
 
-    private final PasswordEncoder encoder;
 
     @Autowired
     public SystemInitializer(UserService userService,
-                             PlatformTransactionManager txManager, PasswordEncoder encoder) {
+                             PlatformTransactionManager txManager) {
         this.userService = userService;
         this.txManager = txManager;
-        this.encoder = encoder;
     }
 
     @PostConstruct
     private void initSystem() {
         TransactionTemplate txTemplate = new TransactionTemplate(txManager);
-        txTemplate.execute((status) -> {
+        txTemplate.execute(status -> {
             generateAdmin();
             return null;
         });

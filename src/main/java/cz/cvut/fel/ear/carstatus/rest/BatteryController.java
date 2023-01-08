@@ -1,13 +1,14 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
-import cz.cvut.fel.ear.carstatus.exception.*;
+import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
+import cz.cvut.fel.ear.carstatus.exception.PersistenceException;
+import cz.cvut.fel.ear.carstatus.exception.UnchangeableException;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.service.BatteryService;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +24,7 @@ public class BatteryController {
 
     private static final Logger logger = new Logger();
     private final BatteryService batteryService;
+    private static final String WAS_ABORTED = "this is why the action was aborted.";
 
     @Autowired
     public BatteryController(BatteryService batteryService) {
@@ -57,7 +59,7 @@ public class BatteryController {
             logger.log("Tried to delete battery without providing its ID.", ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to delete battery without providing its ID.");
         }
-        else if (batteryService.getCurrentBattery().getId() == battery.getId()) {
+        else if (batteryService.getCurrentBattery().getId().equals(battery.getId())) {
             logger.log("Tried to delete battery which was in usage.", ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to delete battery which was in usage");
         }
@@ -76,15 +78,15 @@ public class BatteryController {
             logger.log("Tried to update battery without providing its ID.", ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to update battery without providing its ID.");
         }
-        if (batteryService.getCurrentBattery().getId() == battery.getId()) {
+        if (batteryService.getCurrentBattery().getId().equals(battery.getId())) {
             logger.log("Tried to update battery which was in usage.", ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to update battery which was in usage");
         }
         else if(battery.isInUsage()){
             logger.log("Tried to update battery and set its usage to true, which leads to unstable behaviour," +
-                    " this is why the action was aborted.", ELoggerLevel.ERROR);
+                    WAS_ABORTED, ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to update battery and set its usage to true, which is unstable behaviour," +
-                    " this is why the action was aborted.");
+                    WAS_ABORTED);
         }
         if(this.getAllBatteries().size() >= battery.getId() && battery.getId() > 0 && !battery.isInUsage() &&
                 batteryService.find(battery.getId()) != null){
@@ -102,9 +104,9 @@ public class BatteryController {
     public ResponseEntity<Void> addBattery(@RequestBody Battery battery) {
         if(battery.isInUsage()){
             logger.log("Tried to create battery and set its usage to true, which leads to unstable behaviour," +
-                    " this is why the action was aborted.", ELoggerLevel.ERROR);
+                    WAS_ABORTED, ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to create battery and set its usage to true, which is unstable behaviour," +
-                    " this is why the action was aborted.");
+                    WAS_ABORTED);
         }
         else if(battery.getId() == null || (battery.getId() != null && battery.getId() > this.getAllBatteries().size())){
             batteryService.createNewBattery(battery);

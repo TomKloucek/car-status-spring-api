@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ComponentScan(basePackageClasses = CarstatusApplication.class, excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class),
         @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = TestConfiguration.class)})
-public class BaseDaoTest {
+class BaseDaoTest {
 
     @Autowired
     private TestEntityManager em;
@@ -34,7 +34,7 @@ public class BaseDaoTest {
     @Autowired
     private BatteryDao sut;
     @Test
-    public void persistSavesSpecifiedInstance() {
+    void persistSavesSpecifiedInstance() {
         final Battery battery = generateBattery();
         sut.persist(battery);
         assertNotNull(battery.getId());
@@ -56,7 +56,7 @@ public class BaseDaoTest {
     }
 
     @Test
-    public void findAllRetrievesAllInstancesOfType() {
+    void findAllRetrievesAllInstancesOfType() {
         final Battery firstBattery = generateBattery();
         em.persistAndFlush(firstBattery);
         final Battery secondBattery = generateBattery();
@@ -68,7 +68,7 @@ public class BaseDaoTest {
         assertTrue(result.stream().anyMatch(c -> c.getId().equals(secondBattery.getId())));
     }
     @Test
-    public void updateUpdatesExistingInstance() {
+    void updateUpdatesExistingInstance() {
         final Battery battery = generateBattery();
         em.persistAndFlush(battery);
 
@@ -84,7 +84,7 @@ public class BaseDaoTest {
     }
 
     @Test
-    public void removeRemovesSpecifiedInstance() {
+    void removeRemovesSpecifiedInstance() {
         final Battery battery = generateBattery();
         em.persistAndFlush(battery);
         assertNotNull(em.find(Battery.class, battery.getId()));
@@ -95,7 +95,7 @@ public class BaseDaoTest {
     }
 
     @Test
-    public void removeDoesNothingWhenInstanceDoesNotExist() {
+    void removeDoesNothingWhenInstanceDoesNotExist() {
         final Battery battery = generateBattery();
         battery.setId(123);
         assertNull(em.find(Battery.class, battery.getId()));
@@ -105,7 +105,7 @@ public class BaseDaoTest {
     }
 
     @Test
-    public void exceptionOnPersistInWrappedInPersistenceException() {
+    void exceptionOnPersistInWrappedInPersistenceException() {
         final Battery battery = generateBattery();
         em.persistAndFlush(battery);
         em.remove(battery);
@@ -113,7 +113,7 @@ public class BaseDaoTest {
     }
 
     @Test
-    public void existsReturnsTrueForExistingIdentifier() {
+    void existsReturnsTrueForExistingIdentifier() {
         final Battery battery = generateBattery();
         em.persistAndFlush(battery);
         assertTrue(sut.exists(battery.getId()));

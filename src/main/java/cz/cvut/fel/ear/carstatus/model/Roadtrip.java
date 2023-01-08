@@ -1,9 +1,9 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -24,10 +24,11 @@ public class Roadtrip extends AbstractEntity{
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "roadtrip_id")
-    @OrderBy("road.length")
+    @OrderBy("road")
     private List<Roadpath> roadpathList;
 
     @ManyToOne
+    @JsonBackReference
     private Driver driver;
 
     public Driver getDriver() {

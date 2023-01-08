@@ -1,23 +1,30 @@
 package cz.cvut.fel.ear.carstatus.log;
 
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class FileAccessPool {
     // The pool of FileAccess objects
-    private BlockingQueue<FileAccess> pool;
+    private final BlockingQueue<FileAccess> pool;
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(FileAccessPool.class);
 
     // The maximum number of FileAccess objects that can be created
-    private int maxSize;
+    private final int maxSize;
 
     // Constructor
     public FileAccessPool(int maxSize) {
         this.maxSize = maxSize;
         this.pool = new LinkedBlockingQueue<>(maxSize);
 
-        // Populate the pool with initial FileAccess objects
         for (int i = 0; i < maxSize; i++) {
-            pool.offer(new FileAccess());
+            if (pool.offer(new FileAccess())) {
+                LOG.info("Offering from file-access pool was successful");
+            } else {
+                LOG.error("Offering from file-access pool was not successful");
+                break;
+            }
         }
     }
 
@@ -30,7 +37,11 @@ public class FileAccessPool {
     public void releaseFileAccess(FileAccess fileAccess) {
         // Return the FileAccess object to the pool only if it is not at the maximum size
         if (pool.size() < maxSize) {
-            pool.offer(fileAccess);
+            if (pool.offer(fileAccess)) {
+                LOG.info("Offering from file-access pool was successful");
+            } else {
+                LOG.error("Offering from file-access pool was not successful");
+            }
         }
     }
 }

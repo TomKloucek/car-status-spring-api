@@ -1,7 +1,6 @@
 package cz.cvut.fel.ear.carstatus.dao;
 
 import cz.cvut.fel.ear.carstatus.model.Driver;
-import cz.cvut.fel.ear.carstatus.model.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;

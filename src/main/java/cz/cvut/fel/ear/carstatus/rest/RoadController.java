@@ -1,8 +1,7 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import cz.cvut.fel.ear.carstatus.dto.RoadDTO;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
-import cz.cvut.fel.ear.carstatus.model.Carcheck;
-import cz.cvut.fel.ear.carstatus.model.Mechanic;
 import cz.cvut.fel.ear.carstatus.model.Road;
 import cz.cvut.fel.ear.carstatus.service.RoadService;
 import cz.cvut.fel.ear.carstatus.util.RestUtils;
@@ -53,9 +52,16 @@ public class RoadController {
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addRoad(@RequestBody(required = false) Road road) {
-        roadService.persist(road);
+    public ResponseEntity<Void> addRoad(@RequestBody(required = false) RoadDTO roadDTO) {
+        Road road = new Road();
+        road.setLength(roadDTO.getLength());
+        road.setStartingPoint(roadDTO.getStartingPoint());
+        road.setEndPoint(roadDTO.getEndPoint());
         final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", road.getId());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        if (road.getStartingPoint() != null && road.getEndPoint() != null) {
+            roadService.persist(road);
+            return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(headers, HttpStatus.NOT_ACCEPTABLE);
     }
 }

@@ -1,13 +1,11 @@
 package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.DataClass;
+import cz.cvut.fel.ear.carstatus.dao.UserDao;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.log.Logger;
-import cz.cvut.fel.ear.carstatus.model.Driver;
-import cz.cvut.fel.ear.carstatus.model.Role;
 import cz.cvut.fel.ear.carstatus.model.User;
 import cz.cvut.fel.ear.carstatus.util.Constants;
-import cz.cvut.fel.ear.carstatus.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
