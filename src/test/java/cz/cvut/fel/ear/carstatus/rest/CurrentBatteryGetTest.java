@@ -20,7 +20,7 @@ public class CurrentBatteryGetTest {
 
     @Test
     void retrieveCurrentBattery() throws Exception {
-        this.mockMvc.perform(get("/rest/battery/").with(user("driver@fel.ear.cvut.cz").password("driver").roles("DRIVER")))
+        this.mockMvc.perform(get("/rest/battery/current").with(user("driver@fel.ear.cvut.cz").password("driver").roles("DRIVER")))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
