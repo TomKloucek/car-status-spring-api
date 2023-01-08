@@ -50,7 +50,11 @@ public class RoadController {
 
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateRoad(@RequestBody Road road) {
+    public void updateRoad(@RequestBody RoadDTO roadDTO) {
+        Road road = new Road();
+        road.setEndPoint(roadDTO.getEndPoint());
+        road.setLength(roadDTO.getLength());
+        road.setStartingPoint(roadDTO.getStartingPoint());
         roadService.update(road);
     }
 

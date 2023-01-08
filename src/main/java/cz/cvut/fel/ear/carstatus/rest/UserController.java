@@ -1,5 +1,8 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import cz.cvut.fel.ear.carstatus.dto.DriverDTO;
+import cz.cvut.fel.ear.carstatus.dto.MechanicDTO;
+import cz.cvut.fel.ear.carstatus.dto.UserDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.EarException;
 import cz.cvut.fel.ear.carstatus.exception.ValidationException;
@@ -36,7 +39,14 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addUser(@RequestBody(required = false) User user) {
+    public ResponseEntity<Void> addUser(@RequestBody(required = false)UserDTO userDTO) {
+        User user = new User();
+        user.setBirthDate(userDTO.getBirthDate());
+        user.setPassword(userDTO.getPassword());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setUsername(userDTO.getUsername());
+        user.setRole(userDTO.getRole());
         if(user.getRole() == Role.DRIVER){
             Driver driver = new Driver();
             driver.setFirstName(user.getFirstName());
@@ -82,7 +92,16 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/register-mechanic", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addMechanic(@RequestBody Mechanic mechanic) {
+    public ResponseEntity<Void> addMechanic(@RequestBody MechanicDTO mechanicDTO) {
+        Mechanic mechanic = new Mechanic();
+        mechanic.setOperatingFrom(mechanicDTO.getOperatingFrom());
+        mechanic.setBirthDate(mechanicDTO.getBirthDate());
+        mechanic.setPassword(mechanicDTO.getPassword());
+        mechanic.setFirstName(mechanicDTO.getFirstName());
+        mechanic.setLastName(mechanicDTO.getLastName());
+        mechanic.setUsername(mechanicDTO.getUsername());
+        mechanic.setOperatingTo(mechanicDTO.getOperatingTo());
+        mechanic.setPhoneNumber(mechanicDTO.getPhoneNumber());
         if(mechanic.getRole() == Role.MECHANIC){
             Date date = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
             if(mechanic.getBirthDate().before(date) || mechanic.getBirthDate().after(new Date())){

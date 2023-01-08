@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
+import cz.cvut.fel.ear.carstatus.dto.BatteryDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.NotFoundException;
 import cz.cvut.fel.ear.carstatus.exception.PersistenceException;
@@ -77,7 +78,11 @@ public class BatteryController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/")
-    public void updateBattery(@RequestBody Battery battery) {
+    public void updateBattery(@RequestBody BatteryDTO batteryDTO) {
+        Battery battery = new Battery();
+        battery.setInUsage(batteryDTO.isInUsage());
+        battery.setCapacity(batteryDTO.getCapacity());
+        battery.setCondition(batteryDTO.getCondition());
         if(battery.getId() == null){
             logger.log("Tried to update battery without providing its ID.", ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to update battery without providing its ID.");
@@ -105,7 +110,11 @@ public class BatteryController {
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addBattery(@RequestBody Battery battery) {
+    public ResponseEntity<Void> addBattery(@RequestBody BatteryDTO batteryDTO) {
+        Battery battery = new Battery();
+        battery.setInUsage(batteryDTO.isInUsage());
+        battery.setCapacity(batteryDTO.getCapacity());
+        battery.setCondition(batteryDTO.getCondition());
         if(battery.getCapacity() < 0 || battery.getCondition() < 0){
             logger.log("Tried to create battery with negative condition or capacity, action is aborted.", ELoggerLevel.ERROR);
             throw new EarException("Tried to create battery with negative condition or capacity, action is aborted.");
@@ -129,7 +138,11 @@ public class BatteryController {
 
     @PreAuthorize("hasRole('MECHANIC')")
     @PostMapping(value = "/change", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void changeCurrentBattery(@RequestBody Battery battery) {
+    public void changeCurrentBattery(@RequestBody BatteryDTO batteryDTO) {
+        Battery battery = new Battery();
+        battery.setCondition(batteryDTO.getCondition());
+        battery.setCapacity(batteryDTO.getCapacity());
+        battery.setInUsage(batteryDTO.isInUsage());
         if (!batteryService.changeCurrentBattery(battery)) {
             logger.log("Tried to change current battery to broken battery.", ELoggerLevel.ERROR);
             throw new UnchangeableException("Tried to change current battery to broken battery.");

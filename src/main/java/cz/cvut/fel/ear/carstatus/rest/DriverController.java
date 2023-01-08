@@ -30,7 +30,7 @@ import java.util.List;
 public class DriverController {
     private final DriverService driverService;
     private final RoadTripService roadTripService;
-
+    private static final String DRIVER = "Driver with ID: ";
     private final Logger logger;
 
     @Autowired
@@ -45,10 +45,10 @@ public class DriverController {
     public Driver getSpecificDriver(@PathVariable Integer id) {
         final Driver driver = driverService.find(id);
         if (driver == null) {
-            logger.log("Driver with ID: " + id + " was not found.", ELoggerLevel.ERROR);
+            logger.log( DRIVER+ id + " was not found.", ELoggerLevel.ERROR);
             throw NotFoundException.create("Driver", id);
         }
-        logger.log("Driver with ID: " + id + " was found.", ELoggerLevel.INFO);
+        logger.log(DRIVER + id + " was found.", ELoggerLevel.INFO);
         return driver;
     }
 
@@ -56,7 +56,7 @@ public class DriverController {
     public List<Roadtrip> getSpecificDriversRoadtrips(@PathVariable Integer id) {
         final Driver driver = driverService.find(id);
         if (driver == null) {
-            logger.log("Driver with ID: "+id+" was not found", ELoggerLevel.ERROR);
+            logger.log(DRIVER+id+" was not found", ELoggerLevel.ERROR);
             throw NotFoundException.create("Driver", id);
         }
         return driverService.getAllRoadtripsMadeByDriver(id);

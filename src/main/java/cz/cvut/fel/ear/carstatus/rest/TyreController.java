@@ -1,6 +1,7 @@
 package cz.cvut.fel.ear.carstatus.rest;
 
 
+import cz.cvut.fel.ear.carstatus.dto.TyreDTO;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.exception.*;
 import cz.cvut.fel.ear.carstatus.log.Logger;
@@ -92,7 +93,12 @@ public class TyreController {
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addTyre(@RequestBody(required = false) Tyre tyre) {
+    public ResponseEntity<Void> addTyre(@RequestBody(required = false) TyreDTO tyreDTO) {
+        Tyre tyre = new Tyre();
+        tyre.setPressure(tyreDTO.getPressure());
+        tyre.setCondition(tyreDTO.getCondition());
+        tyre.setInUsage(tyreDTO.isInUsage());
+        tyre.setPosition(tyreDTO.getPosition());
         if(tyre.getPosition() < 1 || tyre.getPosition() > 4){
             logger.log("Tried to create tyre with pointless position, action is aborted.", ELoggerLevel.ERROR);
             throw new EarException("Tried to create tyre with pointless position, action is aborted.");
