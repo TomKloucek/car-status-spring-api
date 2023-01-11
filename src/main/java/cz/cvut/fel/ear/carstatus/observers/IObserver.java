@@ -1,4 +1,4 @@
-package cz.cvut.fel.ear.carstatus.interfaces;
+package cz.cvut.fel.ear.carstatus.observers;
 
 import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
 import cz.cvut.fel.ear.carstatus.service.CarStateService;

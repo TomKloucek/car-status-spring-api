@@ -1,4 +1,4 @@
-package cz.cvut.fel.ear.carstatus.interfaces;
+package cz.cvut.fel.ear.carstatus.load_files;
 
 import org.springframework.data.util.Pair;
 

@@ -1,11 +1,8 @@
 package cz.cvut.fel.ear.carstatus.model;
 
-import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
-import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
-import cz.cvut.fel.ear.carstatus.notifications.Notifier;
+import cz.cvut.fel.ear.carstatus.notifications.*;
 import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
-import cz.cvut.fel.ear.carstatus.service.CarStateService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

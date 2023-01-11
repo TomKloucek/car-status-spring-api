@@ -1,6 +1,5 @@
 package cz.cvut.fel.ear.carstatus.filters;
 
-import cz.cvut.fel.ear.carstatus.interfaces.IFilter;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.statistics.StatisticsFilter;
 
