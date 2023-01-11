@@ -5,8 +5,11 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder>
-            <pattern>%date{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{30} - %msg%n</pattern>
+            <pattern>%date{dd-MM-yyyy HH:mm:ss.SSS} -  %X{trace-id} - [%thread] %-5level %logger{30} - %msg%n</pattern>
         </encoder>
+<!--        <layout>-->
+<!--            <Pattern>%d{DATE} %p %X{sessionId} %X{traceId} %c - %m%n</Pattern>-->
+<!--        </layout>-->
     </appender>
 
     <!-- Logger for our app -->

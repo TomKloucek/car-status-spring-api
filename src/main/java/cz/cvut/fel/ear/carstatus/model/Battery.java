@@ -1,10 +1,15 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
+@Getter
+@Setter
 public class Battery extends AbstractEntity{
 
     @Basic(optional = false)
@@ -17,29 +22,6 @@ public class Battery extends AbstractEntity{
     @Column(nullable = false)
     private boolean inUsage;
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public int getCondition() {
-        return condition;
-    }
-
-    public void setCondition(int condition) {
-        this.condition = condition;
-    }
-
-    public boolean isInUsage() {
-        return inUsage;
-    }
-
-    public void setInUsage(boolean inUsage) {
-        this.inUsage = inUsage;
-    }
 
     @Override
     public String toString() {

@@ -1,6 +1,8 @@
 package cz.cvut.fel.ear.carstatus.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @DiscriminatorValue("DRIVER")
 public class Driver extends User{
 
@@ -23,21 +27,6 @@ public class Driver extends User{
     @JsonManagedReference
     private List<Roadtrip> roadtripList;
 
-    public List<Seat> getSeatList() {
-        return seatList;
-    }
-
-    public void setSeatList(List<Seat> seatList) {
-        this.seatList = seatList;
-    }
-
-    public List<Roadtrip> getRoadtripList() {
-        return roadtripList;
-    }
-
-    public void setRoadtripList(List<Roadtrip> roadtripList) {
-        this.roadtripList = roadtripList;
-    }
 
     @Override
     public String toString() {

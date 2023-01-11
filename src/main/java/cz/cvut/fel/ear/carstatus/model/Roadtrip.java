@@ -2,12 +2,16 @@ package cz.cvut.fel.ear.carstatus.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Roadtrip extends AbstractEntity{
     @Basic(optional = false)
     @Column(nullable = false)
@@ -30,46 +34,6 @@ public class Roadtrip extends AbstractEntity{
     @ManyToOne
     @JsonBackReference
     private Driver driver;
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
-    public List<Roadpath> getRoadpathList() {
-        return roadpathList;
-    }
-
-    public void setRoadpathList(List<Roadpath> roadpathList) {
-        this.roadpathList = roadpathList;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public boolean isWithMalfunction() {
-        return withMalfunction;
-    }
-
-    public void setWithMalfunction(boolean withMalfunction) {
-        this.withMalfunction = withMalfunction;
-    }
-
-    public Date getFinished() {
-        return finished;
-    }
-
-    public void setFinished(Date finished) {
-        this.finished = finished;
-    }
 
     @Override
     public String toString() {
