@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UpdateTest {
+class UpdateTest {
 
     ObjectMapper objectMapper = new AppConfig().objectMapper();
     @Autowired
@@ -38,18 +38,16 @@ public class UpdateTest {
 
     @Test
     @Transactional
-    public void updateExistingBatteryThrowsException() throws Exception {
+    void updateSeatRespondsWithForbidden() throws Exception {
         Battery toUpdate = batteryService.getCurrentBattery();
-        Random rnd = new Random();
-
-        assertThrows(AssertionError.class, () -> mockMvc.perform(put("/rest/battery/").content(toJson(toUpdate)).contentType(MediaType.APPLICATION_JSON_VALUE)
+        mockMvc.perform(put("/rest/seat/up").content(toJson(toUpdate)).contentType(MediaType.APPLICATION_JSON_VALUE)
                         .with(user("admin@fel.ear.cvut.cz").password("admin").roles("ADMIN")))
-                .andExpect(status().isUnauthorized()));
+                .andExpect(status().isForbidden());
 
     }
     @Test
     @Transactional
-    public void updateTyresInflatesTyres() throws Exception {
+    void updateTyresInflatesTyres() throws Exception {
         mockMvc.perform(put("/rest/tyre/inflate")
                         .with(user("driver@fel.ear.cvut.cz").password("driver").roles("DRIVER")))
                 .andExpect(status().isOk());
@@ -57,7 +55,7 @@ public class UpdateTest {
 
     @Test
     @Transactional
-    public void updateTyresWithAdminRoleRespondsWithForbidden() throws Exception {
+    void updateTyresWithAdminRoleRespondsWithForbidden() throws Exception {
         mockMvc.perform(put("/rest/tyre/inflate")
                         .with(user("admin@fel.ear.cvut.cz").password("admin").roles("ADMIN")))
                 .andExpect(status().isForbidden());

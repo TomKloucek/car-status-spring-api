@@ -1,11 +1,15 @@
 package cz.cvut.fel.ear.carstatus.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Setter
+@Getter
 public class Road extends AbstractEntity {
 
     @Basic(optional = false)
@@ -25,38 +29,6 @@ public class Road extends AbstractEntity {
     @JoinColumn(name = "road_id")
     private List<Roadpath> roadpathList;
 
-
-    public String getStartingPoint() {
-        return startingPoint;
-    }
-
-    public void setStartingPoint(String startingPoint) {
-        this.startingPoint = startingPoint;
-    }
-
-    public String getEndPoint() {
-        return endPoint;
-    }
-
-    public void setEndPoint(String endPoint) {
-        this.endPoint = endPoint;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public List<Roadpath> getRoadpathList() {
-        return roadpathList;
-    }
-
-    public void setRoadpathList(List<Roadpath> roadpathList) {
-        this.roadpathList = roadpathList;
-    }
 
     @Override
     public String toString() {

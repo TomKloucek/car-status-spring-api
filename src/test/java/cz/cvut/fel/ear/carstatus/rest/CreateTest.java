@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CreateTest {
+class CreateTest {
 
     ObjectMapper objectMapper = new AppConfig().objectMapper();
 
@@ -47,7 +47,7 @@ public class CreateTest {
 
     @Test
     @Transactional
-    public void createBatteryCreatesBatteryUsingService() throws Exception {
+    void createBatteryCreatesBatteryUsingService() throws Exception {
         final Battery toCreate = new Battery();
         Random rnd = new Random();
         int id = rnd.nextInt();
@@ -63,7 +63,7 @@ public class CreateTest {
 
     @Test
     @Transactional
-    public void createTyreWithPointlessPressureThrowsError() throws Exception {
+    void createTyreWithPointlessPressureRespondsWithNotAcceptable() throws Exception {
         final Tyre toCreate = new Tyre();
         Random rnd = new Random();
         int id = rnd.nextInt();
@@ -72,14 +72,14 @@ public class CreateTest {
         toCreate.setPressure(100);
         toCreate.setInUsage(false);
 
-        assertThrows(AssertionError.class, () -> mockMvc.perform(post("/rest/tyre/").content(toJson(toCreate)).contentType(MediaType.APPLICATION_JSON_VALUE)
+        mockMvc.perform(post("/rest/tyre/").content(toJson(toCreate)).contentType(MediaType.APPLICATION_JSON_VALUE)
                         .with(user("driver@fel.ear.cvut.cz").password("driver").roles("DRIVER")))
-                .andExpect(status().isCreated()));
+                .andExpect(status().isNotAcceptable());
     }
 
     @Test
     @Transactional
-    public void createTyreWithoutAuthorizationRespondsWithUnauthorized() throws Exception {
+    void createTyreWithoutAuthorizationRespondsWithUnauthorized() throws Exception {
         final Tyre toCreate = new Tyre();
         Random rnd = new Random();
         int id = rnd.nextInt();
@@ -94,7 +94,7 @@ public class CreateTest {
 
     @Test
     @Transactional
-    public void performCommandCreatesRoad() throws Exception {
+    void performCommandCreatesRoad() throws Exception {
 
         mockMvc.perform(post("/rest/command/execute/")
                         .with(user("admin@fel.ear.cvut.cz").password("admin").roles("ADMIN")))

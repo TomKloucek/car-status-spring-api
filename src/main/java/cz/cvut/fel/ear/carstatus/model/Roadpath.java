@@ -1,6 +1,8 @@
 package cz.cvut.fel.ear.carstatus.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -8,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
+@Getter
+@Setter
 public class Roadpath extends AbstractEntity{
 
     @Basic(optional = false)
@@ -21,30 +25,6 @@ public class Roadpath extends AbstractEntity{
     @JsonBackReference
     @OneToOne
     private Road road;
-
-    public Roadtrip getRoadtrip() {
-        return roadtrip;
-    }
-
-    public void setRoadtrip(Roadtrip roadtrip) {
-        this.roadtrip = roadtrip;
-    }
-
-    public Road getRoad() {
-        return road;
-    }
-
-    public void setRoad(Road road) {
-        this.road = road;
-    }
-
-    public int getAverageSpeed() {
-        return averageSpeed;
-    }
-
-    public void setAverageSpeed(int averageSpeed) {
-        this.averageSpeed = averageSpeed;
-    }
 
     @Override
     public String toString() {

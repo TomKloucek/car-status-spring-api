@@ -1,10 +1,15 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
+@Getter
+@Setter
 public class Seat extends AbstractEntity{
     @Basic(optional = false)
     @Column(nullable = false)

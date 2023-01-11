@@ -1,10 +1,15 @@
 package cz.cvut.fel.ear.carstatus.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
+@Getter
+@Setter
 public class Tyre extends AbstractEntity{
 
     @Basic(optional = false)
@@ -24,37 +29,6 @@ public class Tyre extends AbstractEntity{
     @Column(nullable = false)
     private boolean inUsage;
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public double getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(double pressure) {
-        this.pressure = pressure;
-    }
-
-    public int getCondition() {
-        return condition;
-    }
-
-    public void setCondition(int condition) {
-        this.condition = condition;
-    }
-
-    public boolean isInUsage() {
-        return inUsage;
-    }
-
-    public void setInUsage(boolean inUsage) {
-        this.inUsage = inUsage;
-    }
 
     @Override
     public String toString() {
