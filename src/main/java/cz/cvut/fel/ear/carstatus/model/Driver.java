@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -24,6 +21,7 @@ public class Driver extends User{
 
     @OneToMany
     @JoinColumn(name = "driver_id")
+    @OrderBy("maxSpeed")
     @JsonManagedReference
     private List<Roadtrip> roadtripList;
 
