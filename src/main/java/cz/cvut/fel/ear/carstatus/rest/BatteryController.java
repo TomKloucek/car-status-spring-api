@@ -76,7 +76,7 @@ public class BatteryController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/")
     public void updateBattery(@RequestBody BatteryDTO batteryDTO) {
-        Battery battery = new Battery();
+        Battery battery = batteryService.find(batteryDTO.getId());
         battery.setId(batteryDTO.getId());
         battery.setInUsage(batteryDTO.isInUsage());
         battery.setCapacity(batteryDTO.getCapacity());
@@ -139,7 +139,7 @@ public class BatteryController {
     @PreAuthorize("hasRole('MECHANIC')")
     @PostMapping(value = "/change", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void changeCurrentBattery(@RequestBody BatteryDTO batteryDTO) {
-        Battery battery = new Battery();
+        Battery battery = batteryService.find(batteryDTO.getId());
         battery.setCondition(batteryDTO.getCondition());
         battery.setCapacity(batteryDTO.getCapacity());
         battery.setInUsage(batteryDTO.isInUsage());
