@@ -78,7 +78,6 @@ public class BatteryController {
     public void updateBattery(@RequestBody BatteryDTO batteryDTO) {
         Battery battery = batteryService.find(batteryDTO.getId());
         battery.setId(batteryDTO.getId());
-        battery.setInUsage(batteryDTO.isInUsage());
         battery.setCapacity(batteryDTO.getCapacity());
         battery.setCondition(batteryDTO.getCondition());
         if(battery.getId() == null){
