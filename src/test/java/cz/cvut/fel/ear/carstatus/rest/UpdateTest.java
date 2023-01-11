@@ -39,8 +39,8 @@ class UpdateTest {
     @Test
     @Transactional
     void updateSeatRespondsWithForbidden() throws Exception {
-        Battery toUpdate = batteryService.getCurrentBattery();
-        mockMvc.perform(put("/rest/seat/up").content(toJson(toUpdate)).contentType(MediaType.APPLICATION_JSON_VALUE)
+
+        mockMvc.perform(put("/rest/seat/up")
                         .with(user("admin@fel.ear.cvut.cz").password("admin").roles("ADMIN")))
                 .andExpect(status().isForbidden());
 
