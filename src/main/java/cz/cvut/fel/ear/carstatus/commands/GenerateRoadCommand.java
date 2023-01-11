@@ -2,7 +2,6 @@ package cz.cvut.fel.ear.carstatus.commands;
 
 import com.github.javafaker.Faker;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
-import cz.cvut.fel.ear.carstatus.interfaces.ICommand;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Road;
 import cz.cvut.fel.ear.carstatus.service.RoadService;

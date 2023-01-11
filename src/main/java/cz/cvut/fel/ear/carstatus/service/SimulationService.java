@@ -5,7 +5,7 @@ import cz.cvut.fel.ear.carstatus.commands.GenerateDriverCommand;
 import cz.cvut.fel.ear.carstatus.commands.GenerateRoadCommand;
 import cz.cvut.fel.ear.carstatus.enums.ECommand;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
-import cz.cvut.fel.ear.carstatus.interfaces.ICommand;
+import cz.cvut.fel.ear.carstatus.commands.ICommand;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.*;
 import org.springframework.beans.factory.annotation.Autowired;

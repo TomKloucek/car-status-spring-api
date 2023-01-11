@@ -4,7 +4,7 @@ import cz.cvut.fel.ear.carstatus.builders.StatisticsBuilder;
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.enums.EStatisticsType;
 import cz.cvut.fel.ear.carstatus.filters.*;
-import cz.cvut.fel.ear.carstatus.interfaces.IFilter;
+import cz.cvut.fel.ear.carstatus.filters.IFilter;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Roadtrip;
 import cz.cvut.fel.ear.carstatus.service.RoadTripService;

@@ -1,7 +1,6 @@
 package cz.cvut.fel.ear.carstatus.observers;
 
 import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
-import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
 import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.service.CarStateService;
 import cz.cvut.fel.ear.carstatus.util.Constants;

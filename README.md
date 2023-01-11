@@ -62,3 +62,47 @@ Who is the system designed for
 - The system is designed for drivers of cars but not only passenger cars, although in its initial version it is intended for use with this type of vehicle.
   It will allow the driver to remotely manage the vehicle, retrieve important information and, last but not least, alert the driver to
   non-standard vehicle conditions.
+
+<h2 id="omo">🌍 Návrhové vzory</h2>
+
+### [Singleton](src/main/java/cz/cvut/fel/ear/carstatus/DataClass.java)
+Singleton je u nás implementován ve třídě DataClass, jelikož tato třída bude v běhu potřeba pouze jednou. Je implementován s ochranou proti vláknům přes instance holder.
+![Singleton](screenshots/singleton.png)
+
+### [Observer](src/main/java/cz/cvut/fel/ear/carstatus/observers)
+Observer u nás slouží k aktualizaci stavu vozidla, kdy po jízdě observery zkontrolují stav vozidla a aktualizují jeho provozuschopnost
+![Observer](screenshots/observer.png)
+
+### [Builder](src/main/java/cz/cvut/fel/ear/carstatus/builders)
+Builder u nás slouží ke stavbě statistik a filtru statistik kdy nemusíme dostat veškerá data
+![Builder](screenshots/builder.png)
+
+### [Factory](src/main/java/cz/cvut/fel/ear/carstatus/statistics/StatisticsFactory.java)
+Factory nám slouží k výrobě různých typů statistik, podle toho jaké parametry jsou zadané
+![Factory](screenshots/factory.png)
+
+### [Decorator](src/main/java/cz/cvut/fel/ear/carstatus/notifications)
+Slouží k notifikaci uživatele na hlavní stránce v jakém stavu vozidlo aktuálně je
+![Decorator](screenshots/decorator.png)
+
+### [Chain of responsibility](src/main/java/cz/cvut/fel/ear/carstatus/notifications)
+Slouží pro správné implementování filtrů, kdy si filtry předávají responsibilitu dál
+![Chain of responsibility](screenshots/chain.png)
+
+### [Command](src/main/java/cz/cvut/fel/ear/carstatus/commands)
+Slouží uživateli ke změně commandů, které může prováděť, buď generovat cestu či řidiče.
+![Command](screenshots/command.png)
+
+### [Template method](src/main/java/cz/cvut/fel/ear/carstatus/load_files)
+Jako template method nám slouží metoda handleLoadingFile v simulačním kontroleru, kde načte souboru, což je společná část a poté jen předá vnitřek souboru správnému handleru.
+![Template](screenshots/template.png)
+
+### [Facade](src/main/java/cz/cvut/fel/ear/carstatus/rest/SimulationController.java)
+Simulační kontroler nám slouží k jednoduchému ovládání aplikace přes připojení několika komponent v jednu jednoduše ovladatelnou
+![Facade](screenshots/facade.png)
+
+### [Private data class](src/main/java/cz/cvut/fel/ear/carstatus/DataClass.java)
+Slouží nám k uložení veškerých informací o simulaci
+![Private data class](screenshots/dataclass.png)
+
+

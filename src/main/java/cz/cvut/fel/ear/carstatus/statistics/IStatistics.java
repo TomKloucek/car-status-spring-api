@@ -1,4 +1,4 @@
-package cz.cvut.fel.ear.carstatus.interfaces;
+package cz.cvut.fel.ear.carstatus.statistics;
 
 public interface IStatistics {
     void createStatistics();

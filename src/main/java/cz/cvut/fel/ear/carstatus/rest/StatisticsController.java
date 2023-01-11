@@ -47,9 +47,15 @@ public class StatisticsController {
                 if (filter.get("to") != null) {
                     builder = builder.to(Date.valueOf(LocalDate.parse((String) filter.get("to"))));
                 }
-                builder = builder.driver(driverService.find((int) filter.get("driver")));
-                builder = builder.start((String) filter.get("start"));
-                builder = builder.finish((String) filter.get("finish"));
+                if (filter.get("driver") != null) {
+                    builder = builder.driver(driverService.find((int) filter.get("driver")));
+                }
+                if (filter.get("start") != null) {
+                    builder = builder.start((String) filter.get("start"));
+                }
+                if (filter.get("finish") != null) {
+                    builder = builder.finish((String) filter.get("finish"));
+                }
                 DataClass.getInstance().incrementNumberOfStatisticsGenerated();
                 return factory.getStatistics(builder.build());
         } catch (Exception e) {

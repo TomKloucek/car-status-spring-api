@@ -2,15 +2,14 @@ package cz.cvut.fel.ear.carstatus.service;
 
 import cz.cvut.fel.ear.carstatus.enums.ELoggerLevel;
 import cz.cvut.fel.ear.carstatus.enums.EMalfunction;
-import cz.cvut.fel.ear.carstatus.interfaces.IObserver;
+import cz.cvut.fel.ear.carstatus.notifications.*;
+import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
+import cz.cvut.fel.ear.carstatus.observers.IObserver;
 import cz.cvut.fel.ear.carstatus.log.Logger;
 import cz.cvut.fel.ear.carstatus.model.Battery;
 import cz.cvut.fel.ear.carstatus.model.Liquid;
 import cz.cvut.fel.ear.carstatus.model.Seat;
 import cz.cvut.fel.ear.carstatus.model.Tyre;
-import cz.cvut.fel.ear.carstatus.notifications.BaseDecorator;
-import cz.cvut.fel.ear.carstatus.notifications.Notifier;
-import cz.cvut.fel.ear.carstatus.notifications.malfunctions.*;
 import cz.cvut.fel.ear.carstatus.observers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
