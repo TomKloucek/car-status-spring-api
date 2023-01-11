@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "ff429065-de82-4b02-b17f-71243e8de77f",
+		"name": "carstatus scneario 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22627933"
+	},
+	"item": [
+		{
+			"name": "Create driver in scenario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"Delete driver in scenario\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adm1n",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "carstatus-admin@fel.ear.cvut.cz",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Roger\",\n    \"lastName\": \"Federer\",\n    \"birthDate\": \"2000-04-23T18:25:43.511Z\",\n    \"username\": \"driver4@fel.ear.cvut.cz\",\n    \"password\": \"driver\",\n    \"role\": \"DRIVER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/carstatus/rest/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carstatus",
+						"rest",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete driver in scenario",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adm1n",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "carstatus-admin@fel.ear.cvut.cz",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Jan\",\n    \"lastName\": \"Novak\",\n    \"birthDate\": \"2020-04-23T18:25:43.511Z\",\n    \"username\": \"driver3@fel.ear.cvut.cz\",\n    \"password\": \"driver\",\n    \"role\": \"DRIVER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/carstatus/rest/driver/163",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carstatus",
+						"rest",
+						"driver",
+						"163"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

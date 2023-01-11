@@ -1,6 +1,21 @@
 # Car status 🏎
 
 ###  [Click here for english version](#-english-version)
+
+## 🇨🇿 Návod jak spustit aplikaci
+
+Po stažení aplikace, je aplikace spustitelná příkazem:
+
+```mvn spring-boot:run```
+
+Pro spuštění testů použijte příkaz:
+
+```mvn test```
+
+Testovací scénáře pro aplikaci postman najdete ve složce test_data, ve stejné složce také najdete soubory,
+kterými můžete vložit data do naší aplikace na adrese: http://localhost:8080/carstatus/load_simulation
+
+Dále naše aplikace má prezentační vrstvu, na které jsou dostupné základní informace o vozidle na adrese: http://localhost:8080/carstatus/
 ## 🇨🇿 Česká verze
 
 V této semestrální práci se budeme zabývat tvorbou systému pro evidování
@@ -32,7 +47,7 @@ Určení systému
 Řidiči bude umožňovat vzdálenou správu vozidla, získávání důležitých informací a v neposlední řadě ho bude upozorňovat na 
 nestandartní stavy vozidla.
 
-<h2 id="english-version">🌍 English version</h3>
+<h2 id="english-version">🌍 English version</h2>
 
 In this semestral project we will deal with the creation of a system for recording
 information about the car. Below is a list of pursued functionalities:

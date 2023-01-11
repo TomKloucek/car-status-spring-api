@@ -1,0 +1,1608 @@
+{
+	"info": {
+		"_postman_id": "275d9375-2af9-4f50-b63c-f5e1edcf123d",
+		"name": "carstatus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22627933"
+	},
+	"item": [
+		{
+			"name": "command",
+			"item": [
+				{
+					"name": "Change command to driver",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/command/driver",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"command",
+								"driver"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Executing command",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/command/execute/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"command",
+								"execute",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change command to road",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/command/road",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"command",
+								"road"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "battery",
+			"item": [
+				{
+					"name": "Create battery",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"capacity\": 84,\n    \"condition\": 87,\n    \"inUsage\": false\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/battery/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"battery",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get batteries",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/battery/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"battery",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one battery - not found",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/battery/250",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"battery",
+								"250"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one battery",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/battery/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"battery",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current battery",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/battery/current",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"battery",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Get driver",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/driver/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"driver",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current user",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mechanic",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mechanic@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/user/current",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"user",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create driver",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jan\",\n    \"lastName\": \"Novak\",\n    \"birthDate\": \"2020-04-23T18:25:43.511Z\",\n    \"username\": \"driver3@fel.ear.cvut.cz\",\n    \"password\": \"driver\",\n    \"role\": \"DRIVER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create mechanic",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jan\",\n    \"lastName\": \"Novak\",\n    \"birthDate\": \"2012-04-23T18:25:43.511Z\",\n    \"operatingFrom\": \"2020-01-01T00:00:00.511Z\",\n    \"operatingTo\": \"2024-12-01T00:00:00.511Z\",\n    \"phoneNumber\": \"6030456010\",\n    \"username\": \"mechanic1@fel.ear.cvut.cz\",\n    \"password\": \"mechanic1\",\n    \"role\": \"MECHANIC\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/user/register-mechanic/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"user",
+								"register-mechanic",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "road",
+			"item": [
+				{
+					"name": "Get specific road",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/road/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"road",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all roads",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/road/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"road",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new road",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startingPoint\": \"Madagascar\",\n    \"endPoint\": \"Praha\",\n    \"length\": 1600\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/road/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"road",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete road",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/road/150",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"road",
+								"150"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "roadtrip",
+			"item": [
+				{
+					"name": "Get all roadtrips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/roadtrip/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"roadtrip",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific roadtrip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/roadtrip/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"roadtrip",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tyre",
+			"item": [
+				{
+					"name": "Inflate tyres",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre/inflate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre",
+								"inflate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tyre with specific id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inflate tyre on specific position",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre/inflate-at-position/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre",
+								"inflate-at-position",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current tyres",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre/current",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all tyres",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create tyre with bad parametrs reponds with 406",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"condition\": 87,\n    \"pressure\": 35,\n    \"inUsage\": true,\n    \"position\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create tyre",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"condition\": 87,\n    \"pressure\": 35,\n    \"inUsage\": false,\n    \"position\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete tyre",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/tyre/26",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"tyre",
+								"26"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "carcheck",
+			"item": [
+				{
+					"name": "Make carcheck",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mechanic",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mechanic@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/mechanic/make-carcheck",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"mechanic",
+								"make-carcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all carchecks done by mechanic",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/carcheck/mechanic/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"carcheck",
+								"mechanic",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all carchecks",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/carcheck/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"carcheck",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific car check",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/carcheck/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"carcheck",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "liquid",
+			"item": [
+				{
+					"name": "Get all liquids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/liquid/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"liquid",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/liquid/cooling",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"liquid",
+								"cooling"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refill braking liquid",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "driver",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "driver@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/liquid/braking/refill",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"liquid",
+								"braking",
+								"refill"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "driver",
+			"item": [
+				{
+					"name": "Get driver road trips",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/driver/2/roadtrips",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"driver",
+								"2",
+								"roadtrips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific driver",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/driver/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"driver",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all drivers",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/driver/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"driver",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get last driver",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/driver/last",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"driver",
+								"last"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete driver",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adm1n",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "carstatus-admin@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/driver/161",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"driver",
+								"161"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "simulation",
+			"item": [
+				{
+					"name": "Generate n roadtrips",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/simulation/150",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"simulation",
+								"150"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate roadtrip",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/simulation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"simulation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "statistics",
+			"item": [
+				{
+					"name": "Generate statistics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mechanic",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mechanic@fel.ear.cvut.cz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"driver\": 2,\n    \"start\": \"Praha\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/statistics/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"statistics",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/statistics/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"statistics",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "seat",
+			"item": [
+				{
+					"name": "Move seat left",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carstatus/rest/seat/left",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carstatus",
+								"rest",
+								"seat",
+								"left"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "692333e2-0991-466e-9f9a-6b485c23d415",
+		"name": "carstatus scenario 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22627933"
+	},
+	"item": [
+		{
+			"name": "Executing command in scenario",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"Get all roads in scenario\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adm1n",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "carstatus-admin@fel.ear.cvut.cz",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carstatus/rest/command/execute/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carstatus",
+						"rest",
+						"command",
+						"execute",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all roads in scenario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"Get specific road in scenario\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carstatus/rest/road/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carstatus",
+						"rest",
+						"road",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get specific road in scenario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"Delete road in scenario\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "driver",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "driver@fel.ear.cvut.cz",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carstatus/rest/road/151",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carstatus",
+						"rest",
+						"road",
+						"151"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete road in scenario",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adm1n",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "carstatus-admin@fel.ear.cvut.cz",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/carstatus/rest/road/151",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carstatus",
+						"rest",
+						"road",
+						"151"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
