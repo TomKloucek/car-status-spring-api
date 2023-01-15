@@ -120,4 +120,9 @@ Simulační kontroler nám slouží k jednoduchému ovládání aplikace přes p
 Slouží nám k uložení veškerých informací o simulaci
 ![Private data class](screenshots/dataclass.png)
 
+## Načítání souboru
+
+Naše aplikace umožňuje načíst testovací data do aplikace přes dva typy souborů: CSV a JSON. Tyto soubory můžeme do aplikace načíst přes navštívení stránky "load_simulation.html", kam vložíme soubor a tato data se nahrají do aplikace. Do JSON souboru můžeme vložit jakýkoliv typ a různé typy. CSV můžeme načíst najednou jen data jednoho typu: batterie, kolo, řidič a cesta.
+
+
 
