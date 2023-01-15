@@ -12,6 +12,23 @@ Pro spuštění testů použijte příkaz:
 
 ```mvn test```
 
+Pro přihlášení do aplikace použijte jeden z následujících účtů, každý z těchto účtů má jinou úroveň oprávnění:
+
+**ADMIN:**
+
+**username**: carstatus-admin@fel.ear.cvut.cz
+**heslo**: adm1n
+
+**MECHANIC:**
+
+**username**: mechanic@fel.ear.cvut.cz
+**heslo**: mechanic
+
+**DRIVER:**
+
+**username**: driver@fel.ear.cvut.cz
+**heslo**: driver
+
 Testovací scénáře pro aplikaci postman najdete ve složce test_data, ve stejné složce také najdete soubory,
 kterými můžete vložit data do naší aplikace na adrese: http://localhost:8080/carstatus/load_simulation
 

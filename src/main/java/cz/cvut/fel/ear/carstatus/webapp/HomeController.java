@@ -39,7 +39,7 @@ public class HomeController {
                 "  <link rel=\"stylesheet\" href=\"style.css\">\n" +
                 " <script src=\"library.js\"></script>\n" +
                 "    <script src=\"app.js\"></script>" +
-                "  <meta http-equiv=\"refresh\" content=\"50\">"+
+                "  <meta http-equiv=\"refresh\" content=\"30\">"+
                 "</head>\n" +
                 "<body>";
         resultString += "<div class='parent'>";
